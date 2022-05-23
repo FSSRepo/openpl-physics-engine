@@ -1,0 +1,64 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plCharacter3f</h5>
+	  <p>Poner un valor a un parametro especifico</p>
+	  <div class="card-panel">
+        <p>void plCharacter3f(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a> x,
+          <a class="blue-text" href="datatypes.html">Plfloat</a> y,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a> z)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_CHAR_UPVEC</span>,
+        <span class="light-blue-text">PL_CHAR_CAPSULE_X</span>, 
+        <span class="light-blue-text">PL_CHAR_CAPSULE_Y</span>,
+        <span class="light-blue-text">PL_CHAR_CAPSULE_Z</span>, 
+        <span class="light-blue-text">PL_CHAR_BOX</span>,
+        <span class="light-blue-text">PL_CHAR_WALK_DIRECTION</span>,
+        <span class="light-blue-text">PL_CHAR_JUMP</span>
+        <span class="light-blue-text">PL_CHAR_APPLY_IMPULSE</span>,
+        <span class="light-blue-text">PL_CHAR_ANGULAR_VELOCITY</span>,
+        <span class="light-blue-text">PL_CHAR_LINEAR_VELOCITY</span>.
+	  </p>
+	  <p class="param">x y z</p>
+	  <p>Los valores asignados.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_CHAR_UPVEC poner el vector de altura.</p>
+	  <p>PL_CHAR_CAPSULE_X poner una capsula orientada en el eje x.</p>
+	  <p>PL_CHAR_CAPSULE_Y poner una capsula orientada en el eje y.</p>
+	  <p>PL_CHAR_CAPSULE_Z poner una capsula orientada en el eje z.</p>
+	  <p>PL_CHAR_BOX poner una caja.</p>
+	  <p>PL_CHAR_WALK_DIRECTION poner la direccion de camino.</p>
+	  <p>PL_CHAR_JUMP saltar a una direccion.</p>
+	  <p>PL_CHAR_APPLY_IMPULSE aplicar un impulso.</p>
+	  <p>PL_CHAR_ANGULAR_VELOCITY poner la velocidad angular.</p>
+	  <p>PL_CHAR_LINEAR_VELOCITY poner la velocidad lineal.</p>
+	  <h5>Errores:</h5>
+	  <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si el personaje no existe o el id es incorrecto.</p>
+	 </div>
+  </body>
+</html>

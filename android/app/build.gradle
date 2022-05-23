@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        
+    }
+    compileSdk 30
+    defaultConfig {
+        applicationId "com.openpl"
+        minSdk 19
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    buildToolsVersion = '33.0.0 rc1'
+    ndkVersion '23.1.7779620'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}

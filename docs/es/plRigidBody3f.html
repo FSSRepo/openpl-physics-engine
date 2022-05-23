@@ -1,0 +1,75 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+    <h5>plRigidBody3f</h5>
+    <p>Poner un valor a un parametro especifico</p>
+    <div class="card-panel">
+        <p>void plRigidBody3f(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+        <a class="blue-text" href="datatypes.html">Plfloat</a> x,
+          <a class="blue-text" href="datatypes.html">Plfloat</a> y,
+            <a class="blue-text" href="datatypes.html">Plfloat</a> z)</p>
+		</div>
+      <h5>Parametros:</h5>
+        <p class="param">param</p>
+        <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_POSITION</span>,
+        <span class="light-blue-text">PL_MOTION_STATE_POSITION</span>, 
+        <span class="light-blue-text">PL_DAMPING</span>,
+        <span class="light-blue-text">PL_LINEAR_FACTOR</span>, 
+        <span class="light-blue-text">PL_ANGULAR_FACTOR</span>,
+        <span class="light-blue-text">PL_LOCAL_INERTIA</span>,
+        <span class="light-blue-text">PL_APPLY_CENTRAL_FORCE</span>
+        <span class="light-blue-text">PL_APPLY_TORQUE</span>,
+        <span class="light-blue-text">PL_APPLY_CENTRAL_IMPULSE</span>,
+        <span class="light-blue-text">PL_APPLY_TORQUE_IMPULSE</span>,
+        <span class="light-blue-text">PL_ANISOTROPIC_FRICTION</span>,
+        <span class="light-blue-text">PL_COL_INTERP_LINEAR_VEL</span>,
+        <span class="light-blue-text">PL_COL_INTERP_ANGULAR_VEL</span>.
+        </p>
+        <p class="param">x y z</p>
+        <p>Los valores asignados.</p>
+      <h5>Notas:</h5>
+        <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+        <p>PL_POSITION poner la posicion del centro de masa. <span class="param">x y z</span> debe ser el vector(x,y,z) de posicion.</p>
+         <p>PL_MOTION_STATE_POSITION poner la posicion del estado de movimiento. <span class="param">x y z</span> debe ser el vector(x,y,z) de posicion.</p>
+	  <p>PL_DAMPING poner factor de amortiguacion lineal y giratoria. <span class="param">x</span> debe ser el factor amortiguacion lineal. <span class="param">y</span> debe ser el factor amortiguacion giratoria.</p>
+          <p>PL_LINEAR_FACTOR poner el factor lineal. <span class="param">x y z</span> es el vector(x,y,z).</p>
+         <p>PL_ANGULAR_FACTOR poner el factor de giracion. <span class="param">x y z</span> es el vector(x,y,z).</p>
+          <p>PL_LOCAL_INERTIA poner el eje de inercia local. <span class="param">x y z</span> debe ser el vector(x,y,z) de inercia.</p>
+          <p>PL_APPLY_CENTRAL_FORCE aplicar una fuerza central. <span class="param">x y z</span>  es el vector de fuerza a aplicar(x,y,z).</p>
+         <p>PL_APPLY_TORQUE aplicar torque. <span class="param">x y z</span> 
+          es el vector de torque(x,y,z).</p>
+           <p>PL_APPLY_CENTRAL_IMPULSE aplicar impulso central. <span class="param">x y z</span> debe ser el vector(x,y,z) de impulso.</p>
+          <p>PL_APPLY_TORQUE_IMPULSE aplicar impulso con torque. <span class="param">x y z</span>  es el vector(x,y,z) de impulso.</p>
+         <p>PL_ANISOTROPIC_FRICTION poner el factor de friccion anisotropica. <span class="param">x y z</span> 
+          es el vector(x,y,z).</p>
+         <p>PL_COL_INTERP_LINEAR_VEL poner la velocidad lineal de interpolacion.<span class="param">x y z</span>  es el vector(x,y,z).</p>
+         <p>PL_COL_INTERP_ANGULAR_VEL poner la velocidad giratoria de interpolacion. <span class="param">x y z</span> 
+          es el vector(x,y,z).</p>
+      <h5>Errores:</h5>
+     <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si el cuerpo rigido no existe o el id es incorrecto.</p>
+     <p><span class="light-blue-text">PL_INVALID_OPERATION</span> es generado en raras ocaciones.</p>
+     <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> es una constante invalida o no permitida.</p>
+      </div>
+    </body>
+</html>

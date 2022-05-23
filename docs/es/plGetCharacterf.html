@@ -1,0 +1,46 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plGetCharacterf</h5>
+	  <p>Obtener un valor a un parametro especifico</p>
+	  <div class="card-panel">
+        <p>void plGetCharacterf(<a class="blue-text" href="datatypes.html">Pluint</a> indx, <a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a>* value)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">indx</p>
+	  <p>ID del personaje</p>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_CHAR_CAN_JUMP</span>,
+         </p>
+	  <p class="param">value</p>
+	  <p>El valor asignado.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_CHAR_CAN_JUMP obtener 1 o 0 si el personaje puede saltar.</p>
+	   <h5>Errores:</h5>
+	  <p>No es muy comun que se oplengan errores</p>
+	  </div>
+  </body>
+</html>

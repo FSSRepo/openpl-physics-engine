@@ -1,0 +1,56 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+    <h5>plRigidBodyf</h5>
+    <p>Poner un valor a un parametro especifico</p>
+    <div class="card-panel">
+        <p>void plRigidBodyf(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+        <a class="blue-text" href="datatypes.html">Plfloat</a> value)</p>
+		</div>
+      <h5>Parametros:</h5>
+        <p class="param">param</p>
+        <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_MASS</span>,
+        <span class="light-blue-text">PL_ANGULAR_FACTOR</span>, 
+          <span class="light-blue-text">PL_ROLLING_FRICTION</span>,
+        <span class="light-blue-text">PL_SPINNING_FRICTION</span>, 
+          <span class="light-blue-text">PL_FRICTION</span>,
+            <span class="light-blue-text">PL_RESTITUTION</span>.
+        </p>
+        <p class="param">value</p>
+        <p>El valor asignado.</p>
+      <h5>Notas:</h5>
+        <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+        <p>PL_MASS poner masa en kilogramos. <span class="param">value</span> debe ser la masa en kilogramos.</p>
+       <p>PL_ANGULAR_FACTOR factor angular. <span class="param">value</span> debe ser el factor angular.</p>
+        <p>PL_ROLLING_FRICTION friccion de rodadura. <span class="param">value</span> debe ser el valor equivalente</p>
+        <p>PL_SPINNING_FRICTION friccion giratoria. <span class="param">value</span> debe ser el valor equivalente.</p>
+        <p>PL_FRICTION friccion. <span class="param">value</span> debe ser el valor equivalente.</p>
+        <p>PL_RESTITUTION coeficiente de restitucion. <span class="param">value</span>  debe ser el valor equivalente.</p>
+      <h5>Errores:</h5>
+     <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si el cuerpo rigido no existe o el id es incorrecto.</p>
+     <p><span class="light-blue-text">PL_INVALID_OPERATION</span> es generado en raras ocaciones.</p>
+     <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> es una constante invalida o no permitida.</p>
+      </div>
+    </body>
+</html>

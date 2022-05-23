@@ -1,0 +1,66 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plGetRigidBody3f</h5>
+	  <p>Obtener un valor a un parametro especifico</p>
+	  <div class="card-panel">
+        <p>void plGetRigidBody3f(
+		  <a class="blue-text" href="datatypes.html">Pluint</a> body,
+		  <a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a>* v1,
+          <a class="blue-text" href="datatypes.html">Plfloat</a>* v2,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a>* v3)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_POSITION</span>, 
+        <span class="light-blue-text">PL_DAMPING</span>,
+        <span class="light-blue-text">PL_LINEAR_FACTOR</span>, 
+        <span class="light-blue-text">PL_ANGULAR_FACTOR</span>,
+        <span class="light-blue-text">PL_LOCAL_INERTIA</span>,
+        <span class="light-blue-text">PL_TOTAL_FORCE</span>
+        <span class="light-blue-text">PL_TOTAL_TORQUE</span>,
+        <span class="light-blue-text">PL_LINEAR_VELOCITY</span>,
+        <span class="light-blue-text">PL_ANGULAR_VELOCITY</span>.
+	  </p>
+	  <p class="param">v1 v2 v3</p>
+	  <p>Los valores oplenidos.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_POSITION obtener la posicion del centro de masa. <span class="param">v1 v2 v3</span> es el vector(x,y,z) de posicion.</p>
+	  <p>PL_DAMPING obtener el factor de amortiguacion lineal y giratorio. <span class="param">v1</span> es el valor de amortiguacion lineal y <span class="param">v2</span> es el valor de amortiguacion giratorio.</p>
+	  <p>PL_LINEAR_FACTOR obtener el factor lineal. <span class="param">v1 v2 v3</span>  es el vector(x,y,z).</p>
+	  <p>PL_ANGULAR_FACTOR obtener el factor giracion. <span class="param">v1 v2 v3</span> es el vector(x,y,z).</p>
+	  <p>PL_LOCAL_INERTIA obtener el eje de inercia local. <span class="param">v1 v2 v3</span> es el vector(x,y,z) .</p>
+	  <p>PL_TOTAL_FORCE obtener el total de las fuerzas. <span class="param">v1 v2 v3</span>  es el vector(x,y,z).</p>
+	  <p>PL_TOTAL_TORQUE obtener el total del torque. <span class="param">v1 v2 v3</span> es el vector(x,y,z).</p>
+	  <p>PL_LINEAR_VELOCITY obtener la velocidad lineal. <span class="param">v1 v2 v3</span> es el vector(x,y,z).</p>
+	  <p>PL_ANGULAR_VELOCITY obtener la velocidad angular. <span class="param">v1 v2 v3</span>  es el vector(x,y,z).</p>
+      <h5>Errores:</h5>
+	  <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si el cuerpo rigido no existe o el id es incorrecto.</p>
+	  <p><span class="light-blue-text">PL_INVALID_OPERATION</span> es generado en raras ocaciones.</p>
+	  <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> es una constante invalida o no permitida.</p>
+	</div>
+  </body>
+</html>

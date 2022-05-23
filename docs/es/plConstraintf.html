@@ -1,0 +1,91 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plConstraintf</h5>
+	  <p>Poner un valor a un parametro especifico</p>
+	  <div class="card-panel">
+        <p>void plConstraintf(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a> value)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para introducir el valor. Puede ser 
+		<span class="light-blue-text">PL_HC_MAX_MOTOR_IMPULSE</span>, 
+		<span class="light-blue-text">PL_HC_TARGET_VELOCITY</span>, 
+		<span class="light-blue-text">PL_SLDR_SOFTNESS_DIR_LINEAR</span>, 
+		<span class="light-blue-text">PL_SLDR_SOFTNESS_DIR_ANGULAR</span>, 
+		<span class="light-blue-text">PL_SLDR_SOFTNESS_LIMIT_LIN</span>, 
+		<span class="light-blue-text">PL_SLDR_SOFTNESS_ORTHO_LIN</span>, 
+		<span class="light-blue-text">PL_SLDR_SOFTNESS_ORTHO_ANG</span>, 
+		<span class="light-blue-text">PL_SLDR_DAMPING_DIR_LINEAR</span>, 
+		<span class="light-blue-text">PL_SLDR_DAMPING_DIR_ANGULAR</span>, 
+		<span class="light-blue-text">PL_SLDR_DAMPING_LIMIT_LIN</span>, 
+		<span class="light-blue-text">PL_SLDR_DAMPING_ORTHO_LIN</span>, 
+		<span class="light-blue-text">PL_SLDR_DAMPING_ORTHO_ANG</span>, 
+		<span class="light-blue-text">PL_SLDR_RESTITUTION_DIR_LINEAR</span>, 
+		<span class="light-blue-text">PL_SLDR_RESTITUTION_DIR_ANGULAR</span>, 
+		<span class="light-blue-text">PL_SLDR_RESTITUTION_LIMIT_LIN</span>, 
+		<span class="light-blue-text">PL_SLDR_RESTITUTION_ORTHO_LIN</span>, 
+		<span class="light-blue-text">PL_SLDR_RESTITUTION_ORTHO_ANG</span>, 
+		<span class="light-blue-text">PL_SLDR_MAX_ANG_MOTOR_FORCE</span>, 
+		<span class="light-blue-text">PL_SLDR_MAX_LIN_MOTOR_FORCE</span>, 
+		<span class="light-blue-text">PL_SLDR_TARGET_LIN_MOTOR_VEL</span>, 
+		<span class="light-blue-text">PL_SLDR_TARGET_ANG_MOTOR_VEL</span>, 
+		<span class="light-blue-text">PL_HC2_LOWER_LIMIT</span>, 
+		<span class="light-blue-text">PL_HC2_UPPER_LIMIT</span>, 
+		<span class="light-blue-text">PL_P2P_UPDATE_RHS</span>, 
+	  </p>
+	  <p class="param">value</p>
+	  <p>El valor asignado.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_HC_MAX_MOTOR_IMPULSE setMaxMotorImpulse (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtHingeConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_HC_TARGET_VELOCITY setMotorTargetVelocity (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtHingeConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_SOFTNESS_DIR_LINEAR setSoftnessDirLin (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_SOFTNESS_DIR_ANGULAR setSoftnessDirAng (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_SOFTNESS_LIMIT_LIN setSoftnessLimLin (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_SOFTNESS_ORTHO_LIN setSoftnessOrthoLin (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_SOFTNESS_ORTHO_ANG setSoftnessOrthoAng (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_DAMPING_DIR_LINEAR setDampingDirLin (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_DAMPING_DIR_ANGULAR setDampingDirAng (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_DAMPING_LIMIT_LIN setDampingLimLin (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_DAMPING_ORTHO_LIN setDampingOrthoLin (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_DAMPING_ORTHO_ANG setDampingOrthoAng (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_RESTITUTION_DIR_LINEAR setRestitutionDirLin (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_RESTITUTION_DIR_ANGULAR setRestitutionDirAng (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_RESTITUTION_LIMIT_LIN setRestitutionLimLin (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_RESTITUTION_ORTHO_LIN setRestitutionOrthoLin (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_RESTITUTION_ORTHO_ANG setRestitutionOrthoAng (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_MAX_ANG_MOTOR_FORCE setMaxAngMotorForce (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_MAX_LIN_MOTOR_FORCE setMaxLinMotorForce (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_TARGET_LIN_MOTOR_VEL setTargetLinMotorVelocity (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_TARGET_ANG_MOTOR_VEL setTargetAngMotorVelocity (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_HC2_LOWER_LIMIT setLowerLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtHinge2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_HC2_UPPER_LIMIT setUpperLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtHinge2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_P2P_UPDATE_RHS updateRHS (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtPoint2PointConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <h5>Errores:</h5>
+	  <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si la restriccion no existe o el id es incorrecto.</p>
+	  <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> es una constante invalida o no permitida.</p>
+	</div>
+  </body>
+</html>

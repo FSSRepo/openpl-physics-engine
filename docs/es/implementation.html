@@ -1,0 +1,107 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>            <link type="text/css" rel="stylesheet" href="../css/mainstyle.css" media="screen,projection">
+	<script src="../js/materialize.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper white">
+		<a href="#!" class="brand-logo black-text">Open PL</a>
+	  </div>
+	</nav>
+	<div class="container">
+        <div class="divider"></div>
+  <div class="section">
+    <h5>Implementacion</h5>
+  </div>
+  <div class="divider"></div>
+        <p>Open PL puede ser compilado en cualquier plataforma, solo implementalo en tu proyecto C++ o Java y comienza a crear cosas muy increibles.</p>
+  <div class="section">
+    <h5>Code::Blocks</h5>
+       <div class="divider"></div>
+  
+    <p>Es el IDE en el cual mas facilmente se implementa la API ya que los binarios estan compilados para usarse en este IDE.</p>
+      <h5 class="header">Binarios</h5>
+       <table>
+          <tr>
+            <th>Plataforma</th>
+              <th>Descargas</th>
+            </tr>
+            <tr>
+             <tr>
+            <td>Windows</td>
+                <td><a href="">Descargar 32 bits</a>
+             <p><a href="">Descargar 64 bits</a></p></td>
+               
+            </tr>
+             <tr>
+            <td>Linux</td>
+                 <td><a href="">Descargar 32 bits</a>
+             <p><a href="">Descargar 64 bits</a></p></td>
+            </tr>
+          </table>
+     <p class="imp_header">Implementacion como libreria statica</p>
+        <p>Esta forma de implementar es incluirlo en el interior del ejecutable, no sera necesario tener un archivo dll complementario.</p>
+      
+       <p class="imp_header">Implementacion como libreria dinamica</p>
+        <p>Esta forma de implementar es incluir un archivo dll como complemento del ejecutable, no hay tanta diferencia es solo cuestion decisiva de uno mismo.</p>
+      
+      <p class="imp_header">Implementacion como codigo fuente</p>
+        <p>Esta forma de implementar es incluir y poder modificar la API para hacerla mas personalizable y comoda para usar.</p>
+      
+  </div>
+          <div class="section">
+    <h5>Android Studio</h5>
+       <div class="divider"></div>
+  
+    <p>Implementacion en Android Studio para desarrollar en la plataforma android.</p>
+      <h5 class="header">Binarios</h5>
+       <a href="">Android arm-v7, arm64, x86, x86_64</a>
+     <p class="imp_header">Implementacion como codigo nativo</p>
+        <p>Esta forma de implementarlo consiste en incluir todo el codigo en una sola libreria C++ que podria ser la de tu proyecto si es que tu estas desarrollando de forma nativa una aplicacion que lo requiera.</p>
+      
+       <p class="imp_header">Implementacion como backend java</p>
+        <p>Esta forma de implementar es incluir los arhivos de libreria precompilados y una libreria java precompilada para solo poner en las dependencias del proyecto.</p>
+      
+  </div>
+          <div class="section">
+    <h5>Netbeans</h5>
+       <div class="divider"></div>
+  
+    <p>Implementacion en el IDE de java para proyectos de desktop.</p>
+      <h5 class="header">Binarios</h5>
+       <a href="">openpl-java-32bits</a><br>  <a href="">openpl-java-64bits</a>
+    <p>La implementacion consiste en crear una libreria para acceder a los metodos nativos de la API.</p>
+      
+  </div>
+ <div class="section">
+    <h5>Visual Studio</h5>
+         <div class="divider"></div>
+    <p>Stuff</p>
+  </div>
+	 <h3></h3>
+	  
+	</div>
+  </body>
+  <!--
+	 ----- OpenPL.zip struct ------
+	   docs/this
+	   include/bullet
+	          /openpl
+	   platforms/java
+	            /windows/static/
+				        /dynamic/
+				/android/native
+				        /java
+	   src/bullet
+	      /openpl
+	-->
+</html>

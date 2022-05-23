@@ -1,0 +1,48 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plRigidBody3f</h5>
+	  <p>Poner un valor a un parametro especifico</p>
+	  <div class="card-panel">
+        <p>void plRigidBody3f(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a> x,
+          <a class="blue-text" href="datatypes.html">Plfloat</a> y,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a> z)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_COORDINATE_SYSTEM</span>,
+       </p>
+	  <p class="param">x y z</p>
+	  <p>Los valores asignados.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_COORDINATE_SYSTEM sistema de coordenadas del vehiculo. <span class="param">x y z</span> debe ser el vector(x,y,z) de eje. Se transforma en enteros.</p>
+      <h5>Errores:</h5>
+	  <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si el vehiculo no existe o el id es incorrecto.</p>
+	  <p><span class="light-blue-text">PL_INVALID_OPERATION</span> es generado en raras ocaciones.</p>
+	  <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> es una constante invalida o no permitida.</p>
+	</div>
+  </body>
+</html>

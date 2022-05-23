@@ -1,0 +1,67 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+    <h5>plDynamicWorldi</h5>
+    <p>Poner un valor a un parametro especifico</p>
+    <div class="card-panel">
+        <p>void plDynamicWorldi(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+        <a class="blue-text" href="datatypes.html">Plint</a> value)</p>
+		</div>
+      <h5>Parametros:</h5>
+        <p class="param">param</p>
+        <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_ADD_RIGID_BODY</span>,
+        <span class="light-blue-text">PL_REMOVE_RIGID_BODY</span>, 
+          <span class="light-blue-text">PL_ADD_CONSTRAINT</span>,
+        <span class="light-blue-text">PL_REMOVE_CONSTRAINT</span>, 
+          <span class="light-blue-text">PL_INIT_VEHICLE_RAYCASTER</span>,
+            <span class="light-blue-text">PL_INIT_CHARACTER</span>, 
+          <span class="light-blue-text">PL_ADD_CHARACTER</span>,
+            <span class="light-blue-text">PL_CLEAR_RAY_RESULTS</span>, 
+          <span class="light-blue-text">PL_USE_DBVT</span>,
+           <span class="light-blue-text">PL_CONTACT_TEST</span>, 
+          <span class="light-blue-text">PL_ADD_FLAG_RAY_TEST</span>,
+           <span class="light-blue-text">PL_USER_POINTER</span>,
+        <span class="light-blue-text">PL_DEBUG_MODE</span>.
+        </p>
+        <p class="param">value</p>
+        <p>El valor asignado.</p>
+      <h5>Notas:</h5>
+        <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+        <p>PL_ADD_RIGID_BODY agregar un cuerpo rigido. <span class="param">value</span> debe ser el id del cuerpo rigido ya creado.</p>
+       <p>PL_REMOVE_RIGID_BODY remover un cuerpo rigido. <span class="param">value</span> debe ser el id del cuerpo rigido a remover.</p>
+        <p>PL_ADD_CONSTRAINT agregar una restriccion. <span class="param">value</span> debe ser el id de la restriccion ya creada.</p>
+        <p>PL_REMOVE_CONSTRAINT remover una restriccion. <span class="param">value</span> debe ser el id de la restriccion a remover.</p>
+        <p>PL_INIT_VEHICLE_RAYCASTER inicializar el vehivle ray caster. <span class="param">value</span> debe ser 0.</p>
+        <p>PL_CLEAR_RAY_RESULTS eliminar los resultados de la prueba de rayo. <span class="param">value</span> debe ser 0.</p>
+         <p>PL_USE_DBVT usar Dbvt broadphase. <span class="param">value</span> debe ser 0.</p>
+        <p>PL_CONTACT_TEST <span class="param">value</span> debe ser 1 si quieres usar la prueba de contactos o 0 si no quieres.</p>
+         <p>PL_ADD_FLAG_RAY_TEST agregar filtro a la prueba de ray casting <span class="param">value</span> puede ser PL_RF_FLT_BACK_FACES, PL_RF_KP_UNFLIPPED_NORM, PL_RF_SS_CCR, PL_RF_GJK_CCR.</p>
+         <p>PL_USER_POINTER buscar y enlazar el cuerpo rigido apartir del user pointer.<span class="param">value</span> debe ser el user pointer.</p>
+         <p>PL_DEBUG_MODE <span class="param">value</span> debe ser 1 si quieres usar el modo de depuracion o 0 si no quieres.</p>
+      <h5>Errores:</h5>
+     <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si el cuerpo rigido, restriccion, personaje no existen o el id es incorrecto.</p>
+     <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> es una constante invalida o no permitida.</p>
+      </div>
+    </body>
+</html>

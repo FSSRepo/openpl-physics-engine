@@ -1,0 +1,73 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plGenConstraint</h5>
+	  <p>Generar un cuerpo rigido.</p>
+	  <div class="card-panel">
+        <p><a class="blue-text" href="datatypes.html">Pluint</a> plGenConstraint(<a class="blue-text" href="datatypes.html">Plint</a> type)</p>
+	  </div>
+	  <h5>Parametros</h5>
+	  <p class="param">type</p>
+	  <p>Especificar el tipo de restriccion a crear.</p>
+      <h5>Notas:</h5>
+	  <p>Tipos de restricciones:</p>
+	  <table>
+		<thead>
+		  <tr>
+			<th>Tipo</th>
+			<th>Constante</th>
+		  </tr>
+		</thead>
+		<tbody> 
+		  <tr>
+			<td>Bisagra</td>
+			<td>PL_HINGE_CONSTRAINT o PL_HINGE2_CONSTRAINT</td>
+		  </tr>
+		  <tr>
+			<td>Deslizante</td>
+			<td>PL_SLIDER_CONSTRAINT</td>
+		  </tr>
+		  <tr>
+			<td>Union de 2 puntos</td>
+			<td>PL_POINT2PONT_CONSTRAINT</td>
+		  </tr>
+		  <tr>
+			<td>6 grados de libertad</td>
+			<td>PL_G6DOF_CONSTRAINT</td>
+		  </tr>
+		  <tr>
+			<td>6 grados de libertad tipo puente</td>
+			<td>PL_G6DOF_SPRING_CONSTRAINT o PL_G6DOF_SPRING2_CONSTRAINT.</td>
+		  </tr>
+		  <tr>
+			<td>Rag Dolls de huesos</td>
+			<td>PL_CONE_TWIST_CONSTRAINT</td>
+		  </tr>
+		</tbody>
+	  </table>
+	  <p>Esta funcion retorna una id y crea una cola de variables necesarias antes de crear una instancia del objeto.</p>
+      <h5>Errores:</h5>
+	  <p><span class="light-blue-text">PL_INVALID_OPERATION</span> es generado si hay una cola pendiente para crear un cuerpo rigido.</p>
+	</div>
+  </body>
+</html>

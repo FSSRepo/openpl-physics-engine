@@ -1,0 +1,50 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plShapei</h5>
+	  <p>Poner un valor a un parametro especifico</p>
+	  <div class="card-panel">
+        <p>void plShapei(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plint</a> value)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_USER_POINTER</span>,
+        <span class="light-blue-text">PL_ADD_CHILD_SHAPE</span>, 
+		<span class="light-blue-text">PL_REMOVE_CHILD_SHAPE</span>,
+        <span class="light-blue-text">PL_OPTIMIZE_CONVEX_HULL</span>.
+	  </p>
+	  <p class="param">value</p>
+	  <p>El valor asignado.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_USER_POINTER poner un puntero de usuario. <span class="param">value</span> debe ser el user pointer que desees.</p>
+	  <p>PL_ADD_CHILD_SHAPE agregar una forma de colision a un compuesto. <span class="param">value</span> debe ser la forma de colision a agregar.</p>
+	  <p>PL_REMOVE_CHILD_SHAPE remover una forma de colision a un compuesto. <span class="param">value</span> debe ser la forma de colision a remover.</p>
+	  <p>PL_OPTIMIZE_CONVEX_HULL optimizar forma de convex hull. <span class="param">value</span> debe ser 1 o 0.</p>
+	  <h5>Errores:</h5>
+	  <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> no es permitido.</p>
+	</div>
+  </body>
+</html>

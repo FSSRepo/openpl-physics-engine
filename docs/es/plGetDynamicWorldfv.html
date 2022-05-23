@@ -1,0 +1,53 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plGetDynamicWorldfv</h5>
+	  <p>Obtener un valor a traves de un parametro especifico.</p>
+	  <div class="card-panel">
+        <p>void plGetDynamicWorldfv(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a>* values,
+		  <a class="blue-text" href="datatypes.html">Plsizei</a> lenght)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para obtener el valor. Puede ser 
+        <span class="light-blue-text">PL_RAY_POINT_RESULT</span>,
+        <span class="light-blue-text">PL_RAY_NORMAL_RESULT</span>.
+	  </p>
+	  <p class="param">values</p>
+	  <p>El arreglo de valores</p>
+	  <p class="param">lenght</p>
+	  <p>Longitud del arreglo.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_RAY_POINT_RESULT obtener los puntos de golpe del raycasting.</p>
+	  <p>PL_RAY_NORMAL_RESULT obtener las normales del raycasting.</p>
+
+
+      <h5>Errores:</h5>
+      <p><span class="light-blue-text">PL_INVALID_OPERATION</span> es generado si se intenta obtener el parametro PL_RAY_POINT_RESULT o PL_RAY_NORMAL_RESULT sin antes haber hecho una prueba de raycasting.</p>
+	  <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> es una constante invalida o no permitida.</p>
+	  <p><span class="light-blue-text">PL_INVALID_VALUE</span> es generado si <span class="param">lenght</span> es 0 o incorrecto.</p>
+	</div>
+  </body>
+</html>

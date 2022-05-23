@@ -1,0 +1,48 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+    <h5>plDynamicWorld3f</h5>
+    <p>Poner un valor a un parametro especifico</p>
+    <div class="card-panel">
+        <p>void plDynamicWorld3f(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+        <a class="blue-text" href="datatypes.html">Plfloat</a> v0,
+        <a class="blue-text" href="datatypes.html">Plfloat</a> v1,
+        <a class="blue-text" href="datatypes.html">Plfloat</a> v2)</p>
+		</div>
+      <h5>Parametros:</h5>
+        <p class="param">param</p>
+        <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_GRAVITY</span>,
+        <span class="light-blue-text">PL_USE_AXIS_SWEEP3</span>.
+        </p>
+        <p class="param">v0 v1 v2</p>
+        <p>Valores asignados.</p>
+      <h5>Notas:</h5>
+        <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+        <p>PL_GRAVITY poner el vector de gravedad, por defecto es (0,-9.8,0). <span class="param">v0 v1 v2</span> deben ser el vector de gravedad (x,y,x).</p>
+       <p>PL_USE_AXIS_SWEEP3 usar AxisSweep3 <span class="param">v0 v1 v2</span> deben ser el vector de extension.</p>
+      <h5>Errores:</h5>
+        <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si el parametro especificado no es permitido.</p>
+      </div>
+    </body>
+</html>

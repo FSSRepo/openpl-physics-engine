@@ -1,0 +1,86 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plVehiclefv</h5>
+	  <p>Poner un valor a un parametro especifico</p>
+	  <div class="card-panel">
+        <p>void plVehiclefv(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a>* values,
+		  <a class="blue-text" href="datatypes.html">Plsizei</a> lenght)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_ADD_WHEEL</span>.
+      </p>
+	  <p class="param">values</p>
+	  <p>Los valores asignados.</p>
+	  <p class="param">lenght</p>
+	  <p>La longitud del arreglo de valores.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_ADD_WHEEL agregar informacion de una rueda. El arreglo debe tener la siguiente estructura de datos:</p>
+	  <table>
+		<thead>
+		  <tr>
+			<th>Offset</th>
+			<th>Tipo</th>
+			<th>Descripcion</th>
+		  </tr>
+		</thead>
+		<tbody> 
+		  <tr>
+			<td>[0...2]</td>
+			<td>vector3</td>
+			<td>Punto de conexion con el chasis</td>
+		  </tr>
+		  <tr>
+			<td>[3...5]</td>
+			<td>vector3</td>
+			<td>Direccion de la llanta</td>
+		  </tr>
+		  <tr>
+			<td>[7...9]</td>
+			<td>vector3</td>
+			<td>Eje de giratorio de la llanta</td>
+		  </tr>
+		  <tr>
+			<td>[10]</td>
+			<td>float</td>
+			<td>radio de la llanta</td>
+		  </tr>
+		  <tr>
+			<td>[11]</td>
+			<td>float</td>
+			<td>Es una llanta frontal [0:si,1:no]</td>
+		  </tr>
+		</tbody>
+	  </table>
+	  <p><span class="param">lenght</span> debe ser 12</p>
+	  <h5>Errores:</h5>
+	  <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si el cuerpo rigido no existe o el id es incorrecto.</p>
+	  <p><span class="light-blue-text">PL_INVALID_OPERATION</span> es generado en raras ocaciones.</p>
+	  <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> es una constante invalida o no permitida.</p>
+	</div>
+  </body>
+</html>

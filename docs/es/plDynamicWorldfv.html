@@ -1,0 +1,55 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+    <h5>plDynamicWorldfv</h5>
+    <p>Poner un valor a un parametro especifico</p>
+    <div class="card-panel">
+        <p>void plDynamicWorldfv(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+        <a class="blue-text" href="datatypes.html">Plfloat</a>* values,
+        <a class="blue-text" href="datatypes.html">Plsizei</a> lenght)</p>
+		</div>
+      <h5>Parametros:</h5>
+        <p class="param">param</p>
+        <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_GRAVITY</span>,
+        <span class="light-blue-text">PL_RAY_CLOSEST_TEST</span>, 
+          <span class="light-blue-text">PL_RAY_ALL_TEST</span>,
+        <span class="light-blue-text">PL_USE_AXIS_SWEEP3</span>.
+        </p>
+        <p class="param">values</p>
+        <p>El arreglo de valores</p>
+          <p class="param">lenght</p>
+        <p>Longitud del arreglo.</p>
+      <h5>Notas:</h5>
+        <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+        <p>PL_GRAVITY poner vector de gravedad. <span class="param">values</span> debe ser el vector (x,y,z).</p>
+       <p>PL_RAY_CLOSEST_TEST hacer test de ray casting, el objeto mas cercano. <span class="param">values</span> debe ser el vector ray origin (x,y,z) y ray end (x,y,z).</p>
+        <p>PL_RAY_ALL_TEST hacer test de ray casting, todos los objetos sin excepciones.<span class="param">values</span> debe ser el vector ray origin (x,y,z) y ray end (x,y,z).</p>
+        <p>PL_USE_AXIS_SWEEP3 usar AxisSweep3 broadphase <span class="param">values</span> debe ser el vector min y max.</p>
+        
+      <h5>Errores:</h5>
+     <p><span class="light-blue-text">PL_INVALID_VALUE</span> es generado si el valor <span class="param">lenght</span> es 0 o no es correcto.</p>
+     <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> es una constante invalida o no permitida.</p>
+      </div>
+    </body>
+</html>

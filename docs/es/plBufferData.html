@@ -1,0 +1,52 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plBufferData</h5>
+	  <p>Establecer un buffer de datos.</p>
+	  <div class="card-panel">
+        <p>void plBufferData(<a class="blue-text" href="datatypes.html">Plenum</a> type,
+		  <a class="blue-text" href="datatypes.html">Plsizei</a> size,
+          <a class="blue-text" href="datatypes.html">Plvoid</a>* data)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">type</p>
+	  <p>Especifica el tipo de dato a introducir. Puede ser 
+        <span class="light-blue-text">PL_VERTEX_BUFFER</span>,
+        <span class="light-blue-text">PL_INDEX_BUFFER</span>.
+      </p>
+	  <p class="param">size</p>
+	  <p>La cantidad de vertices si el tipo es <span class="light-blue-text">PL_VERTEX_BUFFER</span>, la cantidad de indices si es <span class="light-blue-text">PL_INDEX_BUFFER</span>.</p>
+	  <p class="param">data</p>
+	  <p>Puntero de entrada de datos binarios.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">type</span>:</p>
+	  <p>PL_VERTEX_BUFFER buffer de vertices en el orden xyz, con puntos flotantes de 32 bits. <span class="param">data</span> debe ser un arreglo de puntos flotantes (float*)(float[]).</p>
+	  <p>PL_INDEX_BUFFER buffer de indices en el orden abc, con enteros de 16 bits. <span class="param">data</span> debe ser un arreglo de enteros de 16 bits (short[]) (short*).</p>
+	  <p>Los datos que se introdujeron en ningun momento del ciclo de vida deben ser modificados.</p>
+	  <h5>Errores:</h5>
+	  <p><span class="param">data</span> nunca debe ser nulo.</p>
+	  <p><span class="param">size</span> nunca debe ser 0.</p>
+	  <p>Los errores consecuentes de esto se presentan al usar otras funciones relacionadas.</p>
+	 </div>
+  </body>
+</html>

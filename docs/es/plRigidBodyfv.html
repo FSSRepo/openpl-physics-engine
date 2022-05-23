@@ -1,0 +1,77 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+    <h5>plRigidBodyfv</h5>
+    <p>Poner un valor a un parametro especifico</p>
+    <div class="card-panel">
+        <p>void plRigidBodyfv(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+        <a class="blue-text" href="datatypes.html">Plfloat</a>* values,
+         <a class="blue-text" href="datatypes.html">Plsizei</a> lenght)</p>
+		</div>
+      <h5>Parametros:</h5>
+        <p class="param">param</p>
+        <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_POSITION</span>,
+        <span class="light-blue-text">PL_MOTION_STATE_POSITION</span>, 
+        <span class="light-blue-text">PL_BASIS</span>,
+        <span class="light-blue-text">PL_LINEAR_FACTOR</span>, 
+        <span class="light-blue-text">PL_ANGULAR_FACTOR</span>,
+        <span class="light-blue-text">PL_LOCAL_INERTIA</span>,
+        <span class="light-blue-text">PL_APPLY_CENTRAL_FORCE</span>
+        <span class="light-blue-text">PL_APPLY_TORQUE</span>,
+        <span class="light-blue-text">PL_APPLY_CENTRAL_IMPULSE</span>,
+        <span class="light-blue-text">PL_APPLY_TORQUE_IMPULSE</span>,
+        <span class="light-blue-text">PL_ORIENTATION</span>,
+        <span class="light-blue-text">PL_TRANSFORM</span>,
+        <span class="light-blue-text">PL_MOTION_STATE_TRANSFORM</span>,
+          <span class="light-blue-text">PL_COL_WORLD_TRANSFORM</span>,
+        <span class="light-blue-text">PL_COL_INTERP_WORLD_TRANSFORM</span>.
+        </p>
+        <p class="param">values</p>
+        <p>Los valores asignados.</p>
+        <p class="param">lenght</p>
+        <p>La longitud del arreglo de valores.</p>
+      <h5>Notas:</h5>
+        <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+        <p>PL_POSITION poner la posicion del centro de masa. <span class="param">values</span> debe ser el vector de posicion. <span class="param">lenght</span> debe ser 3</p>
+         <p>PL_MOTION_STATE_POSITION poner la posicion del estado de movimiento. <span class="param">values</span> debe ser el vector(x,y,z) de posicion. <span class="param">lenght</span> debe ser 3</p>
+         <p>PL_BASIS poner un nuevo basis. <span class="param">values</span> debe ser una matrix3x3. <span class="param">lenght</span> debe ser 3</p>
+          <p>PL_LINEAR_FACTOR poner el factor lineal. <span class="param">values</span> es el vector.<span class="param">lenght</span> debe ser 3</p>
+         <p>PL_ANGULAR_FACTOR poner el factor giracion. <span class="param">values</span> es el vector.<span class="param">lenght</span> debe ser 3</p>
+          <p>PL_LOCAL_INERTIA poner el eje de inercia local. <span class="param">values</span> debe ser el vector de inercia.<span class="param">lenght</span> debe ser 3</p>
+          <p>PL_APPLY_CENTRAL_FORCE aplicar una fuerza central. <span class="param">values</span> es el vector de fuerza a aplicar. <span class="param">lenght</span> debe ser 3</p>
+         <p>PL_APPLY_TORQUE aplicar torque. <span class="param">values</span> es el vector de torque. <span class="param">lenght</span> debe ser 3</p>
+           <p>PL_APPLY_CENTRAL_IMPULSE aplicar impulso central. <span class="param">values</span> debe ser el vector de impulso.<span class="param">lenght</span> debe ser 3</p>
+          <p>PL_APPLY_TORQUE_IMPULSE aplicar impulso con torque. <span class="param">values</span>  es el vector de impulso.<span class="param">lenght</span> debe ser 3</p>
+         <p>PL_ORIENTATION poner la orientacion o rotacion. <span class="param">values</span> es el quaternion de rotacion.<span class="param">lenght</span> debe ser 4</p>
+         <p>PL_TRANSFORM poner la transformacion.<span class="param">values</span>  debe ser un matrix4x4 de transformacion.<span class="param">lenght</span> debe ser 16</p>
+         <p>PL_MOTION_STATE_TRANSFORM poner la transformacion en el estado de movimiento. <span class="param">values</span>  debe ser un matrix4x4 de transformacion.<span class="param">lenght</span> debe ser 16</p>
+        <p>PL_COL_WORLD_TRANSFORM poner la transformacion del mundo.<span class="param">values</span>  debe ser un matrix4x4 de transformacion.<span class="param">lenght</span> debe ser 16</p>
+         <p>PL_COL_INTERP_WORLD_TRANSFORM poner la transformacion del mundo interpolada. <span class="param">values</span>  debe ser un matrix4x4 de transformacion.<span class="param">lenght</span> debe ser 16</p>
+      <h5>Errores:</h5>
+     <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si el cuerpo rigido no existe o el id es incorrecto.</p>
+     <p><span class="light-blue-text">PL_INVALID_OPERATION</span> es generado en raras ocaciones.</p>
+     <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> es una constante invalida o no permitida.</p>
+      </div>
+    </body>
+</html>

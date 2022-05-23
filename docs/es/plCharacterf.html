@@ -1,0 +1,66 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plCharacterf</h5>
+	  <p>Poner un valor a un parametro especifico</p>
+	  <div class="card-panel">
+        <p>void plCharacterf(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a> value)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_CHAR_STEP_HEIGHT</span>,
+        <span class="light-blue-text">PL_CHAR_SPHERE</span>, 
+		<span class="light-blue-text">PL_CHAR_ANGULAR_DAMPING</span>,
+        <span class="light-blue-text">PL_CHAR_LINEAR_DAMPING</span>, 
+		<span class="light-blue-text">PL_CHAR_PRE_STEP</span>,
+		<span class="light-blue-text">PL_CHAR_PLAYER_STEP</span>,
+		<span class="light-blue-text">PL_CHAR_JUMP_SPEED</span>,
+		<span class="light-blue-text">PL_CHAR_FALL_SPEED</span>,
+		<span class="light-blue-text">PL_CHAR_JUMP</span>,
+		<span class="light-blue-text">PL_CHAR_MAX_SLOPE</span>,
+		<span class="light-blue-text">PL_CHAR_MAX_JUMP_HEIGHT</span>,
+		<span class="light-blue-text">PL_CHAR_MAX_PENETRATION_DEPTH</span>.
+	  </p>
+	  <p class="param">value</p>
+	  <p>El valor asignado.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_CHAR_STEP_HEIGHT poner altura de paso.</p>
+	  <p>PL_CHAR_SPHERE poner una esfera.</p>
+	  <p>PL_CHAR_ANGULAR_DAMPING poner el angular damping</p>
+	  <p>PL_CHAR_ANGULAR_DAMPING poner el linear damping</p>
+	  <p>PL_CHAR_PRE_STEP pre step*</p>
+	  <p>PL_CHAR_PLAYER_STEP player step*</p>
+	  <p>PL_CHAR_JUMP_SPEED poner velocidad de salto</p>
+	  <p>PL_CHAR_FALL_SPEED poner velocidad de caida</p>
+	  <p>PL_CHAR_JUMP saltar</p>
+	  <p>PL_CHAR_MAX_SLOPE max slope*</p>
+	  <p>PL_CHAR_MAX_JUMP_HEIGHT altura maxima de salto</p>
+	  <p>PL_CHAR_MAX_PENETRATION_DEPTH profundidad de penetracion.</p>
+	  <h5>Errores:</h5>
+	  <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si el personaje no existe o el id es incorrecto.</p>
+	</div>
+  </body>
+</html>

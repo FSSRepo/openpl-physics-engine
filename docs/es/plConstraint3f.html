@@ -1,0 +1,112 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plConstraint3f</h5>
+	  <p>Poner un valor a un parametro especifico</p>
+	  <div class="card-panel">
+        <p>void plConstraint3f(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a> x,
+          <a class="blue-text" href="datatypes.html">Plfloat</a> y,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a> z)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_CONSTR_PIVOT_A</span>, 
+		<span class="light-blue-text">PL_CONSTR_PIVOT_B</span>, 
+		<span class="light-blue-text">PL_CONSTR_IN_AXIS_A</span>, 
+		<span class="light-blue-text">PL_CONSTR_IN_AXIS_B</span>, 
+		<span class="light-blue-text">PL_CTWIST_LIMITS</span>, 
+		<span class="light-blue-text">PL_HC_LIMITS</span>, 
+		<span class="light-blue-text">PL_HC2_LIMITS</span>, 
+		<span class="light-blue-text">PL_G6D_LOWER_LIN_LIMIT</span>, 
+		<span class="light-blue-text">PL_G6D_UPPER_LIN_LIMIT</span>, 
+		<span class="light-blue-text">PL_G6D_LOWER_ANG_LIMIT</span>, 
+		<span class="light-blue-text">PL_G6D_UPPER_ANG_LIMIT</span>, 
+		<span class="light-blue-text">PL_G6D_LIMIT_LIN_X</span>, 
+		<span class="light-blue-text">PL_G6D_LIMIT_LIN_Y</span>, 
+		<span class="light-blue-text">PL_G6D_LIMIT_LIN_Z</span>, 
+		<span class="light-blue-text">PL_G6D_LIMIT_ANG_X</span>, 
+		<span class="light-blue-text">PL_G6D_LIMIT_ANG_Y</span>, 
+		<span class="light-blue-text">PL_G6D_LIMIT_ANG_Z</span>, 
+		<span class="light-blue-text">PL_G6DS_STIFFNESS_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS_DAMPING_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS_EQUILI_POINT_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS2_LOWER_LIN_LIMIT</span>, 
+		<span class="light-blue-text">PL_G6DS2_UPPER_LIN_LIMIT</span>, 
+		<span class="light-blue-text">PL_G6DS2_LOWER_ANG_LIMIT</span>, 
+		<span class="light-blue-text">PL_G6DS2_UPPER_ANG_LIMIT</span>, 
+		<span class="light-blue-text">PL_G6DS2_STIFFNESS_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS2_DAMPING_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS2_EQUILI_POINT_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS2_TARGET_VELOCITY</span>, 
+		<span class="light-blue-text">PL_G6DS2_SERVO_TARGET</span>, 
+		<span class="light-blue-text">PL_G6DS2_MAX_MOTOR_FORCE</span>, 
+		<span class="light-blue-text">PL_G6DS2_BOUNCE</span>, 
+		<span class="light-blue-text">PL_P2P_PIVOT_A</span>, 
+		<span class="light-blue-text">PL_P2P_PIVOT_B</span>.
+	  </p>
+	  <p class="param">x y z</p>
+	  <p>Los valores asignados.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_CONSTR_PIVOT_A poner pivote A</p>
+	  <p>PL_CONSTR_PIVOT_B poner pivote B</p>
+	  <p>PL_CONSTR_IN_AXIS_A poner axis A</p>
+	  <p>PL_CONSTR_IN_AXIS_B poner axis B</p>
+	  <p>PL_CTWIST_LIMITS setLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtConeTwistConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_HC_LIMITS setLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtHingeConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_HC2_LIMITS setUpperLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtHinge2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6D_LOWER_LIN_LIMIT setLinearLowerLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6D_UPPER_LIN_LIMIT setLinearUpperLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6D_LOWER_ANG_LIMIT setAngularLowerLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6D_UPPER_ANG_LIMIT setAngularUpperLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6D_LIMIT_LIN_X setLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6D_LIMIT_LIN_Y setLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6D_LIMIT_LIN_Z setLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6D_LIMIT_ANG_X setLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6D_LIMIT_ANG_Y setLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6D_LIMIT_ANG_Z setLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS_STIFFNESS_SPRING setStiffness (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpringConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS_DAMPING_SPRING setDamping (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpringConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS_EQUILI_POINT_SPRING setEquilibriumPoint (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpringConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_LOWER_LIN_LIMIT setLinearLowerLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_UPPER_LIN_LIMIT setLinearUpperLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_LOWER_ANG_LIMIT setAngularLowerLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_UPPER_ANG_LIMIT setAngularUpperLimit (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_STIFFNESS_SPRING setStiffness (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_DAMPING_SPRING setDamping (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_EQUILI_POINT_SPRING setEquilibriumPoint (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_TARGET_VELOCITY setTargetVelocity (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_SERVO_TARGET setServoTarget (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_MAX_MOTOR_FORCE setMaxMotorForce (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_BOUNCE setBounce (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_P2P_PIVOT_A setPivotA (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtPoint2PointConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_P2P_PIVOT_B setPivotB (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtPoint2PointConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  
+      <h5>Errores:</h5>
+	  <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si la restriccion no existe o el id es incorrecto.</p>
+	   <p><span class="light-blue-text">PL_INVALID_ENUM</span> es generado si <span class="param">param</span> es una constante invalida o no permitida.</p>
+	</div>
+  </body>
+</html>

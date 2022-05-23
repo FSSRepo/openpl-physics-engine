@@ -1,0 +1,59 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+    <h5>plRigidBodyi</h5>
+    <p>Poner un valor a un parametro especifico</p>
+    <div class="card-panel">
+        <p>void plRigidBodyi(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+        <a class="blue-text" href="datatypes.html">Plint</a> value)</p>
+		</div>
+      <h5>Parametros:</h5>
+        <p class="param">param</p>
+        <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_USER_POINTER</span>,
+        <span class="light-blue-text">PL_COLLISION_CALLBACK_FILTER</span>, 
+          <span class="light-blue-text">PL_COLLISION_CALLBACK_FLAG</span>,
+        <span class="light-blue-text">PL_USER_INDEX</span>, 
+          <span class="light-blue-text">PL_ACTIVATION_STATE</span>,
+            <span class="light-blue-text">PL_ADD_COLLISION_FLAG</span>, 
+          <span class="light-blue-text">PL_COLLISION_SHAPE</span>,
+            <span class="light-blue-text">PL_ANISOTROPIC_ROLLING_FRICTION</span>.
+        </p>
+        <p class="param">value</p>
+        <p>El valor asignado.</p>
+      <h5>Notas:</h5>
+        <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+        <p>PL_USER_POINTER poner un puntero de usuario. <span class="param">value</span> debe ser el user pointer que desees.</p>
+       <p>PL_COLLISION_CALLBACK_FILTER poner el filtro para la prueba de contacto. <span class="param">value</span> debe ser el filtrado.</p>
+        <p>PL_COLLISION_CALLBACK_FLAG asignar caracteristica para filtrar en la prueba de contacto. <span class="param">value</span> debe ser la caracteristica</p>
+        <p>PL_USER_INDEX poner un indice de usuario. <span class="param">value</span> debe ser el indice.</p>
+        <p>PL_ACTIVATION_STATE cambiar el estado de activacion. <span class="param">value</span> debe ser PL_DIS_DACTIVATION si quieres que el cuerpo rigido permanesca activo todo el tiempo, PL_DIS_SIMULATION si quieres que el cuerpo rigido se ignore durante la simulacion, PL_ACTIVATE si quieres activar el cuerpo rigido.</p>
+        <p>PL_ADD_COLLISION_FLAG asignar carasteristicas de colision. <span class="param">value</span>  si quieres que el cuerpo rigido,  PL_CF_KINEMATIC_OBJECT sea cinematico, PL_CF_STATIC_OBJECT estatico, PL_CF_CUSTOM_MATERIAL_CALLBACK materiales personalizados.</p>
+         <p>PL_COLLISION_SHAPE usar Dbvt broadphase. <span class="param">value</span> debe ser 0.</p>
+        <p>PL_ANISOTROPIC_ROLLING_FRICTION poner el rozamiento anisotropico. <span class="param">value</span> debe ser 0.</p>
+      <h5>Errores:</h5>
+     <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si el cuerpo rigido no existe o el id es incorrecto.</p>
+     <p><span class="light-blue-text">PL_INVALID_OPERATION</span> es generado si intentas usar PL_COLLISION_CALLBACK_FILTER,  PL_COLLISION_CALLBACK_FLAG sin antes activar la prueba de contactos o sin poner el user pointer.</p>
+      </div>
+    </body>
+</html>

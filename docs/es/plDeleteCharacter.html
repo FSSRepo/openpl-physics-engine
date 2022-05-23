@@ -1,0 +1,36 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plDeleteCharacter</h5>
+	  <p>Eliminar un character o personaje.</p>
+	  <div class="card-panel">
+        <p>void plDeleteCharacter(<a class="blue-text" href="datatypes.html">Pluint</a> chr)</p>
+	  </div>
+	  <h5>Parametros:</h5>
+	  <p class="param">chr</p>
+	  <p>La id del character a eliminar.</p>
+      <h5>Errores:</h5>
+      <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si el character esta enlazado o esta siendo usado. Tambien puede ser causado por que el character que tratas de eliminar ya no existe.</p>
+	</div>
+  </body>
+</html>

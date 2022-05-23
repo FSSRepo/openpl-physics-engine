@@ -1,0 +1,52 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+    <h5>plCreate</h5>
+    <p>Crea objetos tales como: cuerpos rigidos, restricciones, vehiculos, formas de colision, personajes.</p>
+    <div class="card-panel">
+        <p>void plCreate(<a class="blue-text" href="datatypes.html">Plenum</a> target)</p>
+		</div>
+      <h5>Parametros:</h5>
+        <p class="param">target</p>
+        <p>Especifica el tipo de objeto que deseas crear. Puede ser 
+        <span class="light-blue-text">PL_RIGID_BODY</span>,
+        <span class="light-blue-text">PL_TYPED_CONSTRAINT</span>, 
+          <span class="light-blue-text">PL_RAYCAST_VEHICLE</span>,
+        <span class="light-blue-text">PL_CHARACTER</span>, 
+          ademas de <a href="typecol.html">tipos de collision.</a>
+        </p>
+      <h5>Notas:</h5>
+       <p>Antes de llamar a esta funcion debes tener todos los valores necesarios ya predefinidos.</p>
+        <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+        <p>PL_RIGID_BODY crear un cuerpo rigido.</p>
+       <p>PL_TYPED_CONSTRAINT crear una restriccion.</p>
+        <p>PL_RAYCAST_VEHICLE crear un vehiculo.</p>
+       <p>PL_CHARACTER crear un personaje.</p>
+        
+      <h5>Errores:</h5>
+     <p><span class="light-blue-text">PL_INVALID_NAME</span> es generado si intentas crear un cuerpo rigido sin enlazar la id.</p>
+     <p><span class="light-blue-text">PL_INVALID_VALUE</span> es generado hacen faltan algunos valores para crear el objeto.</p>
+     <p><span class="light-blue-text">PL_INVALID_OPERATION</span> si no has generado el objeto que quieres crear.</p>
+      </div>
+    </body>
+</html>

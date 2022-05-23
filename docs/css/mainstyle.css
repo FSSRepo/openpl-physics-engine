@@ -1,0 +1,13 @@
+body {
+    background-color: white;
+}
+.param {
+    font-style: italic;
+}
+.oplback{
+    min-width: 1270px;
+}
+.imp_header{
+    font-weight: 400;
+    font-size: 1.5rem;
+}

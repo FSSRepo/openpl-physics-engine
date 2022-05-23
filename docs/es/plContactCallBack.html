@@ -1,0 +1,38 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style> 
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plContactCallBack</h5>
+	  <p>Poner el listener de contactos</p>
+	  <div class="card-panel">
+        <p>void plContactCallBack(oplContactCallBack callback)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">callback</p>
+	  <p>poner funcion callback.</p>
+	  <h5>Notas:</h5>
+	  <p>Para que funcione debes poner antes de esta funcion plDynamicWorldi(PL_CONTACT_TEST,1)</p>
+	  <p>Para crear la funcion callback requerida.</p>
+	  <p>bool name_function(int user_ptr0,bool match0,int user_ptr1,bool match1){}</p>
+      </div>
+  </body>
+</html>

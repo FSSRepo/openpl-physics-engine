@@ -1,0 +1,72 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style>
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plConstrainti</h5>
+	  <p>Poner un valor a un parametro especifico</p>
+	  <div class="card-panel">
+        <p>void plConstrainti(<a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plint</a> value)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para introducir el valor. Puede ser 
+		<span class="light-blue-text">PL_CONSTR_RBODY_A</span>, 
+		<span class="light-blue-text">PL_CONSTR_RBODY_B</span>, 
+		<span class="light-blue-text">PL_CONSTR_USE_REFERENCE_A</span>, 
+		<span class="light-blue-text">PL_HC_MAX_MOTOR_IMPULSE</span>, 
+		<span class="light-blue-text">PL_HC_ENABLE_ANGULAR_MOTOR</span>, 
+		<span class="light-blue-text">PL_G6DS_ENABLE_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS_DISABLE_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS_EQUILI_POINT_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS2_ENABLE_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS2_DISABLE_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS2_EQUILI_POINT_SPRING</span>, 
+		<span class="light-blue-text">PL_G6DS2_ENABLE_MOTOR</span>, 
+		<span class="light-blue-text">PL_G6DS2_SET_SERVO</span>, 
+		<span class="light-blue-text">PL_SLDR_POWERED_LINEAR_MOTOR</span>, 
+		<span class="light-blue-text">PL_SLDR_POWERED_ANGULAR_MOTOR</span>.
+	  </p>
+	  <p class="param">value</p>
+	  <p>El valor asignado.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_CONSTR_RBODY_A enlazar un cuerpo rigido.</p>
+	  <p>PL_CONSTR_RBODY_B enlazar un cuerpo rigido.</p>
+	  <p>PL_CONSTR_USE_REFERENCE_A usar referencia</p>
+	  <p>PL_HC_MAX_MOTOR_IMPULSE setAngularOnly (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtHingeConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_HC_ENABLE_ANGULAR_MOTOR enableMotor (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtHingeConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS_ENABLE_SPRING enableSpring = true (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpringConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS_DISABLE_SPRING enableSpring = false (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpringConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS_EQUILI_POINT_SPRING setEquilibriumPoint (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpringConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_ENABLE_SPRING enableSpring = true (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_DISABLE_SPRING enableSpring = false (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_EQUILI_POINT_SPRING setEquilibriumPoint (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_ENABLE_MOTOR enableMotor (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_G6DS2_SET_SERVO setServo (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtGeneric6DofSpring2Constraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_POWERED_LINEAR_MOTOR setPoweredLinMotor (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <p>PL_SLDR_POWERED_ANGULAR_MOTOR setPoweredAngMotor (funcion de referencia) <a href="https://pybullet.org/Bullet/BulletFull/classbtSliderConstraint.html">ver documentacion de la clase en BulletPhyics</a></p>
+	  <h5>Errores:</h5>
+	  <p>No se producen errores.</p>
+	</div>
+  </body>
+</html>

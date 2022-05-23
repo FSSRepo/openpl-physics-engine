@@ -1,0 +1,51 @@
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.js"></script>           
+	<script src="../js/materialize.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+      body {
+          background-color: white;
+       }
+    .param{
+        font-style: italic;
+    }
+</style>
+  </head>
+  <body>
+	<nav>
+	  <div class="nav-wrapper teal">
+		<a href="#!" class="brand-logo">Documentacion de la API</a>
+	  </div>
+	</nav>
+   	<div class="container">
+	  <h5>plWheelf</h5>
+	  <p>Poner un valor a un parametro especifico</p>
+	  <div class="card-panel">
+        <p>void plWheelf(<a class="blue-text" href="datatypes.html">Plint</a> wheel,
+		   <a class="blue-text" href="datatypes.html">Plenum</a> param,
+		  <a class="blue-text" href="datatypes.html">Plfloat</a> value)</p>
+	  </div>
+      <h5>Parametros:</h5>
+	  <p class="param">param</p>
+	  <p>Especifica el parametro para introducir el valor. Puede ser 
+        <span class="light-blue-text">PL_WHEEL_ENGINE_FORCE</span>,
+        <span class="light-blue-text">PL_WHEEL_STEERING</span>, 
+		<span class="light-blue-text">PL_WHEEL_BRAKE</span>,
+        <span class="light-blue-text">PL_WHEEL_ROLL_INFLUENCE</span>, 
+	  </p>
+	  <p class="param">value</p>
+	  <p>El valor asignado.</p>
+      <h5>Notas:</h5>
+	  <p>Las siguientes constantes son aceptadas por <span class="param">param</span>:</p>
+	  <p>PL_WHEEL_ENGINE_FORCE poner masa en kilogramos. <span class="param">value</span> debe ser la masa en kilogramos.</p>
+	  <p>PL_WHEEL_STEERING factor angular. <span class="param">value</span> debe ser el factor angular.</p>
+	  <p>PL_WHEEL_BRAKE friccion de rodadura. <span class="param">value</span> debe ser el valor equivalente</p>
+	  <p>PL_WHEEL_ROLL_INFLUENCE friccion giratoria. <span class="param">value</span> debe ser el valor equivalente.</p>
+	  <h5>Errores:</h5>
+	  <p>No se producen errores.</p>
+	</div>
+  </body>
+</html>
