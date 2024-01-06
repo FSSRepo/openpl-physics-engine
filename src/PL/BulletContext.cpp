@@ -7,12 +7,12 @@ mass(btScalar(0)),shape(NULL),motion(NULL){
 }
 
 btRigidBody* RBQueue::enqueue(DebugLogger* log){
-	if(shape == NULL){
+	if(shape == NULL) {
 		return NULL;
-	}else{
-		if(!motion){
-			if(log){
-				log->w("[motion state] is null, use instead [procreedTransform:PL_TRANSFORM]");
+	} else {
+		if(!motion) {
+			if(log) {
+				log->warning("[motion state] is null, use instead [procreedTransform:PL_TRANSFORM]");
 			}
 		}
 		btRigidBody::btRigidBodyConstructionInfo info(mass,motion,shape,inertia);
@@ -109,7 +109,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 	if(type == PL_BOX_SHAPE){
 		if(tmp3.isZero()){
 			if(debug){
-				debug->w("plCreate(): the box shape requires half extents value");
+				debug->warning("plCreate(): the box shape requires half extents value");
 			}
 			*result = PL_INVALID_VALUE;
 			return NULL;
@@ -120,7 +120,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 		if(tmp1 <= 0.0f){
 			*result = PL_INVALID_VALUE;
 			if(debug){
-				debug->w("plCreate(): the shape shape requires radius value");
+				debug->warning("plCreate(): the shape shape requires radius value");
 			}
 			return NULL;
 		}else{
@@ -130,7 +130,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 		if(tmp1 <= 0.0f || tmp2 <= 0.0f){
 			*result = PL_INVALID_VALUE;
 			if(debug){
-				debug->w("plCreate(): the capsule shape requires radius and height values");
+				debug->warning("plCreate(): the capsule shape requires radius and height values");
 			}
 			return NULL;
 		}else{
@@ -140,7 +140,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 		if(tmp1 <= 0.0f || tmp2 <= 0.0f){
 			*result = PL_INVALID_VALUE;
 			if(debug){
-				debug->w("plCreate(): the capsule shape requires radius and height values");
+				debug->warning("plCreate(): the capsule shape requires radius and height values");
 			}
 			return NULL;
 		}else{
@@ -150,7 +150,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 		if(tmp1 <= 0.0f || tmp2 <= 0.0f){
 			*result = PL_INVALID_VALUE;
 			if(debug){
-				debug->w("plCreate(): the capsule shape requires radius and height values");
+				debug->warning("plCreate(): the capsule shape requires radius and height values");
 			}
 			return NULL;
 		}else{
@@ -159,7 +159,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 	}else if(type == PL_STATIC_PLANE_SHAPE){
 		if(tmp3.isZero()){
 			if(debug){
-				debug->w("plCreate(): the static plane shape requires normal and constant values");
+				debug->warning("plCreate(): the static plane shape requires normal and constant values");
 			}
 			*result = PL_INVALID_VALUE;
 			return NULL;
@@ -169,7 +169,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 	}else if(type == PL_CONE_SHAPE){
 		if(tmp1 <= 0.0f || tmp2 <= 0.0f){
 			if(debug){
-				debug->w("plCreate(): the cone shape requires radius and height values");
+				debug->warning("plCreate(): the cone shape requires radius and height values");
 			}
 			*result = PL_INVALID_VALUE;
 			return NULL;
@@ -179,7 +179,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 	}else if(type == PL_CONE_SHAPE_X){
 		if(tmp1 <= 0.0f || tmp2 <= 0.0f){
 			if(debug){
-				debug->w("plCreate(): the cone shape requires radius and height values");
+				debug->warning("plCreate(): the cone shape requires radius and height values");
 			}
 			*result = PL_INVALID_VALUE;
 			return NULL;
@@ -189,7 +189,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 	}else if(type == PL_CONE_SHAPE_Z){
 		if(tmp1 <= 0.0f || tmp2 <= 0.0f){
 			if(debug){
-				debug->w("plCreate(): the cone shape requires radius and height values");
+				debug->warning("plCreate(): the cone shape requires radius and height values");
 			}
 			*result = PL_INVALID_VALUE;
 			return NULL;
@@ -199,7 +199,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 	}else if(type == PL_CYLINDER_SHAPE){
 		if(tmp1 <= 0.0f && tmp2 <= 0.0f){
 			if(debug){
-				debug->w("plCreate(): the cylinder shape requires radius and height value");
+				debug->warning("plCreate(): the cylinder shape requires radius and height value");
 			}
 			*result = PL_INVALID_VALUE;
 			return NULL;
@@ -209,7 +209,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 	}else if(type == PL_CYLINDER_SHAPE_X){
 		if(tmp1 <= 0.0f && tmp2 <= 0.0f){
 			if(debug){
-				debug->w("plCreate(): the cylinder shape requires radius and height value");
+				debug->warning("plCreate(): the cylinder shape requires radius and height value");
 			}
 			*result = PL_INVALID_VALUE;
 			return NULL;
@@ -219,7 +219,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 	}else if(type == PL_CYLINDER_SHAPE_Z){
 		if(tmp1 <= 0.0f && tmp2 <= 0.0f){
 			if(debug){
-				debug->w("plCreate(): the cylinder shape requires radius and height value");
+				debug->warning("plCreate(): the cylinder shape requires radius and height value");
 			}
 			*result = PL_INVALID_VALUE;
 			return NULL;
@@ -256,7 +256,7 @@ btCollisionShape* CSQueue::enqueue(Plenum type,int* result,DebugLogger* debug){
 		return shape;
 	}else{
 		if(debug){
-			debug->w("plCreate(): invalid shape type");
+			debug->warning("plCreate(): invalid shape type");
 		}
 		*result = PL_INVALID_ENUM;
 		return NULL;
@@ -286,9 +286,9 @@ CharacterQueue::CharacterQueue(){
 }
 
 Character* CharacterQueue::enqueue(DebugLogger* debug){
-	if(!shape){
-		if(debug){
-			debug->e("CharacterQueue: shape object is null.");
+	if(!shape) {
+		if(debug) {
+			debug->error("CharacterQueue: shape object is null.");
 		}
 		return NULL;
 	}
@@ -402,7 +402,7 @@ void BulletContext::deleteCharacter(Pluint indx){
 		return;
 	}
 	if(debug_mode){
-		debug->w("plDeleteCharacter(): this character is deleted or not exist.");
+		debug->warning("plDeleteCharacter(): this character is deleted or not exist.");
 	}
 	error_casting = PL_INVALID_NAME;
 }
@@ -423,7 +423,7 @@ void BulletContext::deleteRigidBody(Pluint indx){
 		return;
 	}
 	if(debug_mode){
-		debug->w("plDeleteBody(): this body is deleted or not exist.");
+		debug->warning("plDeleteBody(): this body is deleted or not exist.");
 	}
 	error_casting = PL_INVALID_NAME;
 }
@@ -436,7 +436,7 @@ void BulletContext::deleteVehicle(Pluint indx){
 		return;
 	}
 	if(debug_mode){
-		debug->w("plDeleteVehicle(): this vehicle is deleted or not exist.");
+		debug->warning("plDeleteVehicle(): this vehicle is deleted or not exist.");
 	}
 	error_casting = PL_INVALID_NAME;
 }
@@ -449,7 +449,7 @@ void BulletContext::deleteConstraint(Pluint indx){
 		return;
 	}
 	if(debug_mode){
-		debug->w("plDeleteConstraint(): this body is deleted or not exist.");
+		debug->warning("plDeleteConstraint(): this body is deleted or not exist.");
 	}
 	error_casting = PL_INVALID_NAME;
 }

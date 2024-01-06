@@ -1,15 +1,34 @@
 #ifndef _PL10_H_
 #define _PL10_H_
 
-#include "BulletContext.h"
+#if defined(_WIN32) || defined(__CYGWIN__)
+#ifndef PL_BUILD_SHARED_LIB
+#define PL_API
+#else
+#ifdef PL_BUILD_DLL
+#define PL_API __declspec(dllexport)
+#else
+#define PL_API __declspec(dllimport)
+#endif
+#endif
+#else
+#if __GNUC__ >= 4
+#define PL_API __attribute__((visibility("default")))
+#else
+#define PL_API
+#endif
+#endif
 
 typedef unsigned int Pluint;
 typedef int Plint;
-typedef void Plvoid;
 typedef float Plfloat;
 typedef int Plsizei;
 typedef int Plenum;
 typedef char PLbool;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool match1);
 
@@ -308,79 +327,84 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_CHAR_ON_GROUND 					0xC38
 
 /* core Functions */
-PLbool plCreateContext();
-void plDestroyContext();
-Plint plGetError();
-const char* plGetString(Plenum param);
-Plint plGetInteger(Plenum param);
-void plCreate(Plenum target);
-void plStepSimulation(Plfloat timeStep,Plsizei maxSubSteps,Plfloat fixedTimeStep);
+PL_API PLbool plCreateContext();
+PL_API void plDestroyContext();
+PL_API Plint plGetError();
+PL_API const char* plGetString(Plenum param);
+PL_API Plint plGetInteger(Plenum param);
+PL_API void plCreate(Plenum target);
+PL_API void plStepSimulation(Plfloat timeStep,Plsizei maxSubSteps,Plfloat fixedTimeStep);
 
 /* World Functions */
-void plDynamicWorldi(Plenum param,Plint value);
-void plDynamicWorld3f(Plenum param,Plfloat v1,Plfloat v2,Plfloat v3);
-void plDynamicWorldfv(Plenum param,Plfloat* values,Plsizei lenght);
+PL_API void plDynamicWorldi(Plenum param,Plint value);
+PL_API void plDynamicWorld3f(Plenum param,Plfloat v1,Plfloat v2,Plfloat v3);
+PL_API void plDynamicWorldfv(Plenum param,Plfloat* values,Plsizei lenght);
 
-void plGetDynamicWorldi(Plenum param,Plint* value);
-void plGetDynamicWorld3f(Plenum param,Plfloat* v1,Plfloat* v2,Plfloat* v3);
-void plGetDynamicWorldiv(Plenum param,Plint* values,Plsizei lenght);
-void plGetDynamicWorldfv(Plenum param,Plfloat* values,Plsizei lenght);
-void plContactCallBack(obtContactCallBack callback);
+PL_API void plGetDynamicWorldi(Plenum param,Plint* value);
+PL_API void plGetDynamicWorld3f(Plenum param,Plfloat* v1,Plfloat* v2,Plfloat* v3);
+PL_API void plGetDynamicWorldiv(Plenum param,Plint* values,Plsizei lenght);
+PL_API void plGetDynamicWorldfv(Plenum param,Plfloat* values,Plsizei lenght);
+PL_API void plContactCallBack(obtContactCallBack callback);
 
 /* Body Functions*/
-Pluint plGenBody();
-void plDeleteBody(Pluint body);
-void plBindBody(Pluint body);
-void plRigidBodyi(Plenum param,Plint value);
-void plRigidBodyf(Plenum param,Plfloat value);
-void plRigidBody3f(Plenum param,Plfloat v1,Plfloat v2,Plfloat v3);
-void plRigidBodyfv(Plenum param,Plfloat* values,Plsizei lenght);
+PL_API Pluint plGenBody();
+PL_API void plDeleteBody(Pluint body);
+PL_API void plBindBody(Pluint body);
+PL_API void plRigidBodyi(Plenum param,Plint value);
+PL_API void plRigidBodyf(Plenum param,Plfloat value);
+PL_API void plRigidBody3f(Plenum param,Plfloat v1,Plfloat v2,Plfloat v3);
+PL_API void plRigidBodyfv(Plenum param,Plfloat* values,Plsizei lenght);
 
-void plGetRigidBodyi(Pluint body,Plenum param,Plint* value);
-void plGetRigidBodyf(Pluint body,Plenum param,Plfloat* value);
-void plGetRigidBody3f(Pluint body,Plenum param,Plfloat* v1,Plfloat* v2,Plfloat* v3);
-void plGetRigidBodyfv(Pluint body,Plenum param,Plfloat* values,Plint lenght);
+PL_API void plGetRigidBodyi(Pluint body,Plenum param,Plint* value);
+PL_API void plGetRigidBodyf(Pluint body,Plenum param,Plfloat* value);
+PL_API void plGetRigidBody3f(Pluint body,Plenum param,Plfloat* v1,Plfloat* v2,Plfloat* v3);
+PL_API void plGetRigidBodyfv(Pluint body,Plenum param,Plfloat* values,Plint lenght);
 
 /* Shape Functions */
-Pluint plGenShape();
-void plBindShape(Pluint shape);
-void plShapei(Plenum param,Plint value);
-void plShapef(Plenum param,Plfloat value);
-void plShape3f(Plenum param,Plfloat v1,Plfloat v2,Plfloat v3);
-void plShapefv(Plenum param,Plfloat* values,Plsizei lenght);
-void plBufferData(Plenum type,Plsizei size,Plvoid* data);
+PL_API Pluint plGenShape();
+PL_API void plBindShape(Pluint shape);
+PL_API void plShapei(Plenum param,Plint value);
+PL_API void plShapef(Plenum param,Plfloat value);
+PL_API void plShape3f(Plenum param,Plfloat v1,Plfloat v2,Plfloat v3);
+PL_API void plShapefv(Plenum param,Plfloat* values,Plsizei lenght);
+PL_API void plBufferData(Plenum type,Plsizei size, void* data);
 
-void plGetShapei(Pluint shape,Plenum param,Plint* value);
-void plGetShapefv(Pluint shape,Plenum param,Plfloat* values,Plsizei lenght);
+PL_API void plGetShapei(Pluint shape,Plenum param,Plint* value);
+PL_API void plGetShapefv(Pluint shape,Plenum param,Plfloat* values,Plsizei lenght);
 
 /* Constraint Capability */
-Pluint plGenConstraint(Plenum type);
-void plBindConstraint(Pluint ctr);
-void plDeleteConstraint(Pluint ctr);
-void plConstrainti(Plenum param,Plint value);
-void plConstraintf(Plenum param,Plfloat value);
-void plConstraint3f(Plenum param,Plfloat x,Plfloat y,Plfloat z);
-void plConstraintfv(Plenum param,Plfloat* values,Plsizei lenght);
+PL_API Pluint plGenConstraint(Plenum type);
+PL_API void plBindConstraint(Pluint ctr);
+PL_API void plDeleteConstraint(Pluint ctr);
+PL_API void plConstrainti(Plenum param,Plint value);
+PL_API void plConstraintf(Plenum param,Plfloat value);
+PL_API void plConstraint3f(Plenum param,Plfloat x,Plfloat y,Plfloat z);
+PL_API void plConstraintfv(Plenum param,Plfloat* values,Plsizei lenght);
 
 /* Vehicle Ray Casting Extension */
-Pluint plGenVehicle();
-void plBindVehicle(Pluint indx);
-void plDeleteVehicle(Pluint indx);
-void plWheelf(Plint wheel,Plenum param,Plfloat value);
-void plVehiclei(Plenum param,Plint value);
-void plVehiclef(Plenum param,Plfloat value);
-void plVehicle3f(Plenum param,Plfloat x,Plfloat y,Plfloat z);
-void plVehiclefv(Plenum param,Plfloat* values,Plsizei lenght);
-void plGetWheelfv(Plint wheel,Plenum param,Plfloat* values,Plsizei lenght);
+PL_API Pluint plGenVehicle();
+PL_API void plBindVehicle(Pluint indx);
+PL_API void plDeleteVehicle(Pluint indx);
+PL_API void plWheelf(Plint wheel,Plenum param,Plfloat value);
+PL_API void plVehiclei(Plenum param,Plint value);
+PL_API void plVehiclef(Plenum param,Plfloat value);
+PL_API void plVehicle3f(Plenum param,Plfloat x,Plfloat y,Plfloat z);
+PL_API void plVehiclefv(Plenum param,Plfloat* values,Plsizei lenght);
+PL_API void plGetWheelfv(Plint wheel,Plenum param,Plfloat* values,Plsizei lenght);
 
 /* Character extension */
-Pluint plGenCharacter();
-void plBindCharacter(Pluint indx);
-void plDeleteCharacter(Pluint indx);
-void plCharacterf(Plenum param,Plfloat val);
-void plCharacter3f(Plenum param,Plfloat x,Plfloat y,Plfloat z);
-void plCharacterfv(Plenum param,Plfloat* values);
-void plGetCharacterf(Pluint indx,Plenum param,Plfloat* value);
-PLbool plGetCharacterb(Pluint indx,Plenum param);
-void plGetCharacterfv(Pluint indx,Plenum param,Plfloat* values,Plsizei lenght);
+PL_API Pluint plGenCharacter();
+PL_API void plBindCharacter(Pluint indx);
+PL_API void plDeleteCharacter(Pluint indx);
+PL_API void plCharacterf(Plenum param,Plfloat val);
+PL_API void plCharacter3f(Plenum param,Plfloat x,Plfloat y,Plfloat z);
+PL_API void plCharacterfv(Plenum param,Plfloat* values);
+PL_API void plGetCharacterf(Pluint indx,Plenum param,Plfloat* value);
+PL_API PLbool plGetCharacterb(Pluint indx,Plenum param);
+PL_API void plGetCharacterfv(Pluint indx,Plenum param,Plfloat* values,Plsizei lenght);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif

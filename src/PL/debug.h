@@ -2,62 +2,55 @@
 #include <iostream>
 #include <sstream>
 
-class DebugLogger{
+class DebugLogger {
 	public:
-	DebugLogger(){
+	DebugLogger() {
 		log = "Debug Mode: ON\nInformation:";
 	}
 	
-	DebugLogger* e(std::string line){
+	DebugLogger* error(std::string line) {
 		std::stringstream ss;
 		ss << log << std::endl;
 		ss << "Error | " << line << "";
 		log = ss.str();
 		return this;
 	}
-	
-	DebugLogger* i(std::string line){
+
+	DebugLogger* info(std::string line) {
 		std::stringstream ss;
 		ss << log << std::endl;
 		ss << "Info | " <<line << "";
 		log = ss.str();
 		return this;
 	}
-	
-	DebugLogger* w(std::string line){
+
+	DebugLogger* warning(std::string line) {
 		std::stringstream ss;
 		ss << log << std::endl;
 		ss << "Warning | " <<line << "";
 		log = ss.str();
 		return this;
 	}
-	
-	DebugLogger* a(std::string text){
-		std::stringstream ss;
-		ss << log << text;
-		log = ss.str();
+
+	DebugLogger* append(std::string text) {
+		log += text;
 		return this;
 	}
 	
 	
-	DebugLogger* hex(int x){
-		std::stringstream ss;
-		ss << log << x;
-		log = ss.str();
+	DebugLogger* hex(int x) {
+		sprintf(tmp, "0x%x", x);
+		log += std::string(tmp);
 		return this;
 	}
 	
 	DebugLogger* pi(int o){
-		std::stringstream ss;
-		ss << log << o;
-		log = ss.str();
+		log += std::to_string(o);
 		return this;
 	}
 	
 	DebugLogger* pf(float o){
-		std::stringstream ss;
-		ss << log << o;
-		log = ss.str();
+		log += std::to_string(o);
 		return this;
 	}
 	
@@ -80,4 +73,5 @@ class DebugLogger{
 	
 	private:
 	std::string log;
+	char tmp[10];
 };

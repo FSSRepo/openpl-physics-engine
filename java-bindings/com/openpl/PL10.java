@@ -377,19 +377,13 @@ public class PL10
 	public static native float plGetCharacterf(int indx,int param);
 	public static native boolean plGetCharacterb(int indx,int param);
 	public static native void plGetCharacterfv(int indx,int param,float[] values,int lenght);
-	
-	
-	 // Windows
+
 	static {
 		String osArch = System.getProperty("os.arch");
 		if(osArch.equals("amd64") || osArch.equals("x86_64")){
-       		System.loadLibrary("openpl64");
-		}else{
+    		System.loadLibrary("openpl64");
+		} else {
 			System.loadLibrary("openpl");
 		}
     }
-	/*
-	static{
-		System.loadLibrary("openpl");
-	}*/
 }

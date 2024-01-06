@@ -1,4 +1,5 @@
 #include "pl10.h"
+#include "BulletContext.h"
 
 BulletContext* ctx = NULL;
 obtContactCallBack contactCB = 0;
@@ -10,12 +11,12 @@ inline void REPORT_ERROR(int error) {
 inline bool callbackFunc(btManifoldPoint& cp,const btCollisionObjectWrapper* obj1,int id1,int index1,const btCollisionObjectWrapper* obj2,int id2,int index2){
 	if(!ctx->contact_testing){
 		if(ctx->debug_mode){
-			ctx->debug->e("ContactTestError: return 0");
+			ctx->debug->error("ContactTestError: return 0");
 		}
 		return false;
 	}
 	if(ctx->debug_mode){
-		ctx->debug->i("Collision");
+		ctx->debug->info("Collision");
 	}
 	const btCollisionObject* co0 = obj1->m_collisionObject;
 	const btCollisionObject* co1 = obj2->m_collisionObject;
@@ -23,7 +24,7 @@ inline bool callbackFunc(btManifoldPoint& cp,const btCollisionObjectWrapper* obj
 	bool match1 = ctx->col_filter(((ContactCBInfo*)co1->getUserPointer()),((ContactCBInfo*)co0->getUserPointer()));
 	if(contactCB){
 		if(ctx->debug_mode){
-			ctx->debug->i("INTERNAL: contact testing");
+			ctx->debug->info("INTERNAL: contact testing");
 		}
 		return (!match0 && !match1) ? false : contactCB(((ContactCBInfo*)co0->getUserPointer())->user_ptr,match0,((ContactCBInfo*)co1->getUserPointer())->user_ptr,match1);
 	}
@@ -56,7 +57,7 @@ inline int getParamLen(Plenum param){
 			return 6;
 		default:
 		if(ctx->debug_mode){
-			ctx->debug->e("method (fv): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("method (fv): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 			REPORT_ERROR(PL_INVALID_ENUM);
 			return -1;
@@ -86,7 +87,7 @@ PLbool plCreateContext(){
 		}
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->w("plCreateContext(): context has already been created");
+			ctx->debug->warning("plCreateContext(): context has already been created");
 		}
 		return 1;
 	}
@@ -140,7 +141,7 @@ Plint plGetInteger(Plenum param){
 			return 287;
 		default:
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetInteger(): parameter not supported.");
+			ctx->debug->error("plGetInteger(): parameter not supported.");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 		return 0;
@@ -167,7 +168,7 @@ void plDynamicWorldi(Plenum param,Plint value){
 		btRigidBody* b = ctx->getRigidBody(value);
 		if(b == NULL){
 			if(ctx->debug_mode){
-				ctx->debug->e("plDynamicWorldi(): body not exist");
+				ctx->debug->error("plDynamicWorldi(): body not exist");
 			}
 			ctx->has_global_error = true;
 			REPORT_ERROR(PL_INVALID_NAME);
@@ -179,7 +180,7 @@ void plDynamicWorldi(Plenum param,Plint value){
 		btRigidBody* b = ctx->getRigidBody(value);
 		if(b == NULL){
 			if(ctx->debug_mode){
-				ctx->debug->e("plDynamicWorldi(): body not exist");
+				ctx->debug->error("plDynamicWorldi(): body not exist");
 			}
 			REPORT_ERROR(PL_INVALID_NAME);
 			ctx->has_global_error = true;
@@ -193,7 +194,7 @@ void plDynamicWorldi(Plenum param,Plint value){
 		btTypedConstraint* c = ctx->getConstraint(value);
 		if(c == NULL){
 			if(ctx->debug_mode){
-				ctx->debug->e("plDynamicWorldi(): constraint not exist");
+				ctx->debug->error("plDynamicWorldi(): constraint not exist");
 			}
 			REPORT_ERROR(PL_INVALID_NAME);
 			ctx->has_global_error = true;
@@ -205,7 +206,7 @@ void plDynamicWorldi(Plenum param,Plint value){
 		btTypedConstraint* c = ctx->getConstraint(value);
 		if(c == NULL){
 			if(ctx->debug_mode){
-				ctx->debug->e("plDynamicWorldi(): constraint not exist");
+				ctx->debug->error("plDynamicWorldi(): constraint not exist");
 			}
 			REPORT_ERROR(PL_INVALID_NAME);
 			ctx->has_global_error = true;
@@ -216,13 +217,13 @@ void plDynamicWorldi(Plenum param,Plint value){
 	}else if(param == PL_INIT_VEHICLE_RAYCASTER){
 		ctx->initVehicleRayCaster();
 		if(ctx->debug_mode){
-				ctx->debug->i("plDynamicWorldi(): vehicle ray caster context is initialized.");
+				ctx->debug->info("plDynamicWorldi(): vehicle ray caster context is initialized.");
 		}
 		return;
 	}else if(param == PL_INIT_CHARACTER){
 		if(!ctx->isAxisSweep()){
 			if(ctx->debug_mode){
-				ctx->debug->w("plDynamicWorldi(): use AxisSweep3. Otherwise the character context may not work!");
+				ctx->debug->warning("plDynamicWorldi(): use AxisSweep3. Otherwise the character context may not work!");
 			}
 		}
 		ctx->initCharacterContext();
@@ -232,7 +233,7 @@ void plDynamicWorldi(Plenum param,Plint value){
 		if(!ch){
 			REPORT_ERROR(PL_INVALID_NAME);
 			if(ctx->debug_mode){
-				ctx->debug->e("plDynamicWorldi(): invalid name");
+				ctx->debug->error("plDynamicWorldi(): invalid name");
 			}
 			return;
 		}
@@ -243,7 +244,7 @@ void plDynamicWorldi(Plenum param,Plint value){
 		btRaycastVehicle* v = ctx->getVehicle(value);
 		if(v == NULL){
 			if(ctx->debug_mode){
-				ctx->debug->e("plDynamicWorldi(): vehicle not exist");
+				ctx->debug->error("plDynamicWorldi(): vehicle not exist");
 			}
 			REPORT_ERROR(PL_INVALID_NAME);
 			ctx->has_global_error = true;
@@ -267,7 +268,7 @@ void plDynamicWorldi(Plenum param,Plint value){
 		case PL_USER_POINTER:
 			if(ctx->findRigidBodyByUserPointer(value)){
 				if(ctx->debug_mode){
-					ctx->debug->i("plDynamicWorldi(): rigid body founded and binded");
+					ctx->debug->info("plDynamicWorldi(): rigid body founded and binded");
 				}
 			}
 			break;
@@ -284,7 +285,7 @@ void plDynamicWorldi(Plenum param,Plint value){
 			break;
 		default:
 		if(ctx->debug_mode){
-			ctx->debug->e("plDynamicWorldi(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plDynamicWorldi(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		ctx->has_global_error = true;
 		REPORT_ERROR(PL_INVALID_ENUM);
@@ -301,7 +302,7 @@ void plDynamicWorld3f(Plenum param,Plfloat v0,Plfloat v1,Plfloat v2){
 			ctx->getWorld()->setGravity(
 				btVector3(v0,v1,v2));
 			if(ctx->debug_mode){
-				ctx->debug->i("Setup gravity (")->pf(v0)->a(", ")->pf(v1)->a(", ")->pf(v2)->a(")");
+				ctx->debug->info("Setup gravity (")->pf(v0)->append(", ")->pf(v1)->append(", ")->pf(v2)->append(")");
 			}
 			break;
 		case PL_USE_AXIS_SWEEP3:
@@ -313,7 +314,7 @@ void plDynamicWorld3f(Plenum param,Plfloat v0,Plfloat v1,Plfloat v2){
 			break;
 		default:
 		if(ctx->debug_mode){
-			ctx->debug->e("plDynamicWorld3f(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plDynamicWorld3f(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		ctx->has_global_error = true;
 		REPORT_ERROR(PL_INVALID_ENUM);
@@ -332,7 +333,7 @@ void plDynamicWorldfv(Plenum param,Plfloat* values,Plsizei lenght){
 	if(lenght == 0 ||  lenght != numLen){
 		REPORT_ERROR(PL_INVALID_VALUE);
 		if(ctx->debug_mode){
-			ctx->debug->w("plDynamicWorldfv(): invalid lenght value.");
+			ctx->debug->warning("plDynamicWorldfv(): invalid lenght value.");
 		}
 		return;
 	}
@@ -360,7 +361,7 @@ void plDynamicWorldfv(Plenum param,Plfloat* values,Plsizei lenght){
 			break;
 		default:
 		if(ctx->debug_mode){
-			ctx->debug->e("plDynamicWorldfv(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plDynamicWorldfv(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		ctx->has_global_error = true;
 		REPORT_ERROR(PL_INVALID_ENUM);
@@ -394,7 +395,7 @@ void plGetDynamicWorldi(Plenum param,Plint* value){
 			break;
 		default:
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetDynamicWorldi(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plGetDynamicWorldi(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 		break;
@@ -417,7 +418,7 @@ void plGetDynamicWorld3f(Plenum param,Plfloat* v0,Plfloat* v1,Plfloat* v2){
 			*v1 = 0;
 			*v2 = 0;
 			if(ctx->debug_mode){
-				ctx->debug->w("plGetDynamicWorld3f(): test a ray first");
+				ctx->debug->warning("plGetDynamicWorld3f(): test a ray first");
 			}
 			return;
 		}
@@ -428,7 +429,7 @@ void plGetDynamicWorld3f(Plenum param,Plfloat* v0,Plfloat* v1,Plfloat* v2){
 		return;
 	}
 	if(ctx->debug_mode){
-		ctx->debug->e("plGetDynamicWorld3f(): parameter invalid")->a(" (")->hex(param)->a(")");
+		ctx->debug->error("plGetDynamicWorld3f(): parameter invalid")->append(" (")->hex(param)->append(")");
 	}
 	REPORT_ERROR(PL_INVALID_ENUM);
 }
@@ -440,14 +441,14 @@ void plGetDynamicWorldiv(Plenum param,Plint* values,Plsizei lenght){
 	if(param == PL_RAY_BODY_RESULT){
 		if(!ctx->hasRayTest()){
 			if(ctx->debug_mode){
-				ctx->debug->e("plGetDynamicWorldiv(): there isn't a ray test");
+				ctx->debug->error("plGetDynamicWorldiv(): there isn't a ray test");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 			return;
 		}
 		if(ctx->getNumRayTest() != lenght){
 			if(ctx->debug_mode){
-				ctx->debug->e("plGetDynamicWorldiv(): invalid lenght value");
+				ctx->debug->error("plGetDynamicWorldiv(): invalid lenght value");
 			}
 			REPORT_ERROR(PL_INVALID_VALUE);
 			return;
@@ -458,7 +459,7 @@ void plGetDynamicWorldiv(Plenum param,Plint* values,Plsizei lenght){
 		return;
 	}
 	if(ctx->debug_mode){
-		ctx->debug->e("plGetDynamicWorldiv(): parameter invalid")->a(" (")->hex(param)->a(")");
+		ctx->debug->error("plGetDynamicWorldiv(): parameter invalid")->append(" (")->hex(param)->append(")");
 	}
 	REPORT_ERROR(PL_INVALID_ENUM);
 }
@@ -467,14 +468,14 @@ void plGetDynamicWorldfv(Plenum param,Plfloat* values,Plsizei lenght){
 	if(param == PL_RAY_POINT_RESULT){
 		if(!ctx->hasRayTest()){
 			if(ctx->debug_mode){
-				ctx->debug->e("plGetDynamicWorldfv(): there isn't a ray test");
+				ctx->debug->error("plGetDynamicWorldfv(): there isn't a ray test");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 			return;
 		}
 		if((lenght / 3) > PL_MAX_RAY_RESULTS){
 			if(ctx->debug_mode){
-				ctx->debug->e("plGetDynamicWorldfv(): lenght is a lot of the maximum of results ")->pi(PL_MAX_RAY_RESULTS);
+				ctx->debug->error("plGetDynamicWorldfv(): lenght is a lot of the maximum of results ")->pi(PL_MAX_RAY_RESULTS);
 			}
 			REPORT_ERROR(PL_INVALID_VALUE);
 			return;
@@ -491,14 +492,14 @@ void plGetDynamicWorldfv(Plenum param,Plfloat* values,Plsizei lenght){
 	}else if(param == PL_RAY_NORMAL_RESULT){
 		if(!ctx->hasRayTest()){
 			if(ctx->debug_mode){
-				ctx->debug->e("plGetDynamicWorldfv(): there isn't a ray test");
+				ctx->debug->error("plGetDynamicWorldfv(): there isn't a ray test");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 			return;
 		}
 		if(ctx->getNumRayTest() != (lenght / 3)){
 			if(ctx->debug_mode){
-				ctx->debug->w("plGetDynamicWorldfv(): invalid lenght value.");
+				ctx->debug->warning("plGetDynamicWorldfv(): invalid lenght value.");
 			}
 			REPORT_ERROR(PL_INVALID_VALUE);
 			return;
@@ -514,7 +515,7 @@ void plGetDynamicWorldfv(Plenum param,Plfloat* values,Plsizei lenght){
 		return;
 	}
 	if(ctx->debug_mode){
-		ctx->debug->e("plGetDynamicWorldfv(): parameter invalid")->a(" (")->hex(param)->a(")");
+		ctx->debug->error("plGetDynamicWorldfv(): parameter invalid")->append(" (")->hex(param)->append(")");
 	}
 	REPORT_ERROR(PL_INVALID_ENUM);
 }
@@ -524,7 +525,7 @@ void plCreate(int target){
 		if(target == PL_RIGID_BODY){
 			if(ctx->cur_body <= 0){
 				if(ctx->debug_mode){
-					ctx->debug->w("plCreate(): rigid body name is 0.");
+					ctx->debug->warning("plCreate(): rigid body name is 0.");
 				}
 				REPORT_ERROR(PL_INVALID_NAME);
 				ctx->has_global_error = true;
@@ -537,14 +538,14 @@ void plCreate(int target){
 					ctx->body_queue = NULL;
 				}else{
 					if(ctx->debug_mode){
-						ctx->debug->e("plCreate(): failure the creation of the rigid body");
+						ctx->debug->error("plCreate(): failure the creation of the rigid body");
 					}
 					ctx->has_global_error = true;
 					REPORT_ERROR(PL_INVALID_VALUE);
 				}
 			}else{
 				if(ctx->debug_mode){
-					ctx->debug->w("plCreate(): you must have a rigid body in the queue");
+					ctx->debug->warning("plCreate(): you must have a rigid body in the queue");
 				}
 				ctx->has_global_error = true;
 				REPORT_ERROR(PL_INVALID_OPERATION);
@@ -553,7 +554,7 @@ void plCreate(int target){
 		}else if(target == PL_TYPED_CONSTRAINT){
 			if(ctx->cur_const <= 0){
 				if(ctx->debug_mode){
-					ctx->debug->w("plCreate(): constrain name is 0.");
+					ctx->debug->warning("plCreate(): constrain name is 0.");
 				}
 				REPORT_ERROR(PL_INVALID_NAME);
 				ctx->has_global_error = true;
@@ -561,7 +562,7 @@ void plCreate(int target){
 			}
 			if(!ctx->const_queue){
 				if(ctx->debug_mode){
-					ctx->debug->w("plCreate(): you must have a constraint in the queue");
+					ctx->debug->warning("plCreate(): you must have a constraint in the queue");
 				}
 				ctx->has_global_error = true;
 				REPORT_ERROR(PL_INVALID_OPERATION);
@@ -573,7 +574,7 @@ void plCreate(int target){
 					ctx->const_queue = NULL;
 				}else{
 					if(ctx->debug_mode){
-						ctx->debug->e("plCreate(): failure the creation of the constraint");
+						ctx->debug->error("plCreate(): failure the creation of the constraint");
 					}
 					ctx->has_global_error = true;
 					REPORT_ERROR(PL_INVALID_VALUE);
@@ -583,7 +584,7 @@ void plCreate(int target){
 		}else if(target == PL_RAYCAST_VEHICLE){
 			if(!ctx->veh_queue){
 				if(ctx->debug_mode){
-					ctx->debug->w("plCreate(): you must have a vehicle in the queue");
+					ctx->debug->warning("plCreate(): you must have a vehicle in the queue");
 				}
 				ctx->has_global_error = true;
 				REPORT_ERROR(PL_INVALID_OPERATION);
@@ -595,7 +596,7 @@ void plCreate(int target){
 					ctx->veh_queue = NULL;
 				}else{
 					if(ctx->debug_mode){
-						ctx->debug->e("plCreate(): failure the creation of the vehicle");
+						ctx->debug->error("plCreate(): failure the creation of the vehicle");
 					}
 					ctx->has_global_error = true;
 					REPORT_ERROR(PL_INVALID_VALUE);
@@ -605,7 +606,7 @@ void plCreate(int target){
 		}else if(target == PL_CHARACTER){
 			if(!ctx->char_queue){
 				if(ctx->debug_mode){
-					ctx->debug->w("plCreate(): you must have a character in the queue");
+					ctx->debug->warning("plCreate(): you must have a character in the queue");
 				}
 				ctx->has_global_error = true;
 				REPORT_ERROR(PL_INVALID_OPERATION);
@@ -617,7 +618,7 @@ void plCreate(int target){
 				ctx->char_queue = NULL;
 			}else{
 				if(ctx->debug_mode){
-					ctx->debug->e("plCreate(): failure the creation of the character");
+					ctx->debug->error("plCreate(): failure the creation of the character");
 				}
 				ctx->has_global_error = true;
 				REPORT_ERROR(PL_INVALID_VALUE);
@@ -627,7 +628,7 @@ void plCreate(int target){
 		if(ctx->shape_queue){
 			if(ctx->cur_shape <= 0){
 				if(ctx->debug_mode){
-					ctx->debug->w("plCreate(): shape name is invalid.");
+					ctx->debug->warning("plCreate(): shape name is invalid.");
 				}
 				ctx->has_global_error = true;
 				REPORT_ERROR(PL_INVALID_NAME);
@@ -644,7 +645,7 @@ void plCreate(int target){
 			}
 		}else{
 			if(target == PL_COLLISION_SHAPE && ctx->debug_mode){
-				ctx->debug->w("plCreate(): you must have a shape in the queue.");
+				ctx->debug->warning("plCreate(): you must have a shape in the queue.");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 			ctx->has_global_error = true;
@@ -657,12 +658,12 @@ void plContactCallBack(obtContactCallBack callback){
 	if(!callback){
 		ctx->contact_testing = false;
 		if(ctx->debug_mode){
-			ctx->debug->e("plContactCallBack(): callback is null, contact test is disabled");
+			ctx->debug->error("plContactCallBack(): callback is null, contact test is disabled");
 		}
 	}else{
 		gContactAddedCallback = callbackFunc;
 		if(ctx->debug_mode){
-			ctx->debug->i("plContactCallBack(): integred contact callback, contact test is ready.");
+			ctx->debug->info("plContactCallBack(): integred contact callback, contact test is ready.");
 		}
 	}
 }
@@ -677,7 +678,7 @@ Pluint plGenShape(){
 	}
 	if(ctx->shape_queue){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGenShape(): you can't create a shape.\n call btCreate() for enqueue the current shape.");
+			ctx->debug->error("plGenShape(): you can't create a shape.\n call btCreate() for enqueue the current shape.");
 		}
 		REPORT_ERROR(PL_INVALID_OPERATION);
 		return 0;
@@ -690,7 +691,7 @@ void plBindShape(Pluint shape){
 		ctx->cur_shape = shape;
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plBindShape(): you can't bind this shape. unbind the previous shape");
+			ctx->debug->error("plBindShape(): you can't bind this shape. unbind the previous shape");
 		}
 		REPORT_ERROR(PL_INVALID_OPERATION);
 	}
@@ -701,7 +702,7 @@ void plBindBody(Pluint body){
 		ctx->cur_body = body;
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plBindBody(): you can't bind this body. unbind the previous body.");
+			ctx->debug->error("plBindBody(): you can't bind this body. unbind the previous body.");
 		}
 		REPORT_ERROR(PL_INVALID_OPERATION);
 	}
@@ -713,7 +714,7 @@ void plShapei(Plenum param,Plint value){
 	}
 	if(ctx->cur_shape <= 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plShapei(): shape name invalid.");
+			ctx->debug->warning("plShapei(): shape name invalid.");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -733,7 +734,7 @@ void plShapei(Plenum param,Plint value){
 			break;
 		default:
 		if(ctx->debug_mode){
-			ctx->debug->e("plShapei(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plShapei(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 		break;
@@ -746,7 +747,7 @@ void plShapef(Plenum param,Plfloat value){
 	}
 	if(ctx->cur_shape == 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plShapef(): shape name is 0.");
+			ctx->debug->warning("plShapef(): shape name is 0.");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -757,7 +758,7 @@ void plShapef(Plenum param,Plfloat value){
 			return;
 		}else{
 			if(ctx->debug_mode){
-				ctx->debug->e("plShapef(): the shape to assing the radius has already been created.");
+				ctx->debug->error("plShapef(): the shape to assing the radius has already been created.");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 		}
@@ -767,7 +768,7 @@ void plShapef(Plenum param,Plfloat value){
 			return;
 		}else{
 			if(ctx->debug_mode){
-				ctx->debug->e("plShapef(): the shape to assing the height has already been created.");
+				ctx->debug->error("plShapef(): the shape to assing the height has already been created.");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 		}
@@ -777,13 +778,13 @@ void plShapef(Plenum param,Plfloat value){
 			return;
 		}else{
 			if(ctx->debug_mode){
-				ctx->debug->e("plShapef(): the shape to assing the plane constant has already been created.");
+				ctx->debug->error("plShapef(): the shape to assing the plane constant has already been created.");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 		}
 	}else {
 		if(ctx->debug_mode){
-			ctx->debug->e("plShapef(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plShapef(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 	}
@@ -795,7 +796,7 @@ void plShape3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 	}
 	if(ctx->cur_shape <= 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plShape3f(): shape name is 0.");
+			ctx->debug->warning("plShape3f(): shape name is 0.");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -805,7 +806,7 @@ void plShape3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 			ctx->shape_queue->tmp3.setValue(x,y,z);
 		}else{
 			if(ctx->debug_mode){
-				ctx->debug->e("plShape3f(): the shape to assing the extent has already been created.");
+				ctx->debug->error("plShape3f(): the shape to assing the extent has already been created.");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 		}
@@ -814,7 +815,7 @@ void plShape3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 			ctx->shape_queue->tmp3.setValue(x,y,z);
 		}else{
 			if(ctx->debug_mode){
-				ctx->debug->e("plShape3f(): the shape to assing the plane normal has already been created.");
+				ctx->debug->error("plShape3f(): the shape to assing the plane normal has already been created.");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 		}
@@ -822,7 +823,7 @@ void plShape3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 		ctx->getCollisionShape(ctx->cur_shape)->setLocalScaling(btVector3(x,y,z));
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plShape3f(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plShape3f(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 	}
@@ -834,7 +835,7 @@ void plShapefv(Plenum param,Plfloat* values,Plsizei lenght){
 	}
 	if(lenght == 0){
 		if(ctx->debug_mode){
-			ctx->debug->e("plShapefv(): invalid lenght value");
+			ctx->debug->error("plShapefv(): invalid lenght value");
 		}
 		REPORT_ERROR(PL_INVALID_VALUE);
 		return;
@@ -845,17 +846,17 @@ void plShapefv(Plenum param,Plfloat* values,Plsizei lenght){
 	}
 	if(ctx->cur_shape > 0){
 		if(ctx->debug_mode){
-			ctx->debug->e("plShapefv(): not implemented");
+			ctx->debug->error("plShapefv(): not implemented");
 		}
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->w("plShapefv(): shape name is 0");
+			ctx->debug->warning("plShapefv(): shape name is 0");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 	}
 }
 
-void plBufferData(Plenum type,Plsizei size,Plvoid* data){
+void plBufferData(Plenum type,Plsizei size, void* data) {
 	if(type == PL_VERTEX_BUFFER){
 		ctx->shape_queue->temp_vertex = reinterpret_cast<float*>(data);
 		ctx->shape_queue->vertexCount = size;
@@ -871,7 +872,7 @@ void plGetShapei(Pluint shape,Plenum param,Plint* value){
 	}
 	if(shape <= 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plGetShapei(): shape name is 0.");
+			ctx->debug->warning("plGetShapei(): shape name is 0.");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -912,7 +913,7 @@ void plGetShapei(Pluint shape,Plenum param,Plint* value){
 		*value = ((btCompoundShape*)ctx->getCollisionShape(ctx->cur_shape))->getNumChildShapes();
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetShapei(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plGetShapei(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 	}
@@ -924,7 +925,7 @@ void plGetShapefv(Pluint shape,Plenum param,Plfloat* values,Plsizei lenght){
 	}
 	if(lenght == 0){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetShapefv(): invalid lenght value");
+			ctx->debug->error("plGetShapefv(): invalid lenght value");
 		}
 		REPORT_ERROR(PL_INVALID_VALUE);
 		return;
@@ -932,11 +933,11 @@ void plGetShapefv(Pluint shape,Plenum param,Plfloat* values,Plsizei lenght){
 	if(shape > 0){
 		// put the parameter to get
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetShapefv(): not available");
+			ctx->debug->error("plGetShapefv(): not available");
 		}
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->w("plGetShapefv(): shape name is 0");
+			ctx->debug->warning("plGetShapefv(): shape name is 0");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 	}
@@ -952,7 +953,7 @@ Pluint plGenBody(){
 	}
 	if(ctx->body_queue){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGenBody(): you can't create a body.\n call btCreate() for enqueue the current body.");
+			ctx->debug->error("plGenBody(): you can't create a body.\n call btCreate() for enqueue the current body.");
 		}
 		REPORT_ERROR(PL_INVALID_OPERATION);
 		return 0;
@@ -966,7 +967,7 @@ void plDeleteBody(Pluint body){
 	}
 	if(body <= 0 || ctx->cur_body == body){
 		if(ctx->debug_mode){
-			ctx->debug->e("plDeleteBody(): cause 1: you can't delete the current body.\ncause 2: body name is 0");
+			ctx->debug->error("plDeleteBody(): cause 1: you can't delete the current body.\ncause 2: body name is 0");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -980,7 +981,7 @@ void plRigidBodyi(Plenum param,Plint value){
 	}
 	if(ctx->cur_body <= 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plRigidBodyi(): body name is 0.");
+			ctx->debug->warning("plRigidBodyi(): body name is 0.");
 		}
 		ctx->has_global_error = true;
 		REPORT_ERROR(PL_INVALID_NAME);
@@ -989,7 +990,7 @@ void plRigidBodyi(Plenum param,Plint value){
 	btRigidBody* rb = ctx->getRigidBody(ctx->cur_body);
 	if(!ctx->body_queue && rb == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plRigidBodyi(): rigid body not exist.");
+			ctx->debug->error("plRigidBodyi(): rigid body not exist.");
 		}
 		ctx->has_global_error = true;
 		REPORT_ERROR(PL_INVALID_NAME);
@@ -1054,7 +1055,7 @@ void plRigidBodyi(Plenum param,Plint value){
 		rb->setAnisotropicFriction(shape->getAnisotropicRollingFrictionDirection(),btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plRigidBodyi(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plRigidBodyi(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 	}
@@ -1067,7 +1068,7 @@ void plRigidBodyf(Plenum param,Plfloat value){
 	
 	if(ctx->cur_body <= 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plRigidBodyf(): body name is 0.");
+			ctx->debug->warning("plRigidBodyf(): body name is 0.");
 		}
 		ctx->has_global_error = true;
 		REPORT_ERROR(PL_INVALID_NAME);
@@ -1077,7 +1078,7 @@ void plRigidBodyf(Plenum param,Plfloat value){
 	btRigidBody* rb = ctx->getRigidBody(ctx->cur_body);
 	if(!ctx->body_queue && rb == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plRigidBodyf(): rigid body not exist.");
+			ctx->debug->error("plRigidBodyf(): rigid body not exist.");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1115,7 +1116,7 @@ void plRigidBodyf(Plenum param,Plfloat value){
 		rb->setRestitution(value);
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plRigidBodyf(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plRigidBodyf(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 	}
@@ -1127,7 +1128,7 @@ void plRigidBody3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 	}
 	if(ctx->cur_body <= 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plRigidBody3f(): body name is 0.");
+			ctx->debug->warning("plRigidBody3f(): body name is 0.");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1135,7 +1136,7 @@ void plRigidBody3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 	btRigidBody* rb = ctx->getRigidBody(ctx->cur_body);
 	if(param != PL_MOTION_STATE_POSITION && rb == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plRigidBody3f(): rigid body not exist.");
+			ctx->debug->error("plRigidBody3f(): rigid body not exist.");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1152,14 +1153,14 @@ void plRigidBody3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 				ctx->body_queue->motion = new btDefaultMotionState(t);
 			}else{
 				if(ctx->debug_mode){
-					ctx->debug->w("plRigidBody3f(): You can only call one times this parameter");
+					ctx->debug->warning("plRigidBody3f(): You can only call one times this parameter");
 				}
 				REPORT_ERROR(PL_INVALID_OPERATION);
 				return;
 			}
 		}else{
 			if(ctx->debug_mode){
-				ctx->debug->w("plRigidBody3f(): MOTION_STATE_POSITION not available");
+				ctx->debug->warning("plRigidBody3f(): MOTION_STATE_POSITION not available");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 			return;
@@ -1189,7 +1190,7 @@ void plRigidBody3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 		rb->setInterpolationAngularVelocity(btVector3(x,y,z));
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plRigidBody3f(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plRigidBody3f(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 	}
@@ -1201,7 +1202,7 @@ void plRigidBodyfv(Plenum param,Plfloat* values,Plsizei lenght){
 	}
 	if(ctx->cur_body <= 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plRigidBodyfv(): body name is 0.");
+			ctx->debug->warning("plRigidBodyfv(): body name is 0.");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1212,7 +1213,7 @@ void plRigidBodyfv(Plenum param,Plfloat* values,Plsizei lenght){
 	}
 	if(lenght == 0 ||  lenght != numLen){
 		if(ctx->debug_mode){
-			ctx->debug->w("plRigidBodyfv(): invalid lenght value, use lenght: ")->pi(numLen)->a(" and try again");
+			ctx->debug->warning("plRigidBodyfv(): invalid lenght value, use lenght: ")->pi(numLen)->append(" and try again");
 		}
 		REPORT_ERROR(PL_INVALID_VALUE);
 		return;
@@ -1220,7 +1221,7 @@ void plRigidBodyfv(Plenum param,Plfloat* values,Plsizei lenght){
 	btRigidBody* rb = ctx->getRigidBody(ctx->cur_body);
 	if(!ctx->body_queue && rb == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plRigidBodyfv(): rigid body not exist.");
+			ctx->debug->error("plRigidBodyfv(): rigid body not exist.");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1266,14 +1267,14 @@ void plRigidBodyfv(Plenum param,Plfloat* values,Plsizei lenght){
 				ctx->body_queue->motion = new btDefaultMotionState(t);
 			}else{
 				if(ctx->debug_mode){
-					ctx->debug->w("plRigidBodyfv(): You can only call one times this parameter");
+					ctx->debug->warning("plRigidBodyfv(): You can only call one times this parameter");
 				}
 				REPORT_ERROR(PL_INVALID_OPERATION);
 				return;
 			}
 		}else{
 			if(ctx->debug_mode){
-				ctx->debug->w("plRigidBodyfv(): MOTION_STATE_TRANSFORM not available");
+				ctx->debug->warning("plRigidBodyfv(): MOTION_STATE_TRANSFORM not available");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 			return;
@@ -1287,14 +1288,14 @@ void plRigidBodyfv(Plenum param,Plfloat* values,Plsizei lenght){
 				ctx->body_queue->motion = new btDefaultMotionState(t);
 			}else{
 				if(ctx->debug_mode){
-					ctx->debug->w("plRigidBodyfv(): You can only call one times this parameter");
+					ctx->debug->warning("plRigidBodyfv(): You can only call one times this parameter");
 				}
 				REPORT_ERROR(PL_INVALID_OPERATION);
 				return;
 			}
 		}else{
 			if(ctx->debug_mode){
-				ctx->debug->w("plRigidBodyfv(): MOTION_STATE_TRANSFORM not available");
+				ctx->debug->warning("plRigidBodyfv(): MOTION_STATE_TRANSFORM not available");
 			}
 			REPORT_ERROR(PL_INVALID_OPERATION);
 			return;
@@ -1311,7 +1312,7 @@ void plRigidBodyfv(Plenum param,Plfloat* values,Plsizei lenght){
 		rb->setInterpolationWorldTransform(t);
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plRigidBodyfv(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plRigidBodyfv(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 	}
@@ -1323,7 +1324,7 @@ void plGetRigidBodyi(Pluint body,Plenum param,Plint* value){
 	}
 	if(body <= 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plGetRigidBodyi(): body name is 0.");
+			ctx->debug->warning("plGetRigidBodyi(): body name is 0.");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1331,7 +1332,7 @@ void plGetRigidBodyi(Pluint body,Plenum param,Plint* value){
 	btRigidBody* rb = ctx->getRigidBody(body);
 	if(!ctx->body_queue && rb == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetRigidBodyi(): rigid body not exist.");
+			ctx->debug->error("plGetRigidBodyi(): rigid body not exist.");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1364,7 +1365,7 @@ void plGetRigidBodyi(Pluint body,Plenum param,Plint* value){
 		
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetRigidBodyi(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plGetRigidBodyi(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 	}
@@ -1376,7 +1377,7 @@ void plGetRigidBodyf(Pluint body,Plenum param,Plfloat* value){
 	}
 	if(body <= 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plGetRigidBodyf(): body name is 0");
+			ctx->debug->warning("plGetRigidBodyf(): body name is 0");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1384,7 +1385,7 @@ void plGetRigidBodyf(Pluint body,Plenum param,Plfloat* value){
 	btRigidBody* rb = ctx->getRigidBody(body);
 	if(!ctx->body_queue && rb == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetRigidBodyf(): rigid body not exist");
+			ctx->debug->error("plGetRigidBodyf(): rigid body not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1398,7 +1399,7 @@ void plGetRigidBodyf(Pluint body,Plenum param,Plfloat* value){
 		*value = rb->getAngularDamping();
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetRigidBodyf(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plGetRigidBodyf(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 	}
@@ -1409,7 +1410,7 @@ void plGetRigidBody3f(Pluint body,Plenum param,Plfloat* v1,Plfloat* v2,Plfloat* 
 	}
 	if(body <= 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plGetRigidBody3f(): body name is 0");
+			ctx->debug->warning("plGetRigidBody3f(): body name is 0");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1417,7 +1418,7 @@ void plGetRigidBody3f(Pluint body,Plenum param,Plfloat* v1,Plfloat* v2,Plfloat* 
 	btRigidBody* rb = ctx->getRigidBody(body);
 	if(!ctx->body_queue && rb == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetRigidBody3f(): rigid body not exist");
+			ctx->debug->error("plGetRigidBody3f(): rigid body not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1468,7 +1469,7 @@ void plGetRigidBody3f(Pluint body,Plenum param,Plfloat* v1,Plfloat* v2,Plfloat* 
 		*v3 = a_vel.getZ();
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetRigidBody3f(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plGetRigidBody3f(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 	}
@@ -1480,14 +1481,14 @@ void plGetRigidBodyfv(Pluint body,Plenum param,Plfloat* values,Plsizei lenght){
 	}
 	if(ctx->body_queue){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetRigidBodyfv(): call btCreate(PL_RIGID_BODY) and try again.");
+			ctx->debug->error("plGetRigidBodyfv(): call btCreate(PL_RIGID_BODY) and try again.");
 		}
 		REPORT_ERROR(PL_INVALID_OPERATION);
 		return;
 	}
 	if(body <= 0){
 		if(ctx->debug_mode){
-			ctx->debug->w("plGetRigidBodyfv(): body name is 0");
+			ctx->debug->warning("plGetRigidBodyfv(): body name is 0");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1498,7 +1499,7 @@ void plGetRigidBodyfv(Pluint body,Plenum param,Plfloat* values,Plsizei lenght){
 	}
 	if(lenght == 0 ||  lenght != numLen){
 		if(ctx->debug_mode){
-			ctx->debug->w("plGetRigidBodyfv(): invalid lenght value, use lenght: ")->pi(numLen)->a(" and try again");
+			ctx->debug->warning("plGetRigidBodyfv(): invalid lenght value, use lenght: ")->pi(numLen)->append(" and try again");
 		}
 		REPORT_ERROR(PL_INVALID_VALUE);
 		return;
@@ -1506,7 +1507,7 @@ void plGetRigidBodyfv(Pluint body,Plenum param,Plfloat* values,Plsizei lenght){
 	btRigidBody* rb = ctx->getRigidBody(body);
 	if(rb == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetRigidBodyfv(): rigid body not exist");
+			ctx->debug->error("plGetRigidBodyfv(): rigid body not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1580,7 +1581,7 @@ void plGetRigidBodyfv(Pluint body,Plenum param,Plfloat* values,Plsizei lenght){
 		values[2] = pos.getZ();
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetRigidBodyfv(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plGetRigidBodyfv(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 	}
@@ -1609,7 +1610,7 @@ void plBindConstraint(Pluint ctr){
 		ctx->cur_const = ctr;
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plBindConstraint(): you can't bind this constraint. unbind the previous constraint");
+			ctx->debug->error("plBindConstraint(): you can't bind this constraint. unbind the previous constraint");
 		}
 		REPORT_ERROR(PL_INVALID_OPERATION);
 	}
@@ -1649,7 +1650,7 @@ void plConstrainti(Plenum param,Plint value){
 	btTypedConstraint* temp = ctx->getConstraint(ctx->cur_const);
 	if(temp == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plConstrainti(): constraint not exist");
+			ctx->debug->error("plConstrainti(): constraint not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1701,7 +1702,7 @@ void plConstrainti(Plenum param,Plint value){
 			break;
 		default:
 		if(ctx->debug_mode){
-			ctx->debug->e("plConstrainti(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plConstrainti(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 		break;
@@ -1719,7 +1720,7 @@ void plConstraintf(Plenum param,Plfloat value){
 	btTypedConstraint* tmp = ctx->getConstraint(ctx->cur_const);
 	if(tmp == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plConstraintf(): constraint not exist");
+			ctx->debug->error("plConstraintf(): constraint not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1799,7 +1800,7 @@ void plConstraintf(Plenum param,Plfloat value){
 			break;
 			default:
 		if(ctx->debug_mode){
-			ctx->debug->e("plConstraintf(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plConstraintf(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 		break;
@@ -1830,7 +1831,7 @@ void plConstraint3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 	btTypedConstraint* tmp = ctx->getConstraint(ctx->cur_const);
 	if(tmp == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plConstraint3f(): constraint not exist");
+			ctx->debug->error("plConstraint3f(): constraint not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -1927,7 +1928,7 @@ void plConstraint3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 			break;
 		default:
 		if(ctx->debug_mode){
-			ctx->debug->e("plConstraint3f(): parameter invalid")->a(" (")->hex(param)->a(")");
+			ctx->debug->error("plConstraint3f(): parameter invalid")->append(" (")->hex(param)->append(")");
 		}
 		REPORT_ERROR(PL_INVALID_ENUM);
 		break;
@@ -1962,7 +1963,7 @@ Pluint plGenVehicle(){
 	}
 	if(ctx->veh_queue){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGenVehicle(): you can't create a vehicle.\n call btCreate() for enqueue the current vehicle.");
+			ctx->debug->error("plGenVehicle(): you can't create a vehicle.\n call btCreate() for enqueue the current vehicle.");
 		}
 		REPORT_ERROR(PL_INVALID_OPERATION);
 		return 0;
@@ -1978,7 +1979,7 @@ void plBindVehicle(Pluint indx){
 		ctx->cur_veh = indx;
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plBindVehicle(): you can't bind this vehicle. unbind the previous vehicle");
+			ctx->debug->error("plBindVehicle(): you can't bind this vehicle. unbind the previous vehicle");
 		}
 		REPORT_ERROR(PL_INVALID_OPERATION);
 	}
@@ -1998,7 +1999,7 @@ void plWheelf(Plint wheel,Plenum param,Plfloat value){
 	btRaycastVehicle* tmp = ctx->getVehicle(ctx->cur_veh);
 	if(tmp == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plWheelf(): vehicle not exist");
+			ctx->debug->error("plWheelf(): vehicle not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -2067,7 +2068,7 @@ void plVehicle3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 	btRaycastVehicle* tmp = ctx->getVehicle(ctx->cur_veh);
 	if(tmp == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plVehicle3f(): vehicle not exist");
+			ctx->debug->error("plVehicle3f(): vehicle not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -2086,7 +2087,7 @@ void plVehiclefv(Plenum param,Plfloat* values,Plsizei lenght){
 	btRaycastVehicle* tmp = ctx->getVehicle(ctx->cur_veh);
 	if(tmp == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plVehiclefv(): vehicle not exist");
+			ctx->debug->error("plVehiclefv(): vehicle not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -2114,7 +2115,7 @@ void plGetWheelfv(Plint wheel,Plenum param,Plfloat* values,Plsizei lenght){
 	btRaycastVehicle* tmp = ctx->getVehicle(ctx->cur_veh);
 	if(tmp == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetWheelfv(): vehicle not exist");
+			ctx->debug->error("plGetWheelfv(): vehicle not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -2144,7 +2145,7 @@ Pluint plGenCharacter(){
 	}
 	if(ctx->veh_queue){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGenCharacter(): you can't create a character.\n call btCreate() for enqueue the current character.");
+			ctx->debug->error("plGenCharacter(): you can't create a character.\n call btCreate() for enqueue the current character.");
 		}
 		REPORT_ERROR(PL_INVALID_OPERATION);
 		return 0;
@@ -2160,7 +2161,7 @@ void plBindCharacter(Pluint indx){
 		ctx->cur_char = indx;
 	}else{
 		if(ctx->debug_mode){
-			ctx->debug->e("plBindCharacter(): you can't bind this character. unbind the previous character");
+			ctx->debug->error("plBindCharacter(): you can't bind this character. unbind the previous character");
 		}
 		REPORT_ERROR(PL_INVALID_OPERATION);
 	}
@@ -2192,7 +2193,7 @@ void plCharacterf(Plenum param,Plfloat val){
 	Character* ch = ctx->getCharacter(ctx->cur_char);
 	if(ch == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plCharacterf(): character not exist");
+			ctx->debug->error("plCharacterf(): character not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -2261,7 +2262,7 @@ void plCharacter3f(Plenum param,Plfloat x,Plfloat y,Plfloat z){
 	Character* ch = ctx->getCharacter(ctx->cur_char);
 	if(ch == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plCharacter3f(): character not exist");
+			ctx->debug->error("plCharacter3f(): character not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -2296,7 +2297,7 @@ void plCharacterfv(Plenum param,Plfloat* values){
 	Character* ch = ctx->getCharacter(ctx->cur_char);
 	if(ch == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plCharacterfv(): character not exist");
+			ctx->debug->error("plCharacterfv(): character not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -2316,7 +2317,7 @@ void plGetCharacterf(Pluint indx,Plenum param,Plfloat* value){
 	Character* ch = ctx->getCharacter(indx);
 	if(ch == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetCharacterf(): character not exist");
+			ctx->debug->error("plGetCharacterf(): character not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return;
@@ -2344,7 +2345,7 @@ PLbool plGetCharacterb(Pluint indx,Plenum param){
 	Character* ch = ctx->getCharacter(indx);
 	if(ch == NULL){
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetCharacterb(): character not exist");
+			ctx->debug->error("plGetCharacterb(): character not exist");
 		}
 		REPORT_ERROR(PL_INVALID_NAME);
 		return false;
@@ -2355,6 +2356,7 @@ PLbool plGetCharacterb(Pluint indx,Plenum param){
 		case PL_CHAR_ON_GROUND:
 			return ch->control->onGround();
 	}
+	return false;
 }
 
 void plGetCharacterfv(Pluint indx,Plenum param,Plfloat* values,Plsizei lenght){
@@ -2365,7 +2367,7 @@ void plGetCharacterfv(Pluint indx,Plenum param,Plfloat* values,Plsizei lenght){
 	if(!ch){
 		REPORT_ERROR(PL_INVALID_NAME);
 		if(ctx->debug_mode){
-			ctx->debug->e("plGetCharacterfv(): invalid name");
+			ctx->debug->error("plGetCharacterfv(): invalid name");
 		}
 		return;
 	}

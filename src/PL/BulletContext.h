@@ -298,14 +298,14 @@ class BulletContext{
 	void initCharacterContext(){
 		if(is_character_context){
 			if(debug_mode){
-				debug->w("plDynamicWorldi(): character context already has been enabled.");
+				debug->warning("plDynamicWorldi(): character context already has been enabled.");
 			}
 			return;
 		}
 		is_character_context = true;
 		getWorld()->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
 		if(debug_mode){
-			debug->i("plDynamicWorldi(): character context is enabled.");
+			debug->info("plDynamicWorldi(): character context is enabled.");
 		}
 	}
 	
