@@ -857,10 +857,10 @@ void plShapefv(Plenum param,Plfloat* values,Plsizei lenght){
 }
 
 void plBufferData(Plenum type,Plsizei size, void* data) {
-	if(type == PL_VERTEX_BUFFER){
+	if(type == PL_VERTEX_BUFFER) {
 		ctx->shape_queue->temp_vertex = reinterpret_cast<float*>(data);
 		ctx->shape_queue->vertexCount = size;
-	}else if(type == PL_INDEX_BUFFER){
+	}else if(type == PL_INDEX_BUFFER) {
 		ctx->shape_queue->temp_index = reinterpret_cast<short*>(data);
 		ctx->shape_queue->indexCount = size;
 	}
@@ -1647,8 +1647,8 @@ void plConstrainti(Plenum param,Plint value){
 		}
 		return;
 	}
-	btTypedConstraint* temp = ctx->getConstraint(ctx->cur_const);
-	if(temp == NULL){
+	btTypedConstraint* tmp = ctx->getConstraint(ctx->cur_const);
+	if(tmp == NULL){
 		if(ctx->debug_mode){
 			ctx->debug->error("plConstrainti(): constraint not exist");
 		}
@@ -1657,48 +1657,51 @@ void plConstrainti(Plenum param,Plint value){
 	}
 	switch(param){
 		case PL_HC_MAX_MOTOR_IMPULSE:
-			((btHingeConstraint*)temp)->setAngularOnly(value == 1);
+			((btHingeConstraint*)tmp)->setAngularOnly(value == 1);
 			break;
 		case PL_HC_ENABLE_ANGULAR_MOTOR:
-			((btHingeConstraint*)temp)->enableMotor(value == 1);
+			((btHingeConstraint*)tmp)->enableMotor(value == 1);
+			break;
+		case PL_HC_ANGULAR_ONLY:
+			((btHingeConstraint*)tmp)->setAngularOnly(value == 1);
 			break;
 		case PL_G6DS_ENABLE_SPRING:
-			((btGeneric6DofSpringConstraint*)temp)->enableSpring(value,true);
+			((btGeneric6DofSpringConstraint*)tmp)->enableSpring(value, true);
 			break;
 		case PL_G6DS_DISABLE_SPRING:
-			((btGeneric6DofSpringConstraint*)temp)->enableSpring(value,false);
+			((btGeneric6DofSpringConstraint*)tmp)->enableSpring(value, false);
 			break;
 		case PL_G6DS_EQUILI_POINT_SPRING:
 			if(value == -1){
-				((btGeneric6DofSpringConstraint*)temp)->setEquilibriumPoint();
+				((btGeneric6DofSpringConstraint*)tmp)->setEquilibriumPoint();
 				return;
 			}
-			((btGeneric6DofSpringConstraint*)temp)->setEquilibriumPoint(value);
+			((btGeneric6DofSpringConstraint*)tmp)->setEquilibriumPoint(value);
 			break;
 		case PL_G6DS2_ENABLE_SPRING:
-			((btGeneric6DofSpring2Constraint*)temp)->enableSpring(value,true);
+			((btGeneric6DofSpring2Constraint*)tmp)->enableSpring(value, true);
 			break;
 		case PL_G6DS2_DISABLE_SPRING:
-			((btGeneric6DofSpring2Constraint*)temp)->enableSpring(value,false);
+			((btGeneric6DofSpring2Constraint*)tmp)->enableSpring(value, false);
 			break;
 		case PL_G6DS2_EQUILI_POINT_SPRING:
 			if(value == -1){
-				((btGeneric6DofSpring2Constraint*)temp)->setEquilibriumPoint();
+				((btGeneric6DofSpring2Constraint*)tmp)->setEquilibriumPoint();
 				return;
 			}
-			((btGeneric6DofSpring2Constraint*)temp)->setEquilibriumPoint(value);
+			((btGeneric6DofSpring2Constraint*)tmp)->setEquilibriumPoint(value);
 			break;
 		case PL_G6DS2_ENABLE_MOTOR:
-			((btGeneric6DofSpring2Constraint*)temp)->enableMotor(value,true);
+			((btGeneric6DofSpring2Constraint*)tmp)->enableMotor(value, true);
 			break;
 		case PL_G6DS2_SET_SERVO:
-			((btGeneric6DofSpring2Constraint*)temp)->setServo(value,true);
+			((btGeneric6DofSpring2Constraint*)tmp)->setServo(value, true);
 			break;
 		case PL_SLDR_POWERED_LINEAR_MOTOR:
-			((btSliderConstraint*)temp)->setPoweredLinMotor(value);
+			((btSliderConstraint*)tmp)->setPoweredLinMotor(value);
 			break;
 		case PL_SLDR_POWERED_ANGULAR_MOTOR:
-			((btSliderConstraint*)temp)->setPoweredAngMotor(value);
+			((btSliderConstraint*)tmp)->setPoweredAngMotor(value);
 			break;
 		default:
 		if(ctx->debug_mode){

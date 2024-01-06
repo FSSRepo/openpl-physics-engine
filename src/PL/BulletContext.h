@@ -13,7 +13,7 @@ typedef int Plint;
 
 using std::vector;
 
-class RBQueue{
+class RBQueue {
 	public:
 	RBQueue();
 	btRigidBody* enqueue(DebugLogger* log);
@@ -23,7 +23,7 @@ class RBQueue{
 	btVector3 inertia;
 };
 
-class RayTestResult{
+class RayTestResult {
 	public:
 	RayTestResult();
 	Pluint bodyHitted;
@@ -31,7 +31,7 @@ class RayTestResult{
 	btVector3 hitNormal;
 };
 
-class ContactCBInfo{
+class ContactCBInfo {
 	public:
 	ContactCBInfo();
 	int user_ptr;
@@ -39,7 +39,7 @@ class ContactCBInfo{
 	int col_flag;
 };
 
-class CSQueue{
+class CSQueue {
 	public:
 	CSQueue();
 	btCollisionShape* enqueue(int type,int* result,DebugLogger* debug);
@@ -47,18 +47,21 @@ class CSQueue{
 	btScalar tmp2;
 	btVector3 tmp3;
 	btVector3 tmp4;
+
 	short* temp_index;
-	float* temp_vertex; 
-	/* 
-		This could cause crashes that 
-		it is immediately deleted 
+	float* temp_vertex;
+
+	/*
+		This could cause crashes that
+		it is immediately deleted
 	*/
+
 	int indexCount;
 	int vertexCount;
 	bool optimizeConvexHull;
 };
 
-class ConstraintQueue{
+class ConstraintQueue {
 	public:
 	ConstraintQueue(int type);
 	btTypedConstraint* enqueue();
@@ -74,14 +77,14 @@ class ConstraintQueue{
 	bool useRefA;
 };
 
-class VehicleQueue{
+class VehicleQueue {
 	public:
 	VehicleQueue();
 	btRigidBody* chassis;
 	btRaycastVehicle* enqueue(btDefaultVehicleRaycaster* dvrc,btRaycastVehicle::btVehicleTuning tuning);
 };
 
-class Character{
+class Character {
 	public:
 	Character();
 	~Character();
@@ -89,7 +92,7 @@ class Character{
 	btPairCachingGhostObject* ghost;
 };
 
-class CharacterQueue{
+class CharacterQueue {
 	public:
 	CharacterQueue();
 	Character* enqueue(DebugLogger* debug);
@@ -98,7 +101,7 @@ class CharacterQueue{
 	btVector3 up;
 };
 
-class BulletContext{
+class BulletContext {
 	public:
 	// temporaly variables delete when not use it
 	RBQueue *body_queue;
@@ -128,11 +131,11 @@ class BulletContext{
 	BulletContext();
 	virtual ~BulletContext();
 	
-	btDiscreteDynamicsWorld* getWorld(){
+	btDiscreteDynamicsWorld* getWorld() {
 		return world;
 	}
 	
-	btDefaultVehicleRaycaster* getVehRayCaster(){
+	btDefaultVehicleRaycaster* getVehRayCaster() {
 		return vehraycaster;
 	}
 	void addRigidBody(btRigidBody* body);
@@ -153,11 +156,11 @@ class BulletContext{
 	
 	void deleteCharacter(Pluint indx);
 	
-	void initVehicleRayCaster(){
+	void initVehicleRayCaster() {
 		vehraycaster = new btDefaultVehicleRaycaster(world);
 	}
 	
-	btCollisionShape* getCollisionShape(Pluint indx){
+	btCollisionShape* getCollisionShape(Pluint indx) {
 		if((indx - 1) >= shapes->size() || indx <= 0){
 			return NULL;
 		}
@@ -168,7 +171,7 @@ class BulletContext{
 		}
 	}
 	
-	btRigidBody* getRigidBody(Pluint indx){
+	btRigidBody* getRigidBody(Pluint indx) {
 		if((indx - 1) >= bodies->size() || indx <= 0){
 			return NULL;
 		}
@@ -179,7 +182,7 @@ class BulletContext{
 		}
 	}
 	
-	btTypedConstraint* getConstraint(Pluint indx){
+	btTypedConstraint* getConstraint(Pluint indx) {
 		if((indx - 1) >= constraints->size() || indx <= 0){
 			return NULL;
 		}
@@ -190,7 +193,7 @@ class BulletContext{
 		}
 	}
 	
-	btRaycastVehicle* getVehicle(Pluint indx){
+	btRaycastVehicle* getVehicle(Pluint indx) {
 		if((indx - 1) >= vehicles->size() || indx <= 0){
 			return NULL;
 		}
@@ -201,7 +204,7 @@ class BulletContext{
 		}
 	}
 	
-	Character* getCharacter(Pluint indx){
+	Character* getCharacter(Pluint indx) {
 		if((indx - 1) >= characters->size() || indx <= 0){
 			return NULL;
 		}
@@ -219,44 +222,44 @@ class BulletContext{
 		return constraints->size() + 1;
 	}
 	
-	Pluint queueRigidBody(){
+	Pluint queueRigidBody() {
 		body_queue = new RBQueue();
 		return bodies->size() + 1;
 	}
 	
-	Pluint queueShape(){
+	Pluint queueShape() {
 		shape_queue = new CSQueue();
 		return shapes->size() + 1;
 	}
 	
-	Pluint queueVehicle(){
+	Pluint queueVehicle() {
 		veh_queue = new VehicleQueue();
 		return vehicles->size() + 1;
 	}
 	
-	Pluint queueCharacter(){
+	Pluint queueCharacter() {
 		char_queue = new CharacterQueue();
 		return characters->size() + 1;
 	}
 	
-	void setBroadphase(btBroadphaseInterface* newbroadphase,bool axis_sweep){
+	void setBroadphase(btBroadphaseInterface* newbroadphase,bool axis_sweep) {
 		world->setBroadphase(newbroadphase);
 		broadphase = NULL;
 		broadphase = newbroadphase;
 		axis_sweep_use = axis_sweep;
 	}
 	
-	void setError(const int error){
+	void setError(const int error) {
 		error_casting = error;
 	}
 	
 	Plint getLastError();
 	
-	bool isAxisSweep(){
+	bool isAxisSweep() {
 		return axis_sweep_use;
 	}
 	
-	bool isTheContextCreated(){
+	bool isTheContextCreated() {
 		return 
 			(world != NULL) && 
 			(shapes != NULL) && 
@@ -337,7 +340,7 @@ class BulletContext{
 	btCollisionDispatcher* dispatcher;
 	btBroadphaseInterface* broadphase;
 	btSequentialImpulseConstraintSolver* solver;
-	
+
 	// context defines
 	btDefaultVehicleRaycaster* vehraycaster;
 	btDiscreteDynamicsWorld *world;

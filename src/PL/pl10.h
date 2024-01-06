@@ -173,7 +173,11 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_MOTION_STATE_TRANSFORM 			0xCA0
 #define PL_MOTION_STATE_POSITION			0xCA1
 
-/* type of constraints */
+/*
+				Constrains
+*/
+
+// types
 #define PL_POINT2PONT_CONSTRAINT 			0xED0
 #define PL_SLIDER_CONSTRAINT 				0xED1
 #define PL_HINGE_CONSTRAINT 				0xED2
@@ -185,7 +189,7 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_ADD_CONSTRAINT 					0xED8
 #define PL_REMOVE_CONSTRAINT 				0xED9
 
-/* Contructor Parameters */
+// constructor parameters
 #define PL_CONSTR_RBODY_A 					0xEF0
 #define PL_CONSTR_RBODY_B 					0xEF1
 #define PL_CONSTR_PIVOT_A 					0xEF2
@@ -195,13 +199,15 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_CONSTR_IN_AXIS_A					0xEF6
 #define PL_CONSTR_IN_AXIS_B					0xEF7
 #define PL_CONSTR_USE_REFERENCE_A 			0xEF8
-/* Hinge Constraint */
+
+// Hinge Constraint options
 #define PL_HC_ENABLE_ANGULAR_MOTOR 			0xBC0
 #define PL_HC_MAX_MOTOR_IMPULSE 			0xBC1
 #define PL_HC_TARGET_VELOCITY 				0xBC2
 #define PL_HC_ANGULAR_ONLY					0xBC3
 #define PL_HC_LIMITS						0xBC4
-/* Generic 2 Dof*/
+
+// Generic 2 Dof Constraint options
 #define PL_G6D_LOWER_LIN_LIMIT				0xBC6
 #define PL_G6D_UPPER_LIN_LIMIT				0xBC7
 #define PL_G6D_LOWER_ANG_LIMIT				0xBC8
@@ -212,13 +218,15 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_G6D_LIMIT_ANG_X					0xBCD
 #define PL_G6D_LIMIT_ANG_Y					0xBCE
 #define PL_G6D_LIMIT_ANG_Z					0xBCF
-/*  Generic 2 dof spring*/
+
+// Generic 2 dof spring Constraint options
 #define PL_G6DS_ENABLE_SPRING 				0xBD0
 #define PL_G6DS_DISABLE_SPRING 				0xBD1
 #define PL_G6DS_STIFFNESS_SPRING 			0xBD2
 #define PL_G6DS_DAMPING_SPRING 				0xBD3
 #define PL_G6DS_EQUILI_POINT_SPRING 		0xBD4
-/*  Generic 2 dof spring 2*/
+
+// Generic 2 dof spring 2 Constraint options
 #define PL_G6DS2_LOWER_LIN_LIMIT			0xBD5
 #define PL_G6DS2_UPPER_LIN_LIMIT			0xBD6
 #define PL_G6DS2_LOWER_ANG_LIMIT			0xBD7
@@ -234,11 +242,13 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_G6DS2_SERVO_TARGET 				0xBF1
 #define PL_G6DS2_MAX_MOTOR_FORCE 			0xBF2
 #define PL_G6DS2_BOUNCE						0xBF3
-/* point 2 point */
+
+// Point 2 Point Constraint options
 #define PL_P2P_PIVOT_A 						0xBF4
 #define PL_P2P_PIVOT_B 						0xBF5
 #define PL_P2P_UPDATE_RHS 					0xBF6
-/* slider */	
+
+// Slider Constraint options
 #define PL_SLDR_SOFTNESS_DIR_LINEAR 		0xBF7
 #define PL_SLDR_SOFTNESS_DIR_ANGULAR 		0xBF8
 #define PL_SLDR_SOFTNESS_LIMIT_LIN 			0xBF9
@@ -263,14 +273,16 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_SLDR_MAX_LIN_MOTOR_FORCE 		0xC0C
 #define PL_SLDR_TARGET_LIN_MOTOR_VEL 		0xC0D
 #define PL_SLDR_TARGET_ANG_MOTOR_VEL 		0xC0E
-/* hinge 2 */
+
+// Hinge 2 Constraint option
 #define PL_HC2_LIMITS						0xC0F
 #define PL_HC2_LOWER_LIMIT					0xC10
 #define PL_HC2_UPPER_LIMIT					0xC11
-/* cone twist */
+
+// Cone Twist Constraint option
 #define PL_CTWIST_LIMITS					0xACC
 
-/* vehicule ray casting (vehicule suspension simulation) */
+// vehicule ray casting (vehicule suspension simulation)
 #define PL_VEHICLE_CHASSIS 					0xC12
 #define PL_SUSPENSION_STIFFNESS 			0xC13
 #define PL_SUSPENSION_DAMPING 				0xC14
@@ -280,8 +292,8 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_MAX_SUSPENSION_FORCE				0xC18
 #define PL_COORDINATE_SYSTEM				0xC19
 
-/* 			float Data Offsets (Add Wheel)
-*****************************************
+/* 			float data offsets (Add Wheel)
+	********************************************
 	[0,2] = connection point xyz
 	[3,5] = wheel direction xyz
 	[6,8] = wheel axis  xyz
@@ -300,7 +312,7 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_WHEEL_TRANSFORM 					0xC1F
 #define PL_WHEEL_TRANSFORM_INTERPOLATION 	0xC20
 
-/* kinematic character */
+// kinematic character (player object)
 #define PL_CHAR_STEP_HEIGHT 				0xC21
 #define PL_CHAR_CAPSULE_X 					0xC22
 #define PL_CHAR_CAPSULE_Y 					0xC23
@@ -326,82 +338,84 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_CHAR_CAN_JUMP 					0xC37
 #define PL_CHAR_ON_GROUND 					0xC38
 
-/* core Functions */
+// core
 PL_API PLbool plCreateContext();
 PL_API void plDestroyContext();
 PL_API Plint plGetError();
 PL_API const char* plGetString(Plenum param);
 PL_API Plint plGetInteger(Plenum param);
 PL_API void plCreate(Plenum target);
-PL_API void plStepSimulation(Plfloat timeStep,Plsizei maxSubSteps,Plfloat fixedTimeStep);
+PL_API void plStepSimulation(Plfloat timeStep, Plsizei maxSubSteps, Plfloat fixedTimeStep);
 
-/* World Functions */
-PL_API void plDynamicWorldi(Plenum param,Plint value);
-PL_API void plDynamicWorld3f(Plenum param,Plfloat v1,Plfloat v2,Plfloat v3);
-PL_API void plDynamicWorldfv(Plenum param,Plfloat* values,Plsizei lenght);
+// world
+PL_API void plDynamicWorldi(Plenum param, Plint value);
+PL_API void plDynamicWorld3f(Plenum param, Plfloat v1, Plfloat v2, Plfloat v3);
+PL_API void plDynamicWorldfv(Plenum param, Plfloat* values, Plsizei lenght);
 
-PL_API void plGetDynamicWorldi(Plenum param,Plint* value);
-PL_API void plGetDynamicWorld3f(Plenum param,Plfloat* v1,Plfloat* v2,Plfloat* v3);
-PL_API void plGetDynamicWorldiv(Plenum param,Plint* values,Plsizei lenght);
-PL_API void plGetDynamicWorldfv(Plenum param,Plfloat* values,Plsizei lenght);
+PL_API void plGetDynamicWorldi(Plenum param, Plint* value);
+PL_API void plGetDynamicWorld3f(Plenum param, Plfloat* v1, Plfloat* v2, Plfloat* v3);
+PL_API void plGetDynamicWorldiv(Plenum param, Plint* values, Plsizei lenght);
+PL_API void plGetDynamicWorldfv(Plenum param, Plfloat* values, Plsizei lenght);
 PL_API void plContactCallBack(obtContactCallBack callback);
 
-/* Body Functions*/
+// body handling
 PL_API Pluint plGenBody();
 PL_API void plDeleteBody(Pluint body);
 PL_API void plBindBody(Pluint body);
-PL_API void plRigidBodyi(Plenum param,Plint value);
-PL_API void plRigidBodyf(Plenum param,Plfloat value);
-PL_API void plRigidBody3f(Plenum param,Plfloat v1,Plfloat v2,Plfloat v3);
-PL_API void plRigidBodyfv(Plenum param,Plfloat* values,Plsizei lenght);
 
-PL_API void plGetRigidBodyi(Pluint body,Plenum param,Plint* value);
-PL_API void plGetRigidBodyf(Pluint body,Plenum param,Plfloat* value);
-PL_API void plGetRigidBody3f(Pluint body,Plenum param,Plfloat* v1,Plfloat* v2,Plfloat* v3);
-PL_API void plGetRigidBodyfv(Pluint body,Plenum param,Plfloat* values,Plint lenght);
+// rigid body handling
+PL_API void plRigidBodyi(Plenum param, Plint value);
+PL_API void plRigidBodyf(Plenum param, Plfloat value);
+PL_API void plRigidBody3f(Plenum param, Plfloat v1, Plfloat v2, Plfloat v3);
+PL_API void plRigidBodyfv(Plenum param, Plfloat* values, Plsizei lenght);
 
-/* Shape Functions */
+PL_API void plGetRigidBodyi(Pluint body, Plenum param, Plint* value);
+PL_API void plGetRigidBodyf(Pluint body, Plenum param, Plfloat* value);
+PL_API void plGetRigidBody3f(Pluint body, Plenum param, Plfloat* v1, Plfloat* v2, Plfloat* v3);
+PL_API void plGetRigidBodyfv(Pluint body, Plenum param, Plfloat* values, Plint lenght);
+
+// shape handling
 PL_API Pluint plGenShape();
 PL_API void plBindShape(Pluint shape);
-PL_API void plShapei(Plenum param,Plint value);
-PL_API void plShapef(Plenum param,Plfloat value);
-PL_API void plShape3f(Plenum param,Plfloat v1,Plfloat v2,Plfloat v3);
-PL_API void plShapefv(Plenum param,Plfloat* values,Plsizei lenght);
-PL_API void plBufferData(Plenum type,Plsizei size, void* data);
+PL_API void plShapei(Plenum param, Plint value);
+PL_API void plShapef(Plenum param, Plfloat value);
+PL_API void plShape3f(Plenum param, Plfloat v1, Plfloat v2, Plfloat v3);
+PL_API void plShapefv(Plenum param, Plfloat* values, Plsizei lenght);
+PL_API void plBufferData(Plenum type, Plsizei size, void* data);
 
-PL_API void plGetShapei(Pluint shape,Plenum param,Plint* value);
-PL_API void plGetShapefv(Pluint shape,Plenum param,Plfloat* values,Plsizei lenght);
+PL_API void plGetShapei(Pluint shape, Plenum param, Plint* value);
+PL_API void plGetShapefv(Pluint shape, Plenum param, Plfloat* values, Plsizei lenght);
 
-/* Constraint Capability */
+// constraints
 PL_API Pluint plGenConstraint(Plenum type);
 PL_API void plBindConstraint(Pluint ctr);
 PL_API void plDeleteConstraint(Pluint ctr);
-PL_API void plConstrainti(Plenum param,Plint value);
-PL_API void plConstraintf(Plenum param,Plfloat value);
-PL_API void plConstraint3f(Plenum param,Plfloat x,Plfloat y,Plfloat z);
-PL_API void plConstraintfv(Plenum param,Plfloat* values,Plsizei lenght);
+PL_API void plConstrainti(Plenum param, Plint value);
+PL_API void plConstraintf(Plenum param, Plfloat value);
+PL_API void plConstraint3f(Plenum param, Plfloat x, Plfloat y, Plfloat z);
+PL_API void plConstraintfv(Plenum param, Plfloat* values, Plsizei lenght);
 
-/* Vehicle Ray Casting Extension */
+// vehicle raycast simulation
 PL_API Pluint plGenVehicle();
 PL_API void plBindVehicle(Pluint indx);
 PL_API void plDeleteVehicle(Pluint indx);
-PL_API void plWheelf(Plint wheel,Plenum param,Plfloat value);
-PL_API void plVehiclei(Plenum param,Plint value);
-PL_API void plVehiclef(Plenum param,Plfloat value);
-PL_API void plVehicle3f(Plenum param,Plfloat x,Plfloat y,Plfloat z);
-PL_API void plVehiclefv(Plenum param,Plfloat* values,Plsizei lenght);
-PL_API void plGetWheelfv(Plint wheel,Plenum param,Plfloat* values,Plsizei lenght);
+PL_API void plWheelf(Plint wheel, Plenum param, Plfloat value);
+PL_API void plVehiclei(Plenum param, Plint value);
+PL_API void plVehiclef(Plenum param, Plfloat value);
+PL_API void plVehicle3f(Plenum param, Plfloat x, Plfloat y, Plfloat z);
+PL_API void plVehiclefv(Plenum param, Plfloat* values, Plsizei lenght);
+PL_API void plGetWheelfv(Plint wheel, Plenum param, Plfloat* values, Plsizei lenght);
 
-/* Character extension */
+// kinematic character
 PL_API Pluint plGenCharacter();
 PL_API void plBindCharacter(Pluint indx);
 PL_API void plDeleteCharacter(Pluint indx);
-PL_API void plCharacterf(Plenum param,Plfloat val);
-PL_API void plCharacter3f(Plenum param,Plfloat x,Plfloat y,Plfloat z);
-PL_API void plCharacterfv(Plenum param,Plfloat* values);
-PL_API void plGetCharacterf(Pluint indx,Plenum param,Plfloat* value);
-PL_API PLbool plGetCharacterb(Pluint indx,Plenum param);
-PL_API void plGetCharacterfv(Pluint indx,Plenum param,Plfloat* values,Plsizei lenght);
+PL_API void plCharacterf(Plenum param, Plfloat val);
+PL_API void plCharacter3f(Plenum param, Plfloat x, Plfloat y, Plfloat z);
+PL_API void plCharacterfv(Plenum param, Plfloat* values);
+PL_API void plGetCharacterf(Pluint indx, Plenum param, Plfloat* value);
+PL_API PLbool plGetCharacterb(Pluint indx, Plenum param);
+PL_API void plGetCharacterfv(Pluint indx, Plenum param, Plfloat* values, Plsizei lenght);
 
 #ifdef __cplusplus
 }
