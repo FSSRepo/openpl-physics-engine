@@ -33,3 +33,14 @@ cd build
 cmake .. -DPL_JAVA=ON
 cmake --build . --config Release
 ```
+
+## Android
+
+To compile the library for Android, run the following commands:
+
+```bash
+cd android
+gradlew assembleRelease
+```
+
+Your AAR Library is `android/app/build/outputs/aar/`

@@ -5,7 +5,7 @@ public class PL10
 {
 	/* bullet define constants */
 	public static final int PL_NONE  						=	0x000;
-	public static final int PL_MAX_RAY_RESULTS 				=	0x008; /* 8 ray tests */ 
+	public static final int PL_MAX_RAY_RESULTS 				=	0x008; /* 8 ray tests */
 
 	/* bullet boolean values */
 	public static final int PL_TRUE 						=	0x001;
