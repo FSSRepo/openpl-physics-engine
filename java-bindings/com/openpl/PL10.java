@@ -379,8 +379,8 @@ public class PL10
 	public static native void plGetCharacterfv(int indx,int param,float[] values,int lenght);
 
 	static {
-		String osArch = System.getProperty("os.arch");
-		if(osArch.equals("amd64") || osArch.equals("x86_64")){
+		String arch = System.getProperty("os.arch");
+		if (arch.contains("64")) {
     		System.loadLibrary("openpl64");
 		} else {
 			System.loadLibrary("openpl");
