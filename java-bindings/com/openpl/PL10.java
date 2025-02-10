@@ -249,22 +249,23 @@ public class PL10
 	public static final int PL_VEHICLE_CHASSIS 				=	0xC12;
 	public static final int PL_SUSPENSION_STIFFNESS 		=	0xC13;
 	public static final int PL_SUSPENSION_DAMPING 			=	0xC14;
-	public static final int PL_SUSPENSION_COMPRESION		=	0xC15;
+	public static final int PL_SUSPENSION_COMPRESSION		=	0xC15;
 	public static final int PL_MAX_SUSPENSION_TRAVEL		=	0xC16;
 	public static final int PL_FRICTION_SLIP				=	0xC17;
 	public static final int PL_MAX_SUSPENSION_FORCE			=	0xC18;
 	public static final int PL_COORDINATE_SYSTEM			=	0xC19;
-	/* 			float Data Offsets (Add Wheel)
-	 *****************************************
-	 [0,2] = connection point xyz
-	 [3,5] = wheel direction xyz
-	 [6,8] = wheel axis  xyz
-	 [9] = suspension rest lenght
-	 [10] = wheel radius
-	 [11] = bool [0,1] isFrontWheel
-	 Total lenght = 12
+
+	/* 	  float Data Offsets (Add Wheel)
+	*****************************************
+		[0, 2] = connection point xyz
+		[3, 5] = wheel direction xyz
+		[6, 8] = wheel axis  xyz
+		[9] = suspension rest length
+		[10] = wheel radius
+		[11] = bool [0,1] isFrontWheel
+		Total length = 12
 	 */
-	
+
 	public static final int PL_ADD_WHEEL 					=	0xC1A;
 
 	public static final int PL_WHEEL_ENGINE_FORCE 			=	0xC1B;
@@ -312,12 +313,12 @@ public class PL10
 	/* World Functions */
 	public static native void plDynamicWorldi(int param,int value);
 	public static native void plDynamicWorld3f(int param,float v1,float v2,float v3);
-	public static native void plDynamicWorldfv(int param,float[] values,int lenght);
+	public static native void plDynamicWorldfv(int param,float[] values,int length);
 
 	public static native int plGetDynamicWorldi(int param);
 	public static native void plGetDynamicWorld3f(int param,float[] values);
-	public static native void plGetDynamicWorldiv(int param,int[] values,int lenght);
-	public static native void plGetDynamicWorldfv(int param,float[] values,int lenght);
+	public static native void plGetDynamicWorldiv(int param,int[] values,int length);
+	public static native void plGetDynamicWorldfv(int param,float[] values,int length);
 	public static native void plSetContactCallBack(plContactCallBack callback);
 
 	/* Body Functions*/
@@ -327,12 +328,12 @@ public class PL10
 	public static native void plRigidBodyi(int param,int value);
 	public static native void plRigidBodyf(int param,float value);
 	public static native void plRigidBody3f(int param,float v1,float v2,float v3);
-	public static native void plRigidBodyfv(int param,float[] values,int lenght);
+	public static native void plRigidBodyfv(int param,float[] values,int length);
 	
 	public static native int plGetRigidBodyi(int body,int param);
 	public static native float plGetRigidBodyf(int body,int param);
 	public static native void plGetRigidBody3f(int body,int param,float[] values);
-	public static native void plGetRigidBodyfv(int body,int param,float[] values,int lenght);
+	public static native void plGetRigidBodyfv(int body,int param,float[] values,int length);
 
 	/* Shape Functions */
 	public static native int plGenShape();
@@ -340,11 +341,11 @@ public class PL10
 	public static native void plShapei(int param,int value);
 	public static native void plShapef(int param,float value);
 	public static native void plShape3f(int param,float v1,float v2,float v3);
-	public static native void plShapefv(int param,float[] values,int lenght);
+	public static native void plShapefv(int param,float[] values,int length);
 	public static native void plBufferData(int type,int size,Buffer data);
 
 	public static native int plGetShapei(int shape,int param);
-	public static native void plGetShapefv(int shape,int param,float[] values,int lenght);
+	public static native void plGetShapefv(int shape,int param,float[] values,int length);
 
 	/* Constraint Capability */
 	public static native int plGenConstraint(int type);
@@ -353,18 +354,18 @@ public class PL10
 	public static native void plConstrainti(int param,int value);
 	public static native void plConstraintf(int param,float value);
 	public static native void plConstraint3f(int param,float x,float y,float z);
-	public static native void plConstraintfv(int param,float[] values,int lenght);
+	public static native void plConstraintfv(int param,float[] values,int length);
 
 	/* vehicle Ray Casting Extension */
 	public static native int plGenVehicle();
 	public static native void plBindVehicle(int indx);
 	public static native void plDeleteVehicle(int indx);
-	public static native void plWheelf(int wheel,int param, float value);
-	public static native void plVehiclei(int param,int value);
-	public static native void plVehiclef(int param,float value);
-	public static native void plVehicle3f(int param,float x,float y,float z);
-	public static native void plVehiclefv(int param,float[] values,int lenght);
-	public static native void plGetWheelfv(int wheel,int param,float[] values,int lenght);
+	public static native void plWheelf(int wheel, int param, float value);
+	public static native void plVehiclei(int param, int value);
+	public static native void plVehiclef(int param, float value);
+	public static native void plVehicle3f(int param, float x, float y, float z);
+	public static native void plVehiclefv(int param, float[] values, int length);
+	public static native void plGetWheelfv(int wheel, int param, float[] values,int length);
 
 	/* character extension */
 	public static native int plGenCharacter();
@@ -372,11 +373,11 @@ public class PL10
 	public static native void plDeleteCharacter(int indx);
 	public static native void plCharacterf(int param,float val);
 	public static native void plCharacter3f(int param,float x,float y,float z);
-	public static native void plCharacterfv(int param,float[] values);
+	public static native void plCharacterfv(int param, float[] values);
 	
 	public static native float plGetCharacterf(int indx,int param);
 	public static native boolean plGetCharacterb(int indx,int param);
-	public static native void plGetCharacterfv(int indx,int param,float[] values,int lenght);
+	public static native void plGetCharacterfv(int indx,int param,float[] values,int length);
 
 	static {
 		String arch = System.getProperty("os.arch");

@@ -34,7 +34,9 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 
 /* bullet define constants */
 #define PL_NONE  							0x000
-#define PL_MAX_RAY_RESULTS 					0x00A  /* 10 ray tests */ 
+#define PL_MAX_RAY_RESULTS 					0x00A  /* 10 ray tests */
+#define PL_TRUE								0x001
+#define PL_FALSE							0x000
 
 /* bullet error type */
 #define PL_NO_ERROR 	 					0x0E0
@@ -168,6 +170,8 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_COL_INTERP_WORLD_TRANSFORM		0xD08
 #define PL_COL_INTERP_LINEAR_VEL 			0xD09
 #define PL_COL_INTERP_ANGULAR_VEL			0xD0A
+#define PL_CLEAR_FORCES						0xD0B
+#define PL_ANGULAR_LINEAR_VEL				0xD0C
 
 /* bullet motion state parameter */
 #define PL_MOTION_STATE_TRANSFORM 			0xCA0
@@ -286,7 +290,7 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_VEHICLE_CHASSIS 					0xC12
 #define PL_SUSPENSION_STIFFNESS 			0xC13
 #define PL_SUSPENSION_DAMPING 				0xC14
-#define PL_SUSPENSION_COMPRESION			0xC15
+#define PL_SUSPENSION_COMPRESSION			0xC15
 #define PL_MAX_SUSPENSION_TRAVEL			0xC16
 #define PL_FRICTION_SLIP					0xC17
 #define PL_MAX_SUSPENSION_FORCE				0xC18
@@ -381,7 +385,7 @@ PL_API void plShapei(Plenum param, Plint value);
 PL_API void plShapef(Plenum param, Plfloat value);
 PL_API void plShape3f(Plenum param, Plfloat v1, Plfloat v2, Plfloat v3);
 PL_API void plShapefv(Plenum param, Plfloat* values, Plsizei lenght);
-PL_API void plBufferData(Plenum type, Plsizei size, void* data);
+PL_API void plBufferData(Plenum type, Plsizei size, void* data, Plint copy);
 
 PL_API void plGetShapei(Pluint shape, Plenum param, Plint* value);
 PL_API void plGetShapefv(Pluint shape, Plenum param, Plfloat* values, Plsizei lenght);
