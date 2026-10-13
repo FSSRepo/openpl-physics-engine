@@ -1,5 +1,5 @@
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.10)
 project("open-pysics-library")
 
 option(BUILD_SHARED_LIBS             "openpl: build shared libs" OFF)
