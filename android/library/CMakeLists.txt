@@ -17,6 +17,9 @@ add_library(
 		../../bullet/LinearMath/btSerializer.cpp
 		../../bullet/LinearMath/btSerializer64.cpp
 		../../bullet/LinearMath/btThreads.cpp
+		../../bullet/LinearMath/TaskScheduler/btTaskScheduler.cpp
+		../../bullet/LinearMath/TaskScheduler/btThreadSupportPosix.cpp
+		../../bullet/LinearMath/TaskScheduler/btThreadSupportWin32.cpp
 		../../bullet/LinearMath/btVector3.cpp
 		../../bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp
 		../../bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.cpp
@@ -72,12 +75,14 @@ add_library(
 		../../bullet/BulletCollision/CollisionShapes/btCylinderShape.cpp
 		../../bullet/BulletCollision/CollisionShapes/btEmptyShape.cpp
 		../../bullet/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.cpp
+		../../bullet/BulletCollision/CollisionShapes/btMiniSDF.cpp
 		../../bullet/BulletCollision/CollisionShapes/btMinkowskiSumShape.cpp
 		../../bullet/BulletCollision/CollisionShapes/btMultiSphereShape.cpp
 		../../bullet/BulletCollision/CollisionShapes/btMultimaterialTriangleMeshShape.cpp
 		../../bullet/BulletCollision/CollisionShapes/btOptimizedBvh.cpp
 		../../bullet/BulletCollision/CollisionShapes/btPolyhedralConvexShape.cpp
 		../../bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.cpp
+		../../bullet/BulletCollision/CollisionShapes/btSdfCollisionShape.cpp
 		../../bullet/BulletCollision/CollisionShapes/btShapeHull.cpp
 		../../bullet/BulletCollision/CollisionShapes/btSphereShape.cpp
 		../../bullet/BulletCollision/CollisionShapes/btStaticPlaneShape.cpp
@@ -114,6 +119,7 @@ add_library(
 		../../bullet/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.cpp
 		../../bullet/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.cpp
 		../../bullet/BulletDynamics/Character/btKinematicCharacterController.cpp
+		../../bullet/BulletDynamics/ConstraintSolver/btBatchedConstraints.cpp
 		../../bullet/BulletDynamics/ConstraintSolver/btConeTwistConstraint.cpp
 		../../bullet/BulletDynamics/ConstraintSolver/btContactConstraint.cpp
 		../../bullet/BulletDynamics/ConstraintSolver/btFixedConstraint.cpp
@@ -126,6 +132,7 @@ add_library(
 		../../bullet/BulletDynamics/ConstraintSolver/btNNCGConstraintSolver.cpp
 		../../bullet/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.cpp
 		../../bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.cpp
+		../../bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolverMt.cpp
 		../../bullet/BulletDynamics/ConstraintSolver/btSliderConstraint.cpp
 		../../bullet/BulletDynamics/ConstraintSolver/btSolve2LinearConstraint.cpp
 		../../bullet/BulletDynamics/ConstraintSolver/btTypedConstraint.cpp
@@ -156,6 +163,10 @@ add_library(
 		../../bullet/BulletSoftBody/btSoftRigidCollisionAlgorithm.cpp
 		../../bullet/BulletSoftBody/btSoftRigidDynamicsWorld.cpp
 		../../bullet/BulletSoftBody/btSoftSoftCollisionAlgorithm.cpp
+		../../bullet/BulletSoftBody/poly34.cpp
 		../../src/PL/BulletContext.cpp
 		../../src/PL/PL.cpp
 		../../java-bindings/wrapper.cpp)
+
+# Enable Bullet internal multithreading (btDiscreteDynamicsWorldMt / task scheduler).
+target_compile_definitions(openpl PUBLIC BT_THREADSAFE=1)

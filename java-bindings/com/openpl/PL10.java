@@ -46,6 +46,10 @@ public class PL10
 	public static final int PL_USE_DBVT 					=	0x0F3;
 	public static final int PL_ADD_CHARACTER 				=	0x0F4;
 	public static final int PL_ADD_VEHICLE 					=	0x0F5;
+	public static final int PL_INIT_SOFTBODY 				=	0x0F6;
+	public static final int PL_ADD_SOFTBODY 				=	0x0F7;
+	public static final int PL_REMOVE_SOFTBODY 				=	0x0F8;
+	public static final int PL_NUM_THREADS 					=	0x0F9;
 	
 	/* ray test callback flags */
 	public static final int PL_RF_FLT_BACK_FACES 			=	0x001;
@@ -64,6 +68,7 @@ public class PL10
 	public static final int PL_TYPED_CONSTRAINT 			=	0x0A3;
 	public static final int PL_RAYCAST_VEHICLE 				=	0x0A4;
 	public static final int PL_CHARACTER 					=	0x0A5;
+	public static final int PL_SOFT_BODY 					=	0x0A6;
 
 	/* bullet shape types (supported by open pl) */
 	public static final int PL_BOX_SHAPE	 				=	0x0C1;
@@ -159,6 +164,9 @@ public class PL10
 	public static final int PL_CONE_TWIST_CONSTRAINT 		=	0xED7;
 	public static final int PL_ADD_CONSTRAINT 				=	0xED8;
 	public static final int PL_REMOVE_CONSTRAINT 			=	0xED9;
+	public static final int PL_FIXED_CONSTRAINT 			=	0xEDA;
+	public static final int PL_GEAR_CONSTRAINT 				=	0xEDB;
+	public static final int PL_UNIVERSAL_CONSTRAINT 		=	0xEDC;
 
 	/* Contructor Parameters */
 	public static final int PL_CONSTR_RBODY_A 				=	0xEF0;
@@ -244,6 +252,13 @@ public class PL10
 	public static final int PL_HC2_UPPER_LIMIT				=	0xC11;
 	/* cone twist */
 	public static final int PL_CTWIST_LIMITS				=	0xACC;
+	/* gear */
+	public static final int PL_GEAR_RATIO					=	0xEE0;
+	public static final int PL_GEAR_AXIS_A					=	0xEE1;
+	public static final int PL_GEAR_AXIS_B					=	0xEE2;
+	/* universal */
+	public static final int PL_UNIV_UPPER_LIMIT				=	0xEE3;
+	public static final int PL_UNIV_LOWER_LIMIT				=	0xEE4;
 
 	/* vehicule ray casting (vehicule suspension simulation) */
 	public static final int PL_VEHICLE_CHASSIS 				=	0xC12;
@@ -300,10 +315,41 @@ public class PL10
 	public static final int PL_CHAR_MAX_SLOPE 				=	0xC36;
 	public static final int PL_CHAR_CAN_JUMP 				=	0xC37;
 	public static final int PL_CHAR_ON_GROUND 				=	0xC38;
-	
+
+	/* soft body types */
+	public static final int PL_SOFTBODY_ROPE 				=	0x1100;
+	public static final int PL_SOFTBODY_CLOTH 				=	0x1101;
+	public static final int PL_SOFTBODY_ELLIPSOID 			=	0x1102;
+	public static final int PL_SOFTBODY_MESH 				=	0x1103;
+
+	/* soft body options */
+	public static final int PL_SB_POSITION_A 				=	0x1110;
+	public static final int PL_SB_POSITION_B 				=	0x1111;
+	public static final int PL_SB_POSITION_C 				=	0x1112;
+	public static final int PL_SB_POSITION_D 				=	0x1113;
+	public static final int PL_SB_RESOLUTION 				=	0x1114;
+	public static final int PL_SB_RADIUS 					=	0x1115;
+	public static final int PL_SB_TOTAL_MASS 				=	0x1116;
+	public static final int PL_SB_PRESSURE 					=	0x1117;
+	public static final int PL_SB_STIFFNESS 				=	0x1118;
+	public static final int PL_SB_DAMPING 					=	0x1119;
+	public static final int PL_SB_VELOCITY_CORRECTION 		=	0x111A;
+	public static final int PL_SB_ITERATIONS 				=	0x111B;
+	public static final int PL_SB_FIXED_NODES 				=	0x111C;
+	public static final int PL_SB_ANCHOR_BODY 				=	0x111D;
+	public static final int PL_SB_ANCHOR_NODES 				=	0x111E;
+	public static final int PL_SB_AERO_MODEL 				=	0x111F;
+	public static final int PL_SB_RANDOMIZE_CONSTRAINTS 	=	0x1120;
+
+	/* soft body getters */
+	public static final int PL_SB_NUM_NODES 				=	0x1130;
+	public static final int PL_SB_NODE_POSITION 			=	0x1131;
+	public static final int PL_SB_VOLUME 					=	0x1132;
+
 	/* core Functions */
 	public static native boolean plCreateContext();
 	public static native void plDestroyContext();
+	public static native boolean plSetNumThreads(int numThreads);
 	public static native int plGetError();
 	public static native String plGetString(int param);
 	public static native int plGetInteger(int param);
@@ -378,6 +424,19 @@ public class PL10
 	public static native float plGetCharacterf(int indx,int param);
 	public static native boolean plGetCharacterb(int indx,int param);
 	public static native void plGetCharacterfv(int indx,int param,float[] values,int length);
+
+	/* soft body extension */
+	public static native int plGenSoftBody(int type);
+	public static native void plBindSoftBody(int indx);
+	public static native void plDeleteSoftBody(int indx);
+	public static native void plSoftBodyi(int param,int value);
+	public static native void plSoftBodyf(int param,float value);
+	public static native void plSoftBody3f(int param,float x,float y,float z);
+	public static native void plSoftBodyfv(int param,float[] values,int length);
+
+	public static native int plGetSoftBodyi(int indx,int param);
+	public static native float plGetSoftBodyf(int indx,int param);
+	public static native void plGetSoftBodyfv(int indx,int param,float[] values,int length);
 
 	static {
 		String arch = System.getProperty("os.arch");

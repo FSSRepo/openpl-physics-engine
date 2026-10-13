@@ -1,0 +1,83 @@
+# ============================================================================
+#  OpenPL — GitHub Pages configuration (native Jekyll build)
+#  Published at: https://fssrepo.github.io/openpl-physics-engine/
+# ============================================================================
+
+title: OpenPL
+description: >-
+  Multiplatform C/C++ and Java wrapper around Bullet Physics for
+  rigid bodies, constraints, vehicles, characters and soft bodies.
+url: https://fssrepo.github.io
+baseurl: /openpl-physics-engine
+
+# --- Theme -----------------------------------------------------------------
+# Just the Docs is fetched at build time by GitHub Pages (jekyll-remote-theme).
+remote_theme: just-the-docs/just-the-docs@v0.10.0
+
+# --- Plugins ---------------------------------------------------------------
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+# --- Look & feel -----------------------------------------------------------
+color_scheme: openpl
+heading_anchors: true
+back_to_top: true
+back_to_top_text: "Volver arriba / Back to top"
+
+# --- Search ----------------------------------------------------------------
+search_enabled: true
+search:
+  heading_level: 2
+  previews: 3
+  preview_words_before: 5
+  preview_words_after: 10
+  tokenizer_separator: /[\s\-/]+/
+  rel_url: true
+  button: false
+
+# --- Links -----------------------------------------------------------------
+aux_links:
+  GitHub:
+    - https://github.com/FSSRepo/openpl-physics-engine
+aux_links_new_tab: true
+
+nav_external_links:
+  - title: Bullet Physics
+    url: https://github.com/bulletphysics/bullet3
+  - title: Releases
+    url: https://github.com/FSSRepo/openpl-physics-engine/releases
+
+footer_content: >-
+  OpenPL — Copyright &copy; Fast Smart System.
+  Built on Bullet Physics. Distributed under an open source license.
+
+# --- Callouts --------------------------------------------------------------
+callouts_level: quiet
+callouts:
+  highlight:
+    color: teal
+  new:
+    title: Nuevo / New
+    color: green
+  note:
+    title: Nota / Note
+    color: purple
+  important:
+    title: Importante / Important
+    color: red
+  warning:
+    title: Advertencia / Warning
+    color: orange
+  tip:
+    title: Consejo / Tip
+    color: blue
+
+# --- Excludes --------------------------------------------------------------
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .sass-cache/
+  - vendor/
+  - node_modules/
+  - README.md

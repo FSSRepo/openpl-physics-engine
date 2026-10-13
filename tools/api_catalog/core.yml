@@ -1,0 +1,143 @@
+# OpenPL API catalog — group: core
+# Localized descriptions (es/en). Consumed by tools/gen_api_docs.py.
+functions:
+  plCreateContext:
+    brief:
+      es: Crea el contexto para poder utilizar la API.
+      en: "Creates the context required to use the API."
+    params: {}
+    notes:
+      es:
+      - Esta funcion retorna 1 si el contexto fue creado o si ya se creo anterormente.
+      en:
+      - "This function returns 1 if the context was created or was already created previously."
+    errors:
+    - code: ''
+      es: Esta funcion retorna 0 si ocurrio un problema al crear el contexto.
+      en: "This function returns 0 if a problem occurred while creating the context."
+  plDestroyContext:
+    brief:
+      es: Destruye el contexto y libera la memoria.
+      en: "Destroys the context and frees the memory."
+    params: {}
+    notes:
+      es:
+      - Cuando ya no necesites utilizar la API o al cerrar la aplicacion no olvides destruir el contexto y liberar la memoria.
+      en:
+      - "When you no longer need the API, or when closing the application, do not forget to destroy the context and free the memory."
+    errors:
+    - code: ''
+      es: No suelen suceder errores.
+      en: "Errors usually do not occur."
+  plGetString:
+    brief:
+      es: Obtener el valor especificado por los parametros.
+      en: "Get the value specified by the parameters."
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro a obtener. Puede ser PL_VERSION, PL_VBASED, PL_DEBUG_INFO, PL_VENDOR
+        en: "Specifies the parameter to get. Can be PL_VERSION, PL_VBASED, PL_DEBUG_INFO, PL_VENDOR."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_VERSION retorna la version de OpenPL.
+      - PL_VBASED retorna la version de bullet physics en la que se basa.
+      - PL_VENDOR retorna el nombre de la empresa encargada del proyecto.
+      - PL_DEBUG_INFO retorna la informacion recopilada si el modo depuracion esta activado.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_VERSION returns the OpenPL version."
+      - "PL_VBASED returns the version of Bullet Physics it is based on."
+      - "PL_VENDOR returns the name of the company in charge of the project."
+      - "PL_DEBUG_INFO returns the information gathered if debug mode is enabled."
+    errors:
+    - code: PL_INVALID_ENUM
+      es: si el paramero especificado no es aceptado.
+      en: "if the specified parameter is not accepted."
+  plGetInteger:
+    brief:
+      es: Obtener el valor especificado por los parametros.
+      en: "Get the value specified by the parameters."
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro a obtener. Puede ser PL_VERSION o PL_VBASED
+        en: "Specifies the parameter to get. Can be PL_VERSION or PL_VBASED."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_VERSION retorna la version de OpenPL.
+      - PL_VBASED retorna la version de bullet physics en la que se basa.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_VERSION returns the OpenPL version."
+      - "PL_VBASED returns the version of Bullet Physics it is based on."
+    errors:
+    - code: PL_INVALID_ENUM
+      es: si el paramero especificado no es aceptado.
+      en: "if the specified parameter is not accepted."
+  plCreate:
+    brief:
+      es: 'Crea objetos tales como: cuerpos rigidos, restricciones, vehiculos, formas de colision, personajes.'
+      en: "Creates objects such as: rigid bodies, constraints, vehicles, collision shapes, characters."
+    params:
+      target:
+        name_es: target
+        name_en: target
+        es: Especifica el tipo de objeto que deseas crear. Puede ser PL_RIGID_BODY, PL_TYPED_CONSTRAINT, PL_RAYCAST_VEHICLE, PL_CHARACTER, ademas de tipos de collision.
+        en: "Specifies the type of object you want to create. Can be PL_RIGID_BODY, PL_TYPED_CONSTRAINT, PL_RAYCAST_VEHICLE, PL_CHARACTER, in addition to collision types."
+    notes:
+      es:
+      - Antes de llamar a esta funcion debes tener todos los valores necesarios ya predefinidos.
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_RIGID_BODY crear un cuerpo rigido.
+      - PL_TYPED_CONSTRAINT crear una restriccion.
+      - PL_RAYCAST_VEHICLE crear un vehiculo.
+      - PL_CHARACTER crear un personaje.
+      en:
+      - "Before calling this function you must already have all the required values predefined."
+      - "The following constants are accepted by param:"
+      - "PL_RIGID_BODY creates a rigid body."
+      - "PL_TYPED_CONSTRAINT creates a constraint."
+      - "PL_RAYCAST_VEHICLE creates a vehicle."
+      - "PL_CHARACTER creates a character."
+    errors:
+    - code: PL_INVALID_NAME
+      es: si intentas crear un cuerpo rigido sin enlazar la id.
+      en: "if you try to create a rigid body without binding the id."
+    - code: PL_INVALID_VALUE
+      es: hacen faltan algunos valores para crear el objeto.
+      en: "some values are missing to create the object."
+    - code: PL_INVALID_OPERATION
+      es: si no has generado el objeto que quieres crear.
+      en: "if you have not generated the object you want to create."
+  plStepSimulation:
+    brief:
+      es: Actualizar la simulacion.
+      en: "Update the simulation."
+    params:
+      timeStep:
+        name_es: timeStep
+        name_en: timeStep
+        es: El tiempo de cada fotograma
+        en: "The time of each frame"
+      maxSubSteps:
+        name_es: maxSubSteps
+        name_en: maxSubSteps
+        es: limite de fotogramas por segundo
+        en: "frame per second limit"
+      fixedTimeStep:
+        name_es: fixedTimeStep
+        name_en: fixedTimeStep
+        es: Tiempo correcto por cada fotograma
+        en: "Correct time per frame"
+    notes:
+      es: []
+      en: []
+    errors:
+    - code: ''
+      es: No suelen suceder errores.
+      en: "Errors usually do not occur."

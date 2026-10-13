@@ -62,12 +62,14 @@ add_library(${BULLET_LIB}
     BulletCollision/CollisionShapes/btCylinderShape.cpp
     BulletCollision/CollisionShapes/btEmptyShape.cpp
     BulletCollision/CollisionShapes/btHeightfieldTerrainShape.cpp
+    BulletCollision/CollisionShapes/btMiniSDF.cpp
     BulletCollision/CollisionShapes/btMinkowskiSumShape.cpp
     BulletCollision/CollisionShapes/btMultiSphereShape.cpp
     BulletCollision/CollisionShapes/btMultimaterialTriangleMeshShape.cpp
     BulletCollision/CollisionShapes/btOptimizedBvh.cpp
     BulletCollision/CollisionShapes/btPolyhedralConvexShape.cpp
     BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.cpp
+    BulletCollision/CollisionShapes/btSdfCollisionShape.cpp
     BulletCollision/CollisionShapes/btShapeHull.cpp
     BulletCollision/CollisionShapes/btSphereShape.cpp
     BulletCollision/CollisionShapes/btStaticPlaneShape.cpp
@@ -104,6 +106,7 @@ add_library(${BULLET_LIB}
     BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.cpp
     BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.cpp
     BulletDynamics/Character/btKinematicCharacterController.cpp
+    BulletDynamics/ConstraintSolver/btBatchedConstraints.cpp
     BulletDynamics/ConstraintSolver/btConeTwistConstraint.cpp
     BulletDynamics/ConstraintSolver/btContactConstraint.cpp
     BulletDynamics/ConstraintSolver/btFixedConstraint.cpp
@@ -116,6 +119,7 @@ add_library(${BULLET_LIB}
     BulletDynamics/ConstraintSolver/btNNCGConstraintSolver.cpp
     BulletDynamics/ConstraintSolver/btPoint2PointConstraint.cpp
     BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.cpp
+    BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolverMt.cpp
     BulletDynamics/ConstraintSolver/btSliderConstraint.cpp
     BulletDynamics/ConstraintSolver/btSolve2LinearConstraint.cpp
     BulletDynamics/ConstraintSolver/btTypedConstraint.cpp
@@ -149,6 +153,7 @@ add_library(${BULLET_LIB}
     BulletSoftBody/btSoftRigidCollisionAlgorithm.cpp
     BulletSoftBody/btSoftRigidDynamicsWorld.cpp
     BulletSoftBody/btSoftSoftCollisionAlgorithm.cpp
+    BulletSoftBody/poly34.cpp
     LinearMath/btAlignedAllocator.cpp
     LinearMath/btConvexHull.cpp
     LinearMath/btConvexHullComputer.cpp
@@ -158,4 +163,11 @@ add_library(${BULLET_LIB}
     LinearMath/btSerializer.cpp
     LinearMath/btSerializer64.cpp
     LinearMath/btThreads.cpp
+    LinearMath/TaskScheduler/btTaskScheduler.cpp
+    LinearMath/TaskScheduler/btThreadSupportPosix.cpp
+    LinearMath/TaskScheduler/btThreadSupportWin32.cpp
     LinearMath/btVector3.cpp)
+
+# Enable Bullet internal multithreading (btDiscreteDynamicsWorldMt / task scheduler).
+# PUBLIC so consumers (openpl) compile headers with the same setting.
+target_compile_definitions(${BULLET_LIB} PUBLIC BT_THREADSAFE=1)

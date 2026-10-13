@@ -1,0 +1,230 @@
+# OpenPL API catalog — group: vehicles
+# Localized descriptions (es/en). Consumed by tools/gen_api_docs.py.
+functions:
+  plGenVehicle:
+    brief:
+      es: Generar un vehiculo.
+      en: "Generate a vehicle."
+    params: {}
+    notes:
+      es:
+      - Esta funcion retorna una id y crea una cola de variables necesarias antes de crear una instancia del objeto.
+      en:
+      - "This function returns an id and creates a queue of the variables needed before creating an instance of the object."
+    errors:
+    - code: PL_INVALID_OPERATION
+      es: si hay una cola pendiente para crear un vehiculo.
+      en: "if there is a pending queue to create a vehicle."
+  plBindVehicle:
+    brief:
+      es: Enlazar para usar un vehiculo. Para la simulacion de suspension.
+      en: "Bind to use a vehicle. For suspension simulation."
+    params:
+      veh:
+        name_es: veh
+        name_en: veh
+        es: La id del vehiculo a enlazar.
+        en: "The id of the vehicle to bind."
+    notes:
+      es:
+      - Antes de llamar esta funcion para enlazar un vehiculo, asegurate de que no haya sido enlazado previamente, si es asi para desenlazar veh debe ser 0.
+      en:
+      - "Before calling this function to bind a vehicle, make sure it was not bound previously; if so, to unbind, veh must be 0."
+    errors:
+    - code: PL_INVALID_OPERATION
+      es: si ya hay un vehiculo enlazado previamente.
+      en: "if a vehicle is already bound previously."
+  plDeleteVehicle:
+    brief:
+      es: Eliminar un vehiculo.
+      en: "Delete a vehicle."
+    params:
+      veh:
+        name_es: veh
+        name_en: veh
+        es: La id del vehiculo a eliminar.
+        en: "The id of the vehicle to delete."
+    notes:
+      es: []
+      en: []
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el vehiculo esta enlazado o esta siendo usado. Tambien puede ser causado por que el vehiculo que tratas de eliminar ya no existe.
+      en: "if the vehicle is bound or is being used. It can also be caused by the vehicle you are trying to delete no longer existing."
+  plWheelf:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_WHEEL_ENGINE_FORCE, PL_WHEEL_STEERING, PL_WHEEL_BRAKE, PL_WHEEL_ROLL_INFLUENCE,
+        en: "Specifies the parameter to set the value for. Can be PL_WHEEL_ENGINE_FORCE, PL_WHEEL_STEERING, PL_WHEEL_BRAKE, PL_WHEEL_ROLL_INFLUENCE,"
+      value:
+        name_es: value
+        name_en: value
+        es: El valor asignado.
+        en: "The assigned value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_WHEEL_ENGINE_FORCE poner masa en kilogramos. value debe ser la masa en kilogramos.
+      - PL_WHEEL_STEERING factor angular. value debe ser el factor angular.
+      - PL_WHEEL_BRAKE friccion de rodadura. value debe ser el valor equivalente
+      - PL_WHEEL_ROLL_INFLUENCE friccion giratoria. value debe ser el valor equivalente.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_WHEEL_ENGINE_FORCE sets mass in kilograms. value must be the mass in kilograms."
+      - "PL_WHEEL_STEERING angular factor. value must be the angular factor."
+      - "PL_WHEEL_BRAKE rolling friction. value must be the equivalent value"
+      - "PL_WHEEL_ROLL_INFLUENCE spinning friction. value must be the equivalent value."
+    errors:
+    - code: ''
+      es: No se producen errores.
+      en: "No errors occur."
+  plVehiclei:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_VEHICLE_CHASSIS.
+        en: "Specifies the parameter to set the value for. Can be PL_VEHICLE_CHASSIS."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor asignado.
+        en: "The assigned value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_VEHICLE_CHASSIS poner el id del cuerpo rigido que sera el chasis. value no debe ser 0.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_VEHICLE_CHASSIS sets the id of the rigid body that will be the chassis. value must not be 0."
+    errors:
+    - code: ''
+      es: No se producen errores.
+      en: "No errors occur."
+  plVehiclef:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_SUSPENSION_STIFFNESS, PL_SUSPENSION_DAMPING, PL_SUSPENSION_COMPRESION, PL_MAX_SUSPENSION_TRAVEL, PL_FRICTION_SLIP, PL_MAX_SUSPENSION_FORCE.
+        en: "Specifies the parameter to set the value for. Can be PL_SUSPENSION_STIFFNESS, PL_SUSPENSION_DAMPING, PL_SUSPENSION_COMPRESION, PL_MAX_SUSPENSION_TRAVEL, PL_FRICTION_SLIP, PL_MAX_SUSPENSION_FORCE."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor asignado.
+        en: "The assigned value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_SUSPENSION_STIFFNESS poner masa en kilogramos. value debe ser la masa en kilogramos.
+      - PL_SUSPENSION_DAMPING factor angular. value debe ser el factor angular.
+      - PL_SUSPENSION_COMPRESION friccion de rodadura. value debe ser el valor equivalente
+      - PL_MAX_SUSPENSION_TRAVEL friccion giratoria. value debe ser el valor equivalente.
+      - PL_FRICTION_SLIP friccion. value debe ser el valor equivalente.
+      - PL_MAX_SUSPENSION_FORCE coeficiente de restitucion. value debe ser el valor equivalente.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_SUSPENSION_STIFFNESS sets mass in kilograms. value must be the mass in kilograms."
+      - "PL_SUSPENSION_DAMPING angular factor. value must be the angular factor."
+      - "PL_SUSPENSION_COMPRESION rolling friction. value must be the equivalent value"
+      - "PL_MAX_SUSPENSION_TRAVEL spinning friction. value must be the equivalent value."
+      - "PL_FRICTION_SLIP friction. value must be the equivalent value."
+      - "PL_MAX_SUSPENSION_FORCE restitution coefficient. value must be the equivalent value."
+    errors:
+    - code: ''
+      es: No se producen errores.
+      en: "No errors occur."
+  plVehiclefv:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_ADD_WHEEL.
+        en: "Specifies the parameter to set the value for. Can be PL_ADD_WHEEL."
+      values:
+        name_es: values
+        name_en: values
+        es: Los valores asignados.
+        en: "The assigned values."
+      lenght:
+        name_es: lenght
+        name_en: lenght
+        es: La longitud del arreglo de valores.
+        en: "The length of the values array."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - 'PL_ADD_WHEEL agregar informacion de una rueda. El arreglo debe tener la siguiente estructura de datos:'
+      - lenght debe ser 12
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_ADD_WHEEL adds information about a wheel. The array must have the following data structure:"
+      - "lenght must be 12"
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo rigido no existe o el id es incorrecto.
+      en: "if the rigid body does not exist or the id is incorrect."
+    - code: PL_INVALID_OPERATION
+      es: en raras ocaciones.
+      en: "in rare occasions."
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."
+  plGetWheelfv:
+    brief:
+      es: Obtener un valor a un parametro especifico
+      en: "Get a value for a specific parameter"
+    params:
+      wheel:
+        name_es: wheel
+        name_en: wheel
+        es: El index de la llanta
+        en: "The wheel index"
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para obtener el valor. Puede ser PL_WHEEL_TRANSFORM, PL_WHEEL_TRANSFORM_INTERPOLATION.
+        en: "Specifies the parameter to get the value. Can be PL_WHEEL_TRANSFORM, PL_WHEEL_TRANSFORM_INTERPOLATION."
+      values:
+        name_es: values
+        name_en: values
+        es: Valores para obtener.
+        en: "Values to get."
+      lenght:
+        name_es: lenght
+        name_en: lenght
+        es: La longitud del arreglo de valores.
+        en: "The length of the values array."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_WHEEL_TRANSFORM obtener la transformacion de la llanta. values es un matrix4x4. lenght debe ser 16
+      - PL_WHEEL_TRANSFORM_INTERPOLATION obtener la transformacion de la llanta. (interpolado)* values es un matrix4x4. lenght debe ser 16
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_WHEEL_TRANSFORM gets the wheel transformation. values is a matrix4x4. lenght must be 16"
+      - "PL_WHEEL_TRANSFORM_INTERPOLATION gets the wheel transformation. (interpolated)* values is a matrix4x4. lenght must be 16"
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo rigido no existe o el id es incorrecto.
+      en: "if the rigid body does not exist or the id is incorrect."
+    - code: PL_INVALID_OPERATION
+      es: en raras ocaciones.
+      en: "in rare occasions."
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."

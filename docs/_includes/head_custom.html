@@ -1,0 +1,53 @@
+<!--
+  OpenPL — custom header additions for Just the Docs.
+
+  * Hides the sidebar branch of the inactive language so the navigation only
+    shows the language of the current page (/es/ or /en/).
+  * Injects a language switch pill in the top bar that links to the equivalent
+    page in the other language.
+-->
+<script>
+(function () {
+  var path = window.location.pathname;
+  var m = path.match(/\/(es|en)(\/|$)/);
+  if (!m) return;
+  var cur = m[1];
+  var other = cur === "es" ? "en" : "es";
+  var otherLabel = other === "en" ? "English" : "Español";
+
+  function apply() {
+    // 1. Hide the sidebar entries that belong to the other language.
+    var otherSeg = "/" + other + "/";
+    document.querySelectorAll(".nav-list-item").forEach(function (li) {
+      var a = li.querySelector(":scope > a");
+      if (!a) return;
+      var href = a.getAttribute("href") || "";
+      if (href.indexOf(otherSeg) !== -1) {
+        li.style.display = "none";
+      }
+    });
+
+    // 2. Language switch pill in the top navigation bar.
+    var target = path.replace("/" + cur + "/", "/" + other + "/");
+    var nav = document.querySelector(".main-header");
+    if (nav && !nav.querySelector(".openpl-lang")) {
+      var link = document.createElement("a");
+      link.className = "openpl-lang";
+      link.href = target;
+      link.textContent = otherLabel;
+      var aux = nav.querySelector(".aux-nav");
+      if (aux) {
+        aux.insertBefore(link, aux.firstChild);
+      } else {
+        nav.appendChild(link);
+      }
+    }
+  }
+
+  if (document.readyState !== "loading") {
+    apply();
+  } else {
+    document.addEventListener("DOMContentLoaded", apply);
+  }
+})();
+</script>

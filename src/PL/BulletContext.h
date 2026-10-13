@@ -4,6 +4,13 @@
 #include "btBulletDynamicsCommon.h"
 #include "BulletCollision/CollisionDispatch/btGhostObject.h"
 #include "BulletDynamics/Character/btKinematicCharacterController.h"
+#include "BulletSoftBody/btSoftBody.h"
+#include "BulletSoftBody/btSoftBodyHelpers.h"
+#include "BulletSoftBody/btSoftRigidDynamicsWorld.h"
+#include "BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.h"
+#include "BulletDynamics/Dynamics/btDiscreteDynamicsWorldMt.h"
+#include "BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolverMt.h"
+#include "LinearMath/btThreads.h"
 #include "debug.h"
 #include <vector>
 
@@ -79,6 +86,7 @@ class ConstraintQueue {
 	btVector3 tempC;
 	btVector3 tempD;
 	bool useRefA;
+	btScalar ratio;
 };
 
 class VehicleQueue {
@@ -105,6 +113,36 @@ class CharacterQueue {
 	btVector3 up;
 };
 
+class SoftBodyQueue {
+	public:
+	SoftBodyQueue(int type);
+	btSoftBody* make(btSoftBodyWorldInfo* info,DebugLogger* debug);
+	int type_x;
+	float* vertex_buffer;
+	unsigned short* index_buffer;
+	int vertex_buffer_size;
+	int index_buffer_size;
+	bool copy_buffers;
+	btVector3 p0;
+	btVector3 p1;
+	btVector3 p2;
+	btVector3 p3;
+	int res_x;
+	int res_y;
+	int fixeds;
+	btScalar radius;
+	btScalar total_mass;
+	btScalar pressure;
+	btScalar stiffness;
+	btScalar damping;
+	btScalar velocity_correction;
+	int iterations;
+	int aero_model;
+	bool randomize_constraints;
+	btRigidBody* anchor_body;
+	vector<int> anchor_nodes;
+};
+
 class BulletContext {
 	public:
 	// temporaly variables delete when not use it
@@ -115,6 +153,7 @@ class BulletContext {
 	ConstraintQueue* const_queue;
 	VehicleQueue* veh_queue;
 	CharacterQueue* char_queue;
+	SoftBodyQueue* soft_queue;
 	
 	/* for contact, ray testing and debugging*/
 	int flag_ray_test;
@@ -129,14 +168,28 @@ class BulletContext {
 	Pluint cur_const;
 	Pluint cur_veh;
 	Pluint cur_char;
+	Pluint cur_soft;
 	btTransform shapeTrans;
 	btRaycastVehicle::btVehicleTuning tuning;
 	
-	BulletContext();
+	BulletContext(int numThreads = 1);
 	virtual ~BulletContext();
 	
 	btDiscreteDynamicsWorld* getWorld() {
+		return is_multithreaded ? static_cast<btDiscreteDynamicsWorld*>(world_mt)
+		                        : static_cast<btDiscreteDynamicsWorld*>(world);
+	}
+	
+	btSoftRigidDynamicsWorld* getSoftWorld() {
 		return world;
+	}
+	
+	bool isMultithreaded() {
+		return is_multithreaded;
+	}
+	
+	Plint getNumThreads() {
+		return num_threads;
 	}
 	
 	btDefaultVehicleRaycaster* getVehRayCaster() {
@@ -160,8 +213,51 @@ class BulletContext {
 	
 	void deleteCharacter(Pluint indx);
 	
+	void addSoftBody(btSoftBody* soft);
+	
+	void deleteSoftBody(Pluint indx);
+	
+	btSoftBody* getSoftBody(Pluint indx) {
+		if((indx - 1) >= soft_bodies->size() || indx <= 0) {
+			return NULL;
+		}
+		return soft_bodies->at(indx - 1);
+	}
+	
+	btSoftBodyWorldInfo* getSoftBodyWorldInfo() {
+		if(world == NULL) {
+			return NULL;
+		}
+		return &world->getWorldInfo();
+	}
+	
+	void setGravity(const btVector3& gravity) {
+		getWorld()->setGravity(gravity);
+		if(world != NULL) {
+			world->getWorldInfo().m_gravity = gravity;
+		}
+	}
+	
+	void initSoftBodyContext() {
+		if(world == NULL) {
+			if(debug_mode) {
+				debug->warning("plDynamicWorldi(): soft body context is unavailable in a multithreaded world.");
+			}
+			return;
+		}
+		is_softbody_context = true;
+		getSoftBodyWorldInfo()->m_gravity = world->getGravity();
+		if(debug_mode) {
+			debug->info("plDynamicWorldi(): soft body context is enabled.");
+		}
+	}
+	
+	bool isSoftBodyContext() {
+		return is_softbody_context;
+	}
+	
 	void initVehicleRayCaster() {
-		vehraycaster = new btDefaultVehicleRaycaster(world);
+		vehraycaster = new btDefaultVehicleRaycaster(getWorld());
 	}
 	
 	btCollisionShape* getCollisionShape(Pluint indx) {
@@ -246,8 +342,13 @@ class BulletContext {
 		return characters->size() + 1;
 	}
 	
+	Pluint queueSoftBody(int type) {
+		soft_queue = new SoftBodyQueue(type);
+		return soft_bodies->size() + 1;
+	}
+	
 	void setBroadphase(btBroadphaseInterface* newbroadphase, bool axis_sweep) {
-		world->setBroadphase(newbroadphase);
+		getWorld()->setBroadphase(newbroadphase);
 		broadphase = NULL;
 		broadphase = newbroadphase;
 		axis_sweep_use = axis_sweep;
@@ -269,7 +370,7 @@ class BulletContext {
 	
 	bool isTheContextCreated() {
 		return 
-			(world != NULL) && 
+			(getWorld() != NULL) && 
 			(shapes != NULL) && 
 			(bodies != NULL);
 	}
@@ -342,6 +443,7 @@ class BulletContext {
 	Pluint error_casting;
 	bool axis_sweep_use;
 	bool is_character_context;
+	bool is_softbody_context;
 
 	// physics world temporaly definitions
 	btDefaultCollisionConfiguration* config;
@@ -349,15 +451,24 @@ class BulletContext {
 	btBroadphaseInterface* broadphase;
 	btSequentialImpulseConstraintSolver* solver;
 
+	// multithreading (used instead of solver/world when is_multithreaded is true)
+	btConstraintSolverPoolMt* solver_pool;
+	btSequentialImpulseConstraintSolverMt* solver_mt;
+	btITaskScheduler* task_scheduler;
+	btDiscreteDynamicsWorldMt* world_mt;
+	bool is_multithreaded;
+	Plint num_threads;
+
 	// context defines
 	btDefaultVehicleRaycaster* vehraycaster;
-	btDiscreteDynamicsWorld *world;
+	btSoftRigidDynamicsWorld *world;
 	vector<RayTestResult*> *raytest;
 	vector<btCollisionShape*> *shapes;
 	vector<btRigidBody*> *bodies;
 	vector<btTypedConstraint*> *constraints;
 	vector<btRaycastVehicle*> *vehicles;
 	vector<Character*> *characters;
+	vector<btSoftBody*> *soft_bodies;
 };
 
 #endif

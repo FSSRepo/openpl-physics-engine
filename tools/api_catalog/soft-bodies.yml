@@ -1,0 +1,295 @@
+# OpenPL API catalog — group: soft-bodies
+# Localized descriptions (es/en). Consumed by tools/gen_api_docs.py.
+functions:
+  plGenSoftBody:
+    brief:
+      es: Generar un cuerpo blando y encolarlo.
+      en: "Generate a soft body and enqueue it."
+    params:
+      type:
+        name_es: type
+        name_en: type
+        es: 'Especifica el tipo de cuerpo blando a crear. Puede ser PL_SOFTBODY_ROPE, PL_SOFTBODY_CLOTH, PL_SOFTBODY_ELLIPSOID, PL_SOFTBODY_MESH.'
+        en: "Specifies the type of soft body to create. Can be PL_SOFTBODY_ROPE, PL_SOFTBODY_CLOTH, PL_SOFTBODY_ELLIPSOID, PL_SOFTBODY_MESH."
+    notes:
+      es:
+      - Esta funcion retorna una id y crea una cola de variables necesarias antes de crear una instancia del objeto.
+      - El tipo PL_SOFTBODY_MESH requiere definir antes los buffers con plBufferData.
+      - Para materializar el cuerpo blando debes llamar a plCreate(PL_SOFT_BODY).
+      en:
+      - "This function returns an id and creates a queue of the variables needed before creating an instance of the object."
+      - "The PL_SOFTBODY_MESH type requires the buffers to be defined beforehand with plBufferData."
+      - "To materialize the soft body you must call plCreate(PL_SOFT_BODY)."
+    errors:
+    - code: ''
+      es: Esta funcion retorna 0 si no hay contexto o hay un error global.
+      en: "This function returns 0 if there is no context or there is a global error."
+  plBindSoftBody:
+    brief:
+      es: Enlazar para usar un cuerpo blando.
+      en: "Bind to use a soft body."
+    params:
+      indx:
+        name_es: indx
+        name_en: indx
+        es: La id del cuerpo blando a enlazar.
+        en: "The id of the soft body to bind."
+    notes:
+      es:
+      - Antes de llamar esta funcion para enlazar un cuerpo blando asegurate de que no haya sido enlazado previamente, si es asi para desenlazar indx debe ser 0.
+      en:
+      - "Before calling this function to bind a soft body, make sure it was not bound previously; if so, to unbind, indx must be 0."
+    errors: []
+  plDeleteSoftBody:
+    brief:
+      es: Eliminar un cuerpo blando.
+      en: "Delete a soft body."
+    params:
+      indx:
+        name_es: indx
+        name_en: indx
+        es: La id del cuerpo blando a eliminar.
+        en: "The id of the soft body to delete."
+    notes:
+      es: []
+      en: []
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo blando ya fue eliminado o no existe.
+      en: "if the soft body was already deleted or does not exist."
+  plSoftBodyi:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_SB_RESOLUTION, PL_SB_FIXED_NODES, PL_SB_ITERATIONS, PL_SB_ANCHOR_BODY, PL_SB_AERO_MODEL, PL_SB_RANDOMIZE_CONSTRAINTS.
+        en: "Specifies the parameter to set the value for. Can be PL_SB_RESOLUTION, PL_SB_FIXED_NODES, PL_SB_ITERATIONS, PL_SB_ANCHOR_BODY, PL_SB_AERO_MODEL, PL_SB_RANDOMIZE_CONSTRAINTS."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor asignado.
+        en: "The assigned value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_SB_RESOLUTION establece la resolucion de nodos en X al generar el cuerpo. Solo valido en la cola.
+      - PL_SB_FIXED_NODES numero de nodos fijos. Solo valido en la cola.
+      - PL_SB_ITERATIONS iteraciones del solver (piterations y viterations).
+      - PL_SB_ANCHOR_BODY enlaza el cuerpo blando a un cuerpo rigido; value debe ser el id del cuerpo rigido.
+      - PL_SB_AERO_MODEL modelo aerodinamico (valor del enum btSoftBody::eAeroModel).
+      - PL_SB_RANDOMIZE_CONSTRAINTS value debe ser 1 (PL_TRUE) para aleatorizar las restricciones o 0 si no. Solo valido en la cola.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_SB_RESOLUTION sets the node resolution on X when generating the body. Only valid in the queue."
+      - "PL_SB_FIXED_NODES number of fixed nodes. Only valid in the queue."
+      - "PL_SB_ITERATIONS solver iterations (piterations and viterations)."
+      - "PL_SB_ANCHOR_BODY anchors the soft body to a rigid body; value must be the id of the rigid body."
+      - "PL_SB_AERO_MODEL aerodynamic model (value of the btSoftBody::eAeroModel enum)."
+      - "PL_SB_RANDOMIZE_CONSTRAINTS value must be 1 (PL_TRUE) to randomize the constraints or 0 if not. Only valid in the queue."
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo blando no existe o el id es incorrecto.
+      en: "if the soft body does not exist or the id is incorrect."
+  plSoftBodyf:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_SB_RADIUS, PL_SB_TOTAL_MASS, PL_SB_PRESSURE, PL_SB_STIFFNESS, PL_SB_DAMPING, PL_SB_VELOCITY_CORRECTION.
+        en: "Specifies the parameter to set the value for. Can be PL_SB_RADIUS, PL_SB_TOTAL_MASS, PL_SB_PRESSURE, PL_SB_STIFFNESS, PL_SB_DAMPING, PL_SB_VELOCITY_CORRECTION."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor asignado.
+        en: "The assigned value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_SB_RADIUS radio de la esfera de colision de cada nodo. Solo valido en la cola.
+      - PL_SB_TOTAL_MASS masa total del cuerpo blando.
+      - PL_SB_PRESSURE presion interna (kPR).
+      - PL_SB_STIFFNESS rigidez del material (kLST, kAST y kVST).
+      - PL_SB_DAMPING amortiguacion (kDP).
+      - PL_SB_VELOCITY_CORRECTION factor de correccion de velocidad (kVCF).
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_SB_RADIUS radius of the collision sphere of each node. Only valid in the queue."
+      - "PL_SB_TOTAL_MASS total mass of the soft body."
+      - "PL_SB_PRESSURE internal pressure (kPR)."
+      - "PL_SB_STIFFNESS material stiffness (kLST, kAST and kVST)."
+      - "PL_SB_DAMPING damping (kDP)."
+      - "PL_SB_VELOCITY_CORRECTION velocity correction factor (kVCF)."
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo blando no existe o el id es incorrecto.
+      en: "if the soft body does not exist or the id is incorrect."
+  plSoftBody3f:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_SB_POSITION_A, PL_SB_POSITION_B, PL_SB_POSITION_C, PL_SB_POSITION_D.
+        en: "Specifies the parameter to set the value for. Can be PL_SB_POSITION_A, PL_SB_POSITION_B, PL_SB_POSITION_C, PL_SB_POSITION_D."
+      x_y_z:
+        name_es: x y z
+        name_en: x y z
+        es: Los valores asignados.
+        en: "The assigned values."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_SB_POSITION_A primer punto (x,y,z) que define la posicion del cuerpo blando.
+      - PL_SB_POSITION_B segundo punto (x,y,z).
+      - PL_SB_POSITION_C tercer punto (x,y,z).
+      - PL_SB_POSITION_D cuarto punto (x,y,z).
+      - Estos parametros solo son validos durante la cola (antes de plCreate).
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_SB_POSITION_A first point (x,y,z) that defines the position of the soft body."
+      - "PL_SB_POSITION_B second point (x,y,z)."
+      - "PL_SB_POSITION_C third point (x,y,z)."
+      - "PL_SB_POSITION_D fourth point (x,y,z)."
+      - "These parameters are only valid during the queue (before plCreate)."
+    errors: []
+  plSoftBodyfv:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_SB_RESOLUTION, PL_SB_ANCHOR_NODES.
+        en: "Specifies the parameter to set the value for. Can be PL_SB_RESOLUTION, PL_SB_ANCHOR_NODES."
+      values:
+        name_es: values
+        name_en: values
+        es: El arreglo de valores.
+        en: "The array of values."
+      lenght:
+        name_es: lenght
+        name_en: lenght
+        es: La longitud del arreglo de valores.
+        en: "The length of the values array."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_SB_RESOLUTION establece la resolucion X e Y; values[0] es X y values[1] es Y, lenght debe ser 2 o mas.
+      - PL_SB_ANCHOR_NODES indices de los nodos anclados; values contiene los indices y lenght la cantidad.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_SB_RESOLUTION sets the X and Y resolution; values[0] is X and values[1] is Y, lenght must be 2 or more."
+      - "PL_SB_ANCHOR_NODES indices of the anchored nodes; values holds the indices and lenght the count."
+    errors: []
+  plGetSoftBodyi:
+    brief:
+      es: Obtener un valor entero a traves de un parametro especifico.
+      en: "Get an integer value through a specific parameter."
+    params:
+      indx:
+        name_es: indx
+        name_en: indx
+        es: ID del cuerpo blando.
+        en: "Soft body ID."
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para obtener el valor. Puede ser PL_SB_NUM_NODES.
+        en: "Specifies the parameter to get the value. Can be PL_SB_NUM_NODES."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor obtenido.
+        en: "The obtained value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_SB_NUM_NODES obtiene el numero de nodos del cuerpo blando.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_SB_NUM_NODES gets the number of nodes of the soft body."
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo blando no existe o el id es incorrecto.
+      en: "if the soft body does not exist or the id is incorrect."
+  plGetSoftBodyf:
+    brief:
+      es: Obtener un valor flotante a traves de un parametro especifico.
+      en: "Get a floating-point value through a specific parameter."
+    params:
+      indx:
+        name_es: indx
+        name_en: indx
+        es: ID del cuerpo blando.
+        en: "Soft body ID."
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para obtener el valor. Puede ser PL_SB_VOLUME, PL_SB_TOTAL_MASS.
+        en: "Specifies the parameter to get the value. Can be PL_SB_VOLUME, PL_SB_TOTAL_MASS."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor obtenido.
+        en: "The obtained value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_SB_VOLUME obtiene el volumen del cuerpo blando.
+      - PL_SB_TOTAL_MASS obtiene la masa total del cuerpo blando.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_SB_VOLUME gets the volume of the soft body."
+      - "PL_SB_TOTAL_MASS gets the total mass of the soft body."
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo blando no existe o el id es incorrecto.
+      en: "if the soft body does not exist or the id is incorrect."
+  plGetSoftBodyfv:
+    brief:
+      es: Obtener un arreglo de valores a traves de un parametro especifico.
+      en: "Get an array of values through a specific parameter."
+    params:
+      indx:
+        name_es: indx
+        name_en: indx
+        es: ID del cuerpo blando.
+        en: "Soft body ID."
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para obtener los valores. Puede ser PL_SB_NODE_POSITION.
+        en: "Specifies the parameter to get the values. Can be PL_SB_NODE_POSITION."
+      values:
+        name_es: values
+        name_en: values
+        es: Valores para obtener.
+        en: "Values to get."
+      lenght:
+        name_es: lenght
+        name_en: lenght
+        es: La longitud del arreglo de valores.
+        en: "The length of the values array."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_SB_NODE_POSITION obtiene las posiciones (x,y,z) de todos los nodos; values debe tener espacio para num_nodes * 3 y lenght debe ser num_nodes * 3 o mas.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_SB_NODE_POSITION gets the (x,y,z) positions of all nodes; values must have room for num_nodes * 3 and lenght must be num_nodes * 3 or more."
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo blando no existe o el id es incorrecto.
+      en: "if the soft body does not exist or the id is incorrect."
+    - code: PL_INVALID_VALUE
+      es: si el arreglo de salida es demasiado pequeño.
+      en: "if the output array is too small."

@@ -1,0 +1,138 @@
+# ===========================================================================
+#  OpenPL API — logical grouping for the generated reference.
+#  Consumed by tools/gen_api_docs.py. Titles are localized (es/en).
+# ===========================================================================
+groups:
+  - id: core
+    order: 1
+    title:
+      es: "Núcleo"
+      en: "Core"
+    functions:
+      - plCreateContext
+      - plDestroyContext
+      - plSetNumThreads
+      - plGetError
+      - plGetString
+      - plGetInteger
+      - plCreate
+      - plStepSimulation
+
+  - id: world
+    order: 2
+    title:
+      es: "Mundo dinámico"
+      en: "Dynamic world"
+    functions:
+      - plDynamicWorldi
+      - plDynamicWorld3f
+      - plDynamicWorldfv
+      - plGetDynamicWorldi
+      - plGetDynamicWorld3f
+      - plGetDynamicWorldiv
+      - plGetDynamicWorldfv
+      - plContactCallBack
+
+  - id: bodies
+    order: 3
+    title:
+      es: "Cuerpos"
+      en: "Bodies"
+    functions:
+      - plGenBody
+      - plDeleteBody
+      - plBindBody
+
+  - id: rigid-bodies
+    order: 4
+    title:
+      es: "Cuerpos rígidos"
+      en: "Rigid bodies"
+    functions:
+      - plRigidBodyi
+      - plRigidBodyf
+      - plRigidBody3f
+      - plRigidBodyfv
+      - plGetRigidBodyi
+      - plGetRigidBodyf
+      - plGetRigidBody3f
+      - plGetRigidBodyfv
+
+  - id: shapes
+    order: 5
+    title:
+      es: "Formas de colisión"
+      en: "Collision shapes"
+    functions:
+      - plGenShape
+      - plBindShape
+      - plShapei
+      - plShapef
+      - plShape3f
+      - plShapefv
+      - plBufferData
+      - plGetShapei
+      - plGetShapefv
+
+  - id: constraints
+    order: 6
+    title:
+      es: "Restricciones"
+      en: "Constraints"
+    functions:
+      - plGenConstraint
+      - plBindConstraint
+      - plDeleteConstraint
+      - plConstrainti
+      - plConstraintf
+      - plConstraint3f
+      - plConstraintfv
+
+  - id: vehicles
+    order: 7
+    title:
+      es: "Vehículos (raycast)"
+      en: "Vehicles (raycast)"
+    functions:
+      - plGenVehicle
+      - plBindVehicle
+      - plDeleteVehicle
+      - plWheelf
+      - plVehiclei
+      - plVehiclef
+      - plVehicle3f
+      - plVehiclefv
+      - plGetWheelfv
+
+  - id: characters
+    order: 8
+    title:
+      es: "Personajes cinemáticos"
+      en: "Kinematic characters"
+    functions:
+      - plGenCharacter
+      - plBindCharacter
+      - plDeleteCharacter
+      - plCharacterf
+      - plCharacter3f
+      - plCharacterfv
+      - plGetCharacterf
+      - plGetCharacterb
+      - plGetCharacterfv
+
+  - id: soft-bodies
+    order: 9
+    title:
+      es: "Cuerpos blandos"
+      en: "Soft bodies"
+    functions:
+      - plGenSoftBody
+      - plBindSoftBody
+      - plDeleteSoftBody
+      - plSoftBodyi
+      - plSoftBodyf
+      - plSoftBody3f
+      - plSoftBodyfv
+      - plGetSoftBodyi
+      - plGetSoftBodyf
+      - plGetSoftBodyfv

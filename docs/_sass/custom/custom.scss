@@ -1,0 +1,158 @@
+// ===========================================================================
+//  OpenPL — custom styles (landing page, language switch, API tables)
+//  Included automatically by Just the Docs.
+// ===========================================================================
+
+// --- Landing page ----------------------------------------------------------
+.openpl-hero {
+  text-align: center;
+  padding: 2.5rem 1rem 1.5rem;
+}
+
+.openpl-hero .openpl-logo {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 1rem;
+  display: block;
+}
+
+.openpl-hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  letter-spacing: -0.02em;
+}
+
+.openpl-tagline {
+  font-size: 1.15rem;
+  color: #475569;
+  max-width: 46rem;
+  margin: 0 auto 1.5rem;
+}
+
+.openpl-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+}
+
+.openpl-badges img {
+  height: 22px;
+}
+
+.openpl-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.openpl-btn {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none !important;
+  border: 1px solid #0f766e;
+  color: #0f766e;
+  transition: all 0.15s ease;
+}
+
+.openpl-btn:hover {
+  background: #0f766e;
+  color: #fff;
+}
+
+.openpl-btn--primary {
+  background: #0f766e;
+  color: #fff;
+}
+
+.openpl-btn--primary:hover {
+  background: #0d9488;
+  border-color: #0d9488;
+}
+
+// --- Feature cards ---------------------------------------------------------
+.openpl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.openpl-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.1rem 1.2rem;
+  background: #fff;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.openpl-card:hover {
+  box-shadow: 0 6px 20px rgba(15, 118, 110, 0.12);
+  transform: translateY(-2px);
+}
+
+.openpl-card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  color: #0f766e;
+}
+
+.openpl-card p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #475569;
+}
+
+.openpl-card a {
+  font-weight: 600;
+}
+
+// --- Code / signature blocks ----------------------------------------------
+.openpl-signature {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+
+.openpl-signature code {
+  color: inherit;
+  background: transparent;
+}
+
+// --- API error/param tables ------------------------------------------------
+.openpl-api table {
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.openpl-api table code {
+  white-space: nowrap;
+}
+
+// --- Language switch -------------------------------------------------------
+.openpl-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  text-decoration: none !important;
+  color: #334155;
+}
+
+.openpl-lang:hover {
+  border-color: #0f766e;
+  color: #0f766e;
+}

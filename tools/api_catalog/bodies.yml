@@ -1,0 +1,53 @@
+# OpenPL API catalog — group: bodies
+# Localized descriptions (es/en). Consumed by tools/gen_api_docs.py.
+functions:
+  plGenBody:
+    brief:
+      es: Generar un cuerpo rigido.
+      en: "Generate a rigid body."
+    params: {}
+    notes:
+      es:
+      - Esta funcion retorna una id y crea una cola de variables necesarias antes de crear una instancia del objeto.
+      en:
+      - "This function returns an id and creates a queue of the variables needed before creating an instance of the object."
+    errors:
+    - code: PL_INVALID_OPERATION
+      es: si hay una cola pendiente para crear un cuerpo rigido.
+      en: "if there is a pending queue to create a rigid body."
+  plDeleteBody:
+    brief:
+      es: Eliminar un cuerpo rigido.
+      en: "Delete a rigid body."
+    params:
+      body:
+        name_es: body
+        name_en: body
+        es: La id del cuerpo rigido a eliminar.
+        en: "The id of the rigid body to delete."
+    notes:
+      es: []
+      en: []
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo rigido esta enlazado o esta siendo usado. Tambien puede ser causado por que el cuerpo rigido que tratas de eliminar ya no existe.
+      en: "if the rigid body is bound or is being used. It can also be caused by the rigid body you are trying to delete no longer existing."
+  plBindBody:
+    brief:
+      es: Enlazar para usar un cuerpo rigido.
+      en: "Bind to use a rigid body."
+    params:
+      body:
+        name_es: body
+        name_en: body
+        es: La id del cuerpo rigido a enlazar.
+        en: "The id of the rigid body to bind."
+    notes:
+      es:
+      - Antes de llamar esta funcion para enlazar un cuerpo rigido asegurate de que no haya sido enlazado previamente, si es asi para desenlazar body debe ser 0.
+      en:
+      - "Before calling this function to bind a rigid body, make sure it was not bound previously; if so, to unbind, body must be 0."
+    errors:
+    - code: PL_INVALID_OPERATION
+      es: si ya hay un cuerpo rigido enlazado previamente.
+      en: "if a rigid body is already bound previously."

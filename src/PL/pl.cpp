@@ -3,6 +3,7 @@
 
 BulletContext* ctx = NULL;
 obtContactCallBack contactCB = 0;
+Plint num_threads_requested = 1;
 
 inline void REPORT_ERROR(int error) {
 	ctx->setError(error);
@@ -75,7 +76,7 @@ inline bool hasContext() {
 
 PLbool plCreateContext() {
 	if (!hasContext()) {
-		ctx = new BulletContext();
+		ctx = new BulletContext(num_threads_requested);
 		if (!ctx) {
 			return 0;
 		} else {
@@ -102,6 +103,30 @@ void plDestroyContext() {
 	ctx = NULL;
 }
 
+PLbool plSetNumThreads(Plint numThreads) {
+	if (numThreads <= 0) {
+		if (hasContext() && ctx->debug_mode) {
+			ctx->debug->error("plSetNumThreads(): invalid number of threads.");
+		}
+		if (hasContext()) {
+			REPORT_ERROR(PL_INVALID_VALUE);
+		}
+		return 0;
+	}
+	if (numThreads > (Plint)BT_MAX_THREAD_COUNT) {
+		numThreads = (Plint)BT_MAX_THREAD_COUNT;
+	}
+	if (hasContext()) {
+		if (ctx->debug_mode) {
+			ctx->debug->error("plSetNumThreads(): call it before plCreateContext().");
+		}
+		REPORT_ERROR(PL_INVALID_OPERATION);
+		return 0;
+	}
+	num_threads_requested = numThreads;
+	return 1;
+}
+
 Plint plGetError() {
 	if (!hasContext()) {
 		return PL_INVALID_OPERATION;
@@ -119,7 +144,7 @@ const char* plGetString(Plenum param) {
 		case PL_VENDOR:
 			return "Fast Smart System";
 		case PL_VBASED:
-			return "Based in: Bullet Physics 2.87 [2014]";
+			return "Based in: Bullet Physics 3.25 [2023]";
 		case PL_DEBUG_INFO:
 			if (!ctx->debug_mode || !ctx->debug) {
 				ctx->debug_mode = false;
@@ -139,7 +164,7 @@ Plint plGetInteger(Plenum param) {
 		case PL_VERSION:
 			return 001;
 		case PL_VBASED:
-			return 287;
+			return 325;
 		default:
 		if (ctx->debug_mode) {
 			ctx->debug->error("plGetInteger(): parameter not supported.");
@@ -259,6 +284,48 @@ void plDynamicWorldi(Plenum param, Plint value) {
 		}
 		ctx->getWorld()->addVehicle(v);
 		return;
+	} else if (param == PL_ADD_SOFTBODY) {
+		if (ctx->isMultithreaded()) {
+			if (ctx->debug_mode) {
+				ctx->debug->error("plDynamicWorldi(): soft body is not supported in a multithreaded world.");
+			}
+			REPORT_ERROR(PL_INVALID_OPERATION);
+			return;
+		}
+		btSoftBody* sb = ctx->getSoftBody(value);
+		if (sb == NULL) {
+			if (ctx->debug_mode) {
+				ctx->debug->error("plDynamicWorldi(): soft body not exist");
+			}
+			REPORT_ERROR(PL_INVALID_NAME);
+			ctx->has_global_error = true;
+			return;
+		}
+		ctx->getSoftWorld()->addSoftBody(sb);
+		ctx->initSoftBodyContext();
+		return;
+	} else if (param == PL_REMOVE_SOFTBODY) {
+		btSoftBody* sb = ctx->getSoftBody(value);
+		if (sb == NULL) {
+			if (ctx->debug_mode) {
+				ctx->debug->error("plDynamicWorldi(): soft body not exist");
+			}
+			REPORT_ERROR(PL_INVALID_NAME);
+			ctx->has_global_error = true;
+			return;
+		}
+		ctx->getSoftWorld()->removeSoftBody(sb);
+		return;
+	} else if (param == PL_INIT_SOFTBODY) {
+		if (ctx->isMultithreaded()) {
+			if (ctx->debug_mode) {
+				ctx->debug->error("plDynamicWorldi(): soft body is not supported in a multithreaded world.");
+			}
+			REPORT_ERROR(PL_INVALID_OPERATION);
+			return;
+		}
+		ctx->initSoftBodyContext();
+		return;
 	}
 	switch(param) {
 		case PL_CLEAR_RAY_RESULTS:
@@ -306,7 +373,7 @@ void plDynamicWorld3f(Plenum param, Plfloat v0, Plfloat v1, Plfloat v2) {
 	}
 	switch(param) {
 		case PL_GRAVITY:
-			ctx->getWorld()->setGravity(
+			ctx->setGravity(
 				btVector3(v0,v1,v2));
 			if (ctx->debug_mode) {
 				ctx->debug->info("Setup gravity (")->pf(v0)->append(", ")->pf(v1)->append(", ")->pf(v2)->append(")");
@@ -346,7 +413,7 @@ void plDynamicWorldfv(Plenum param, Plfloat* values, Plsizei length) {
 	}
 	switch(param) {
 		case PL_GRAVITY:
-			ctx->getWorld()->setGravity(
+			ctx->setGravity(
 				btVector3(values[0],values[1],values[2]));
 			return;
 		case PL_RAY_CLOSEST_TEST:
@@ -383,6 +450,9 @@ void plGetDynamicWorldi(Plenum param, Plint* value) {
 	switch(param) {
 		case PL_NUM_RIGID_BODY:
 			*value = ctx->getWorld()->getNumCollisionObjects();
+			break;
+		case PL_NUM_THREADS:
+			*value = ctx->getNumThreads();
 			break;
 		case PL_RAY_BODY_RESULT:
 			if (!ctx->hasRayTest()) {
@@ -629,6 +699,27 @@ void plCreate(int target) {
 				REPORT_ERROR(PL_INVALID_VALUE);
 			}
 			return;
+		} else if (target == PL_SOFT_BODY) {
+			if (!ctx->soft_queue) {
+				if (ctx->debug_mode) {
+					ctx->debug->warning("plCreate(): you must have a soft body in the queue");
+				}
+				ctx->has_global_error = true;
+				REPORT_ERROR(PL_INVALID_OPERATION);
+				return;
+			}
+			btSoftBody* sb = ctx->soft_queue->make(ctx->getSoftBodyWorldInfo(), ctx->debug);
+			if (sb) {
+				ctx->addSoftBody(sb);
+				ctx->soft_queue = NULL;
+			} else {
+				if (ctx->debug_mode) {
+					ctx->debug->error("plCreate(): failure the creation of the soft body");
+				}
+				ctx->has_global_error = true;
+				REPORT_ERROR(PL_INVALID_VALUE);
+			}
+			return;
 		}
 		if (ctx->shape_queue) {
 			if (ctx->cur_shape <= 0) {
@@ -862,14 +953,25 @@ void plShapefv(Plenum param, Plfloat* values, Plsizei length) {
 }
 
 void plBufferData(Plenum type, Plsizei size, void* data, Plint copy) {
-	if (type == PL_VERTEX_BUFFER) {
-		ctx->shape_queue->vertex_buffer = reinterpret_cast<float*>(data);
-		ctx->shape_queue->vertex_buffer_size = size;
-	} else if (type == PL_INDEX_BUFFER) {
-		ctx->shape_queue->index_buffer = reinterpret_cast<unsigned short*>(data);
-		ctx->shape_queue->index_buffer_size = size;
+	if (ctx->shape_queue) {
+		if (type == PL_VERTEX_BUFFER) {
+			ctx->shape_queue->vertex_buffer = reinterpret_cast<float*>(data);
+			ctx->shape_queue->vertex_buffer_size = size;
+		} else if (type == PL_INDEX_BUFFER) {
+			ctx->shape_queue->index_buffer = reinterpret_cast<unsigned short*>(data);
+			ctx->shape_queue->index_buffer_size = size;
+		}
+		ctx->shape_queue->copy_buffers = copy == PL_TRUE;
+	} else if (ctx->soft_queue) {
+		if (type == PL_VERTEX_BUFFER) {
+			ctx->soft_queue->vertex_buffer = reinterpret_cast<float*>(data);
+			ctx->soft_queue->vertex_buffer_size = size;
+		} else if (type == PL_INDEX_BUFFER) {
+			ctx->soft_queue->index_buffer = reinterpret_cast<unsigned short*>(data);
+			ctx->soft_queue->index_buffer_size = size;
+		}
+		ctx->soft_queue->copy_buffers = copy == PL_TRUE;
 	}
-	ctx->shape_queue->copy_buffers = copy == PL_TRUE;
 }
 
 void plGetShapei(Pluint shape, Plenum param, Plint* value) {
@@ -1729,6 +1831,10 @@ void plConstraintf(Plenum param, Plfloat value) {
 		return;
 	}
 	if (ctx->const_queue) {
+		if (param == PL_GEAR_RATIO) {
+			ctx->const_queue->ratio = btScalar(value);
+			return;
+		}
 		REPORT_ERROR(PL_INVALID_OPERATION);
 		return;
 	}
@@ -1812,6 +1918,9 @@ void plConstraintf(Plenum param, Plfloat value) {
 			break;
 		case PL_P2P_UPDATE_RHS:
 			((btPoint2PointConstraint*)tmp)->updateRHS(value);
+			break;
+		case PL_GEAR_RATIO:
+			((btGearConstraint*)tmp)->setRatio(value);
 			break;
 			default:
 		if (ctx->debug_mode) {
@@ -1940,6 +2049,24 @@ void plConstraint3f(Plenum param, Plfloat x, Plfloat y, Plfloat z) {
 			break;
 		case PL_P2P_PIVOT_B:
 			((btPoint2PointConstraint*)tmp)->setPivotB(btVector3(x,y,z));
+			break;
+		case PL_GEAR_AXIS_A:
+			{
+				btVector3 axis(x,y,z);
+				((btGearConstraint*)tmp)->setAxisA(axis);
+			}
+			break;
+		case PL_GEAR_AXIS_B:
+			{
+				btVector3 axis(x,y,z);
+				((btGearConstraint*)tmp)->setAxisB(axis);
+			}
+			break;
+		case PL_UNIV_UPPER_LIMIT:
+			((btUniversalConstraint*)tmp)->setUpperLimit(x,y);
+			break;
+		case PL_UNIV_LOWER_LIMIT:
+			((btUniversalConstraint*)tmp)->setLowerLimit(x,y);
 			break;
 		default:
 		if (ctx->debug_mode) {
@@ -2421,5 +2548,253 @@ void plGetCharacterfv(Pluint indx, Plenum param, Plfloat* values, Plsizei length
 		values[0] = v.getX();
 		values[1] = v.getY();
 		values[2] = v.getZ();
+	}
+}
+
+/*
+		Functions to handle Soft Bodies
+*/
+Pluint plGenSoftBody(Plenum type) {
+	if (!hasContext() || ctx->has_global_error) {
+		return 0;
+	}
+	return ctx->queueSoftBody(type);
+}
+
+void plBindSoftBody(Pluint indx) {
+	if (!hasContext() || ctx->has_global_error) {
+		return;
+	}
+	ctx->cur_soft = indx;
+}
+
+void plDeleteSoftBody(Pluint indx) {
+	if (!hasContext() || ctx->has_global_error) {
+		return;
+	}
+	ctx->deleteSoftBody(indx);
+}
+
+void plSoftBodyi(Plenum param, Plint value) {
+	if (!hasContext() || ctx->has_global_error) {
+		return;
+	}
+	if (ctx->soft_queue) {
+		switch(param) {
+			case PL_SB_RESOLUTION:
+				ctx->soft_queue->res_x = value;
+				break;
+			case PL_SB_FIXED_NODES:
+				ctx->soft_queue->fixeds = value;
+				break;
+			case PL_SB_ITERATIONS:
+				ctx->soft_queue->iterations = value;
+				break;
+			case PL_SB_ANCHOR_BODY:
+				ctx->soft_queue->anchor_body = ctx->getRigidBody(value);
+				break;
+			case PL_SB_AERO_MODEL:
+				ctx->soft_queue->aero_model = value;
+				break;
+			case PL_SB_RANDOMIZE_CONSTRAINTS:
+				ctx->soft_queue->randomize_constraints = (value == PL_TRUE);
+				break;
+		}
+		return;
+	}
+	btSoftBody* sb = ctx->getSoftBody(ctx->cur_soft);
+	if (sb == NULL) {
+		if (ctx->debug_mode) {
+			ctx->debug->error("plSoftBodyi(): soft body not exist");
+		}
+		REPORT_ERROR(PL_INVALID_NAME);
+		return;
+	}
+	switch(param) {
+		case PL_SB_ITERATIONS:
+			sb->m_cfg.piterations = value;
+			sb->m_cfg.viterations = value;
+			break;
+		case PL_SB_AERO_MODEL:
+			sb->m_cfg.aeromodel = (btSoftBody::eAeroModel::_)value;
+			break;
+		case PL_SB_ANCHOR_BODY:
+			{
+				btRigidBody* rb = ctx->getRigidBody(value);
+				if (rb != NULL) {
+					sb->appendAnchor(0, rb);
+				}
+			}
+			break;
+	}
+}
+
+void plSoftBodyf(Plenum param, Plfloat value) {
+	if (!hasContext() || ctx->has_global_error) {
+		return;
+	}
+	if (ctx->soft_queue) {
+		switch(param) {
+			case PL_SB_RADIUS:
+				ctx->soft_queue->radius = btScalar(value);
+				break;
+			case PL_SB_TOTAL_MASS:
+				ctx->soft_queue->total_mass = btScalar(value);
+				break;
+			case PL_SB_PRESSURE:
+				ctx->soft_queue->pressure = btScalar(value);
+				break;
+			case PL_SB_STIFFNESS:
+				ctx->soft_queue->stiffness = btScalar(value);
+				break;
+			case PL_SB_DAMPING:
+				ctx->soft_queue->damping = btScalar(value);
+				break;
+			case PL_SB_VELOCITY_CORRECTION:
+				ctx->soft_queue->velocity_correction = btScalar(value);
+				break;
+		}
+		return;
+	}
+	btSoftBody* sb = ctx->getSoftBody(ctx->cur_soft);
+	if (sb == NULL) {
+		if (ctx->debug_mode) {
+			ctx->debug->error("plSoftBodyf(): soft body not exist");
+		}
+		REPORT_ERROR(PL_INVALID_NAME);
+		return;
+	}
+	switch(param) {
+		case PL_SB_TOTAL_MASS:
+			sb->setTotalMass(btScalar(value), true);
+			break;
+		case PL_SB_PRESSURE:
+			sb->m_cfg.kPR = btScalar(value);
+			break;
+		case PL_SB_STIFFNESS:
+			if (sb->m_materials.size() > 0) {
+				sb->m_materials[0]->m_kLST = btScalar(value);
+				sb->m_materials[0]->m_kAST = btScalar(value);
+				sb->m_materials[0]->m_kVST = btScalar(value);
+			}
+			break;
+		case PL_SB_DAMPING:
+			sb->m_cfg.kDP = btScalar(value);
+			break;
+		case PL_SB_VELOCITY_CORRECTION:
+			sb->m_cfg.kVCF = btScalar(value);
+			break;
+	}
+}
+
+void plSoftBody3f(Plenum param, Plfloat x, Plfloat y, Plfloat z) {
+	if (!hasContext() || ctx->has_global_error) {
+		return;
+	}
+	if (ctx->soft_queue) {
+		switch(param) {
+			case PL_SB_POSITION_A:
+				ctx->soft_queue->p0.setValue(btScalar(x),btScalar(y),btScalar(z));
+				break;
+			case PL_SB_POSITION_B:
+				ctx->soft_queue->p1.setValue(btScalar(x),btScalar(y),btScalar(z));
+				break;
+			case PL_SB_POSITION_C:
+				ctx->soft_queue->p2.setValue(btScalar(x),btScalar(y),btScalar(z));
+				break;
+			case PL_SB_POSITION_D:
+				ctx->soft_queue->p3.setValue(btScalar(x),btScalar(y),btScalar(z));
+				break;
+		}
+		return;
+	}
+}
+
+void plSoftBodyfv(Plenum param, Plfloat* values, Plsizei length) {
+	if (!hasContext() || ctx->has_global_error) {
+		return;
+	}
+	if (ctx->soft_queue) {
+		if (param == PL_SB_RESOLUTION && length >= 2) {
+			ctx->soft_queue->res_x = (int)values[0];
+			ctx->soft_queue->res_y = (int)values[1];
+		} else if (param == PL_SB_ANCHOR_NODES && length > 0) {
+			ctx->soft_queue->anchor_nodes.clear();
+			for (Plsizei i = 0;i < length;i++) {
+				ctx->soft_queue->anchor_nodes.push_back((int)values[i]);
+			}
+		}
+		return;
+	}
+}
+
+void plGetSoftBodyi(Pluint indx, Plenum param, Plint* value) {
+	if (!hasContext() || ctx->has_global_error) {
+		return;
+	}
+	btSoftBody* sb = ctx->getSoftBody(indx);
+	if (sb == NULL) {
+		if (ctx->debug_mode) {
+			ctx->debug->error("plGetSoftBodyi(): soft body not exist");
+		}
+		REPORT_ERROR(PL_INVALID_NAME);
+		return;
+	}
+	switch(param) {
+		case PL_SB_NUM_NODES:
+			*value = sb->m_nodes.size();
+			break;
+	}
+}
+
+void plGetSoftBodyf(Pluint indx, Plenum param, Plfloat* value) {
+	if (!hasContext() || ctx->has_global_error) {
+		return;
+	}
+	btSoftBody* sb = ctx->getSoftBody(indx);
+	if (sb == NULL) {
+		if (ctx->debug_mode) {
+			ctx->debug->error("plGetSoftBodyf(): soft body not exist");
+		}
+		REPORT_ERROR(PL_INVALID_NAME);
+		return;
+	}
+	switch(param) {
+		case PL_SB_VOLUME:
+			*value = sb->getVolume();
+			break;
+		case PL_SB_TOTAL_MASS:
+			*value = sb->getTotalMass();
+			break;
+	}
+}
+
+void plGetSoftBodyfv(Pluint indx, Plenum param, Plfloat* values, Plsizei length) {
+	if (!hasContext() || ctx->has_global_error) {
+		return;
+	}
+	btSoftBody* sb = ctx->getSoftBody(indx);
+	if (sb == NULL) {
+		if (ctx->debug_mode) {
+			ctx->debug->error("plGetSoftBodyfv(): soft body not exist");
+		}
+		REPORT_ERROR(PL_INVALID_NAME);
+		return;
+	}
+	if (param == PL_SB_NODE_POSITION) {
+		int nodes = sb->m_nodes.size();
+		if (length < nodes * 3) {
+			if (ctx->debug_mode) {
+				ctx->debug->warning("plGetSoftBodyfv(): the output array is too small");
+			}
+			REPORT_ERROR(PL_INVALID_VALUE);
+			return;
+		}
+		for (int i = 0;i < nodes;i++) {
+			const btVector3& p = sb->m_nodes[i].m_x;
+			values[i * 3 + 0] = p.getX();
+			values[i * 3 + 1] = p.getY();
+			values[i * 3 + 2] = p.getZ();
+		}
 	}
 }

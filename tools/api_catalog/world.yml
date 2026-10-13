@@ -1,0 +1,274 @@
+# OpenPL API catalog — group: world
+# Localized descriptions (es/en). Consumed by tools/gen_api_docs.py.
+functions:
+  plDynamicWorldi:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_ADD_RIGID_BODY, PL_REMOVE_RIGID_BODY, PL_ADD_CONSTRAINT, PL_REMOVE_CONSTRAINT, PL_INIT_VEHICLE_RAYCASTER, PL_INIT_CHARACTER, PL_ADD_CHARACTER, PL_CLEAR_RAY_RESULTS, PL_USE_DBVT, PL_CONTACT_TEST, PL_ADD_FLAG_RAY_TEST, PL_USER_POINTER, PL_DEBUG_MODE.
+        en: "Specifies the parameter to set the value for. Can be PL_ADD_RIGID_BODY, PL_REMOVE_RIGID_BODY, PL_ADD_CONSTRAINT, PL_REMOVE_CONSTRAINT, PL_INIT_VEHICLE_RAYCASTER, PL_INIT_CHARACTER, PL_ADD_CHARACTER, PL_CLEAR_RAY_RESULTS, PL_USE_DBVT, PL_CONTACT_TEST, PL_ADD_FLAG_RAY_TEST, PL_USER_POINTER, PL_DEBUG_MODE."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor asignado.
+        en: "The assigned value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_ADD_RIGID_BODY agregar un cuerpo rigido. value debe ser el id del cuerpo rigido ya creado.
+      - PL_REMOVE_RIGID_BODY remover un cuerpo rigido. value debe ser el id del cuerpo rigido a remover.
+      - PL_ADD_CONSTRAINT agregar una restriccion. value debe ser el id de la restriccion ya creada.
+      - PL_REMOVE_CONSTRAINT remover una restriccion. value debe ser el id de la restriccion a remover.
+      - PL_INIT_VEHICLE_RAYCASTER inicializar el vehivle ray caster. value debe ser 0.
+      - PL_CLEAR_RAY_RESULTS eliminar los resultados de la prueba de rayo. value debe ser 0.
+      - PL_USE_DBVT usar Dbvt broadphase. value debe ser 0.
+      - PL_CONTACT_TEST value debe ser 1 si quieres usar la prueba de contactos o 0 si no quieres.
+      - PL_ADD_FLAG_RAY_TEST agregar filtro a la prueba de ray casting value puede ser PL_RF_FLT_BACK_FACES, PL_RF_KP_UNFLIPPED_NORM, PL_RF_SS_CCR, PL_RF_GJK_CCR.
+      - PL_USER_POINTER buscar y enlazar el cuerpo rigido apartir del user pointer.value debe ser el user pointer.
+      - PL_DEBUG_MODE value debe ser 1 si quieres usar el modo de depuracion o 0 si no quieres.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_ADD_RIGID_BODY adds a rigid body. value must be the id of the already created rigid body."
+      - "PL_REMOVE_RIGID_BODY removes a rigid body. value must be the id of the rigid body to remove."
+      - "PL_ADD_CONSTRAINT adds a constraint. value must be the id of the already created constraint."
+      - "PL_REMOVE_CONSTRAINT removes a constraint. value must be the id of the constraint to remove."
+      - "PL_INIT_VEHICLE_RAYCASTER initializes the vehicle ray caster. value must be 0."
+      - "PL_CLEAR_RAY_RESULTS clears the ray test results. value must be 0."
+      - "PL_USE_DBVT uses the Dbvt broadphase. value must be 0."
+      - "PL_CONTACT_TEST value must be 1 if you want to use the contact test or 0 if not."
+      - "PL_ADD_FLAG_RAY_TEST adds a filter to the ray casting test. value can be PL_RF_FLT_BACK_FACES, PL_RF_KP_UNFLIPPED_NORM, PL_RF_SS_CCR, PL_RF_GJK_CCR."
+      - "PL_USER_POINTER finds and binds the rigid body from the user pointer. value must be the user pointer."
+      - "PL_DEBUG_MODE value must be 1 if you want to use debug mode or 0 if not."
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo rigido, restriccion, personaje no existen o el id es incorrecto.
+      en: "if the rigid body, constraint or character do not exist or the id is incorrect."
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."
+  plDynamicWorld3f:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_GRAVITY, PL_USE_AXIS_SWEEP3.
+        en: "Specifies the parameter to set the value for. Can be PL_GRAVITY, PL_USE_AXIS_SWEEP3."
+      v0_v1_v2:
+        name_es: v0 v1 v2
+        name_en: v0 v1 v2
+        es: Valores asignados.
+        en: "The assigned values."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_GRAVITY poner el vector de gravedad, por defecto es (0,-9.8,0). v0 v1 v2 deben ser el vector de gravedad (x,y,x).
+      - PL_USE_AXIS_SWEEP3 usar AxisSweep3 v0 v1 v2 deben ser el vector de extension.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_GRAVITY sets the gravity vector, by default (0,-9.8,0). v0 v1 v2 must be the gravity vector (x,y,x)."
+      - "PL_USE_AXIS_SWEEP3 uses AxisSweep3. v0 v1 v2 must be the extent vector."
+    errors:
+    - code: PL_INVALID_ENUM
+      es: si el parametro especificado no es permitido.
+      en: "if the specified parameter is not allowed."
+  plDynamicWorldfv:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_GRAVITY, PL_RAY_CLOSEST_TEST, PL_RAY_ALL_TEST, PL_USE_AXIS_SWEEP3.
+        en: "Specifies the parameter to set the value for. Can be PL_GRAVITY, PL_RAY_CLOSEST_TEST, PL_RAY_ALL_TEST, PL_USE_AXIS_SWEEP3."
+      values:
+        name_es: values
+        name_en: values
+        es: El arreglo de valores
+        en: "The array of values"
+      lenght:
+        name_es: lenght
+        name_en: lenght
+        es: Longitud del arreglo.
+        en: "Length of the array."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_GRAVITY poner vector de gravedad. values debe ser el vector (x,y,z).
+      - PL_RAY_CLOSEST_TEST hacer test de ray casting, el objeto mas cercano. values debe ser el vector ray origin (x,y,z) y ray end (x,y,z).
+      - PL_RAY_ALL_TEST hacer test de ray casting, todos los objetos sin excepciones.values debe ser el vector ray origin (x,y,z) y ray end (x,y,z).
+      - PL_USE_AXIS_SWEEP3 usar AxisSweep3 broadphase values debe ser el vector min y max.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_GRAVITY sets the gravity vector. values must be the vector (x,y,z)."
+      - "PL_RAY_CLOSEST_TEST does a ray casting test, the closest object. values must be the ray origin vector (x,y,z) and ray end (x,y,z)."
+      - "PL_RAY_ALL_TEST does a ray casting test, all objects without exception. values must be the ray origin vector (x,y,z) and ray end (x,y,z)."
+      - "PL_USE_AXIS_SWEEP3 uses AxisSweep3 broadphase. values must be the min and max vector."
+    errors:
+    - code: PL_INVALID_VALUE
+      es: si el valor lenght es 0 o no es correcto.
+      en: "if the lenght value is 0 or is not correct."
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."
+  plGetDynamicWorldi:
+    brief:
+      es: Obtener un valor a traves de un parametro especifico.
+      en: "Get a value through a specific parameter."
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para obtener el valor. Puede ser PL_NUM_RIGID_BODY, PL_RAY_BODY_RESULT, PL_NUM_RAY_RESULT.
+        en: "Specifies the parameter to get the value. Can be PL_NUM_RIGID_BODY, PL_RAY_BODY_RESULT, PL_NUM_RAY_RESULT."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor para obtener.
+        en: "The value to get."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_NUM_RIGID_BODY obtener el numero de cuerpos rigidos.
+      - PL_RAY_BODY_RESULT obtener el cuerpo rigido que fue golpeado por el raycasting.
+      - PL_NUM_RAY_RESULT obtener el numero de objetos golpeados por el raycasting.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_NUM_RIGID_BODY gets the number of rigid bodies."
+      - "PL_RAY_BODY_RESULT gets the rigid body that was hit by the raycasting."
+      - "PL_NUM_RAY_RESULT gets the number of objects hit by the raycasting."
+    errors:
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."
+  plGetDynamicWorld3f:
+    brief:
+      es: Obtener un valor a traves de un parametro especifico.
+      en: "Get a value through a specific parameter."
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para obtener los valores. Puede ser PL_GRAVITY, PL_RAY_POINT_RESULT.
+        en: "Specifies the parameter to get the values. Can be PL_GRAVITY, PL_RAY_POINT_RESULT."
+      v0_v1_v2:
+        name_es: v0 v1 v2
+        name_en: v0 v1 v2
+        es: Los valores para obtener.
+        en: "The values to get."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_GRAVITY obtener el vector de gravedad en el orden (x,y,z).
+      - PL_RAY_POINT_RESULT obtener el punto de golpe del ray casting (x,y,z).
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_GRAVITY gets the gravity vector in the order (x,y,z)."
+      - "PL_RAY_POINT_RESULT gets the hit point of the ray casting (x,y,z)."
+    errors:
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."
+  plGetDynamicWorldiv:
+    brief:
+      es: Obtener un valor a traves de un parametro especifico.
+      en: "Get a value through a specific parameter."
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para obtener los valores. Puede ser PL_RAY_BODY_RESULT.
+        en: "Specifies the parameter to get the values. Can be PL_RAY_BODY_RESULT."
+      values:
+        name_es: values
+        name_en: values
+        es: El arreglo de valores
+        en: "The array of values"
+      lenght:
+        name_es: lenght
+        name_en: lenght
+        es: Longitud del arreglo.
+        en: "Length of the array."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_RAY_BODY_RESULT obtener las id de los cuerpos rigidos que fueron golpeados por el ray casting.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_RAY_BODY_RESULT gets the ids of the rigid bodies that were hit by the ray casting."
+    errors:
+    - code: PL_INVALID_OPERATION
+      es: si se intenta obtener el parametro PL_RAY_BODY_RESULT sin antes haber hecho una prueba de raycasting.
+      en: "if you try to get the PL_RAY_BODY_RESULT parameter without having done a raycasting test before."
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."
+    - code: PL_INVALID_VALUE
+      es: si lenght es 0 o incorrecto.
+      en: "if lenght is 0 or incorrect."
+  plGetDynamicWorldfv:
+    brief:
+      es: Obtener un valor a traves de un parametro especifico.
+      en: "Get a value through a specific parameter."
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para obtener el valor. Puede ser PL_RAY_POINT_RESULT, PL_RAY_NORMAL_RESULT.
+        en: "Specifies the parameter to get the value. Can be PL_RAY_POINT_RESULT, PL_RAY_NORMAL_RESULT."
+      values:
+        name_es: values
+        name_en: values
+        es: El arreglo de valores
+        en: "The array of values"
+      lenght:
+        name_es: lenght
+        name_en: lenght
+        es: Longitud del arreglo.
+        en: "Length of the array."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_RAY_POINT_RESULT obtener los puntos de golpe del raycasting.
+      - PL_RAY_NORMAL_RESULT obtener las normales del raycasting.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_RAY_POINT_RESULT gets the hit points of the raycasting."
+      - "PL_RAY_NORMAL_RESULT gets the normals of the raycasting."
+    errors:
+    - code: PL_INVALID_OPERATION
+      es: si se intenta obtener el parametro PL_RAY_POINT_RESULT o PL_RAY_NORMAL_RESULT sin antes haber hecho una prueba de raycasting.
+      en: "if you try to get the PL_RAY_POINT_RESULT or PL_RAY_NORMAL_RESULT parameter without having done a raycasting test before."
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."
+    - code: PL_INVALID_VALUE
+      es: si lenght es 0 o incorrecto.
+      en: "if lenght is 0 or incorrect."
+  plContactCallBack:
+    brief:
+      es: Poner el listener de contactos
+      en: "Set the contact listener"
+    params:
+      callback:
+        name_es: callback
+        name_en: callback
+        es: poner funcion callback.
+        en: "set callback function."
+    notes:
+      es:
+      - Para que funcione debes poner antes de esta funcion plDynamicWorldi(PL_CONTACT_TEST,1)
+      - Para crear la funcion callback requerida.
+      - bool name_function(int user_ptr0,bool match0,int user_ptr1,bool match1){}
+      en:
+      - "For it to work you must call plDynamicWorldi(PL_CONTACT_TEST,1) before this function"
+      - "To create the required callback function."
+      - "bool name_function(int user_ptr0,bool match0,int user_ptr1,bool match1){}"
+    errors: []

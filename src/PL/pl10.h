@@ -73,6 +73,10 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_USE_DBVT 						0x0F3
 #define PL_ADD_CHARACTER 					0x0F4
 #define PL_ADD_VEHICLE 						0x0F5
+#define PL_INIT_SOFTBODY 					0x0F6
+#define PL_ADD_SOFTBODY 					0x0F7
+#define PL_REMOVE_SOFTBODY 					0x0F8
+#define PL_NUM_THREADS 						0x0F9
 
 /* ray test callback flags */
 #define PL_RF_FLT_BACK_FACES 				0x001
@@ -91,6 +95,7 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_TYPED_CONSTRAINT 				0x0A3
 #define PL_RAYCAST_VEHICLE 					0x0A4
 #define PL_CHARACTER 						0x0A5
+#define PL_SOFT_BODY 						0x0A6
 
 /* bullet shape types (supported by open bt) */
 #define PL_BOX_SHAPE	 					0x0C1
@@ -192,6 +197,9 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_CONE_TWIST_CONSTRAINT 			0xED7
 #define PL_ADD_CONSTRAINT 					0xED8
 #define PL_REMOVE_CONSTRAINT 				0xED9
+#define PL_FIXED_CONSTRAINT 				0xEDA
+#define PL_GEAR_CONSTRAINT 					0xEDB
+#define PL_UNIVERSAL_CONSTRAINT 			0xEDC
 
 // constructor parameters
 #define PL_CONSTR_RBODY_A 					0xEF0
@@ -286,6 +294,15 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 // Cone Twist Constraint option
 #define PL_CTWIST_LIMITS					0xACC
 
+// Gear Constraint options
+#define PL_GEAR_RATIO						0xEE0
+#define PL_GEAR_AXIS_A						0xEE1
+#define PL_GEAR_AXIS_B						0xEE2
+
+// Universal Constraint options
+#define PL_UNIV_UPPER_LIMIT					0xEE3
+#define PL_UNIV_LOWER_LIMIT					0xEE4
+
 // vehicule ray casting (vehicule suspension simulation)
 #define PL_VEHICLE_CHASSIS 					0xC12
 #define PL_SUSPENSION_STIFFNESS 			0xC13
@@ -342,9 +359,40 @@ typedef bool (*obtContactCallBack)(int user_ptr0,bool match0,int user_ptr1,bool 
 #define PL_CHAR_CAN_JUMP 					0xC37
 #define PL_CHAR_ON_GROUND 					0xC38
 
+/* soft body types */
+#define PL_SOFTBODY_ROPE 					0x1100
+#define PL_SOFTBODY_CLOTH 					0x1101
+#define PL_SOFTBODY_ELLIPSOID 				0x1102
+#define PL_SOFTBODY_MESH 					0x1103
+
+/* soft body options */
+#define PL_SB_POSITION_A 					0x1110
+#define PL_SB_POSITION_B 					0x1111
+#define PL_SB_POSITION_C 					0x1112
+#define PL_SB_POSITION_D 					0x1113
+#define PL_SB_RESOLUTION 					0x1114
+#define PL_SB_RADIUS 						0x1115
+#define PL_SB_TOTAL_MASS 					0x1116
+#define PL_SB_PRESSURE 						0x1117
+#define PL_SB_STIFFNESS 					0x1118
+#define PL_SB_DAMPING 						0x1119
+#define PL_SB_VELOCITY_CORRECTION 			0x111A
+#define PL_SB_ITERATIONS 					0x111B
+#define PL_SB_FIXED_NODES 					0x111C
+#define PL_SB_ANCHOR_BODY 					0x111D
+#define PL_SB_ANCHOR_NODES 					0x111E
+#define PL_SB_AERO_MODEL 					0x111F
+#define PL_SB_RANDOMIZE_CONSTRAINTS 		0x1120
+
+/* soft body getters */
+#define PL_SB_NUM_NODES 					0x1130
+#define PL_SB_NODE_POSITION 				0x1131
+#define PL_SB_VOLUME 						0x1132
+
 // core
 PL_API PLbool plCreateContext();
 PL_API void plDestroyContext();
+PL_API PLbool plSetNumThreads(Plint numThreads);
 PL_API Plint plGetError();
 PL_API const char* plGetString(Plenum param);
 PL_API Plint plGetInteger(Plenum param);
@@ -420,6 +468,18 @@ PL_API void plCharacterfv(Plenum param, Plfloat* values);
 PL_API void plGetCharacterf(Pluint indx, Plenum param, Plfloat* value);
 PL_API PLbool plGetCharacterb(Pluint indx, Plenum param);
 PL_API void plGetCharacterfv(Pluint indx, Plenum param, Plfloat* values, Plsizei lenght);
+
+// soft bodies
+PL_API Pluint plGenSoftBody(Plenum type);
+PL_API void plBindSoftBody(Pluint indx);
+PL_API void plDeleteSoftBody(Pluint indx);
+PL_API void plSoftBodyi(Plenum param, Plint value);
+PL_API void plSoftBodyf(Plenum param, Plfloat value);
+PL_API void plSoftBody3f(Plenum param, Plfloat x, Plfloat y, Plfloat z);
+PL_API void plSoftBodyfv(Plenum param, Plfloat* values, Plsizei lenght);
+PL_API void plGetSoftBodyi(Pluint indx, Plenum param, Plint* value);
+PL_API void plGetSoftBodyf(Pluint indx, Plenum param, Plfloat* value);
+PL_API void plGetSoftBodyfv(Pluint indx, Plenum param, Plfloat* values, Plsizei lenght);
 
 #ifdef __cplusplus
 }

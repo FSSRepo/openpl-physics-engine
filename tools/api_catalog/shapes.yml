@@ -1,0 +1,267 @@
+# OpenPL API catalog — group: shapes
+# Localized descriptions (es/en). Consumed by tools/gen_api_docs.py.
+functions:
+  plBindShape:
+    brief:
+      es: Enlazar para usar una forma de colision.
+      en: "Bind to use a collision shape."
+    params:
+      shape:
+        name_es: shape
+        name_en: shape
+        es: La id de la forma de colision a enlazar.
+        en: "The id of the collision shape to bind."
+    notes:
+      es:
+      - Antes de llamar esta funcion para enlazar una forma de colisionasegurate de que no haya sido enlazado previamente, si es asi para desenlazar shape debe ser 0.
+      en:
+      - "Before calling this function to bind a collision shape, make sure it was not bound previously; if so, to unbind, shape must be 0."
+    errors:
+    - code: PL_INVALID_OPERATION
+      es: si ya hay una forma de colision enlazada previamente.
+      en: "if a collision shape is already bound previously."
+  plShapei:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_USER_POINTER, PL_ADD_CHILD_SHAPE, PL_REMOVE_CHILD_SHAPE, PL_OPTIMIZE_CONVEX_HULL.
+        en: "Specifies the parameter to set the value for. Can be PL_USER_POINTER, PL_ADD_CHILD_SHAPE, PL_REMOVE_CHILD_SHAPE, PL_OPTIMIZE_CONVEX_HULL."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor asignado.
+        en: "The assigned value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_USER_POINTER poner un puntero de usuario. value debe ser el user pointer que desees.
+      - PL_ADD_CHILD_SHAPE agregar una forma de colision a un compuesto. value debe ser la forma de colision a agregar.
+      - PL_REMOVE_CHILD_SHAPE remover una forma de colision a un compuesto. value debe ser la forma de colision a remover.
+      - PL_OPTIMIZE_CONVEX_HULL optimizar forma de convex hull. value debe ser 1 o 0.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_USER_POINTER sets a user pointer. value must be the user pointer you want."
+      - "PL_ADD_CHILD_SHAPE adds a collision shape to a compound. value must be the collision shape to add."
+      - "PL_REMOVE_CHILD_SHAPE removes a collision shape from a compound. value must be the collision shape to remove."
+      - "PL_OPTIMIZE_CONVEX_HULL optimizes the convex hull shape. value must be 1 or 0."
+    errors:
+    - code: PL_INVALID_ENUM
+      es: si param no es permitido.
+      en: "if param is not allowed."
+  plShapef:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_HEIGHT, PL_RADIUS, PL_PLANE_CONSTANT.
+        en: "Specifies the parameter to set the value for. Can be PL_HEIGHT, PL_RADIUS, PL_PLANE_CONSTANT."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor asignado.
+        en: "The assigned value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_HEIGHT poner altura de un cono, capsula o cilindro . value nunca debe ser 0.
+      - PL_RADIUS poner radio de una esfera o de los extremos de un cilindro, capsula, cono. value nunca debe ser 0.
+      - PL_PLANE_CONSTANT poner altura de un plano estatico. value debe ser el valor equivalente.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_HEIGHT sets the height of a cone, capsule or cylinder. value must never be 0."
+      - "PL_RADIUS sets the radius of a sphere or of the ends of a cylinder, capsule or cone. value must never be 0."
+      - "PL_PLANE_CONSTANT sets the height of a static plane. value must be the equivalent value."
+    errors:
+    - code: PL_INVALID_OPERATION
+      es: si se intenta asignar uno de estos valores despues de crear la forma de colision.
+      en: "if you try to assign one of these values after creating the collision shape."
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."
+  plShape3f:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_EXTENT, PL_PLANE_NORMAL, PL_LOCAL_SCALING.
+        en: "Specifies the parameter to set the value for. Can be PL_EXTENT, PL_PLANE_NORMAL, PL_LOCAL_SCALING."
+      x_y_z:
+        name_es: x y z
+        name_en: x y z
+        es: Los valores asignados.
+        en: "The assigned values."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_EXTENT poner la extension. x y z debe ser el vector(x,y,z).
+      - PL_PLANE_NORMAL asignar la direccion de colision de un plano estatico. x y z debe ser el vector(x,y,z) del normal.
+      - PL_LOCAL_SCALING escalar una forma de colision. x y z debe ser el vector(x,y,z) de escala.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_EXTENT sets the extent. x y z must be the vector (x,y,z)."
+      - "PL_PLANE_NORMAL sets the collision direction of a static plane. x y z must be the normal vector (x,y,z)."
+      - "PL_LOCAL_SCALING scales a collision shape. x y z must be the scale vector (x,y,z)."
+    errors:
+    - code: PL_INVALID_OPERATION
+      es: en raras ocaciones.
+      en: "in rare occasions."
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."
+  plShapefv:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_TRANSFORM.
+        en: "Specifies the parameter to set the value for. Can be PL_TRANSFORM."
+      values:
+        name_es: values
+        name_en: values
+        es: Los valores asignados.
+        en: "The assigned values."
+      lenght:
+        name_es: lenght
+        name_en: lenght
+        es: La longitud del arreglo de valores.
+        en: "The length of the values array."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_TRANSFORM poner la transformacion para la forma de colision.values debe ser un matrix4x4 de transformacion.lenght debe ser 16
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_TRANSFORM sets the transformation for the collision shape. values must be a transformation matrix4x4. lenght must be 16"
+    errors:
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."
+  plBufferData:
+    brief:
+      es: Establecer un buffer de datos.
+      en: "Set a data buffer."
+    params:
+      type:
+        name_es: type
+        name_en: type
+        es: Especifica el tipo de dato a introducir. Puede ser PL_VERTEX_BUFFER, PL_INDEX_BUFFER.
+        en: "Specifies the data type to set. Can be PL_VERTEX_BUFFER, PL_INDEX_BUFFER."
+      size:
+        name_es: size
+        name_en: size
+        es: La cantidad de vertices si el tipo es PL_VERTEX_BUFFER, la cantidad de indices si es PL_INDEX_BUFFER.
+        en: "The number of vertices if the type is PL_VERTEX_BUFFER, the number of indices if it is PL_INDEX_BUFFER."
+      data:
+        name_es: data
+        name_en: data
+        es: Puntero de entrada de datos binarios.
+        en: "Binary data input pointer."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por type:'
+      - PL_VERTEX_BUFFER buffer de vertices en el orden xyz, con puntos flotantes de 32 bits. data debe ser un arreglo de puntos flotantes (float*)(float[]).
+      - PL_INDEX_BUFFER buffer de indices en el orden abc, con enteros de 16 bits. data debe ser un arreglo de enteros de 16 bits (short[]) (short*).
+      - Los datos que se introdujeron en ningun momento del ciclo de vida deben ser modificados.
+      en:
+      - "The following constants are accepted by type:"
+      - "PL_VERTEX_BUFFER vertex buffer in xyz order, with 32-bit floating points. data must be an array of floating points (float*)(float[])."
+      - "PL_INDEX_BUFFER index buffer in abc order, with 16-bit integers. data must be an array of 16-bit integers (short[]) (short*)."
+      - "The data introduced must not be modified at any point in the lifecycle."
+    errors:
+    - code: ''
+      es: data nunca debe ser nulo.
+      en: "data must never be null."
+    - code: ''
+      es: size nunca debe ser 0.
+      en: "size must never be 0."
+    - code: ''
+      es: Los errores consecuentes de esto se presentan al usar otras funciones relacionadas.
+      en: "The errors resulting from this appear when using other related functions."
+  plGetShapei:
+    brief:
+      es: Obtener un valor a un parametro especifico
+      en: "Get a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_SHAPE_TYPE, PL_USER_POINTER, PL_NUM_CHILD_SHAPES.
+        en: "Specifies the parameter to get the value. Can be PL_SHAPE_TYPE, PL_USER_POINTER, PL_NUM_CHILD_SHAPES."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor asignado.
+        en: "The assigned value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_SHAPE_TYPE obtener el tipo de forma de colision.
+      - PL_USER_POINTER obtener el user pointer.
+      - PL_NUM_CHILD_SHAPES obtener el numero de children. Debe ser compound shape.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_SHAPE_TYPE gets the collision shape type."
+      - "PL_USER_POINTER gets the user pointer."
+      - "PL_NUM_CHILD_SHAPES gets the number of children. Must be a compound shape."
+    errors:
+    - code: PL_INVALID_NAME
+      es: si la forma de colision no existe o el id es incorrecto.
+      en: "if the collision shape does not exist or the id is incorrect."
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."
+  plGetShapefv:
+    brief:
+      es: Obtener un valor a un parametro especifico
+      en: "Get a value for a specific parameter"
+    params:
+      shape:
+        name_es: shape
+        name_en: shape
+        es: El id de la forma de colision
+        en: "The id of the collision shape"
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para obtener el valor. Puede ser PL_TRANSFORM,
+        en: "Specifies the parameter to get the value. Can be PL_TRANSFORM,"
+      values:
+        name_es: values
+        name_en: values
+        es: Valores para obtener.
+        en: "Values to get."
+      lenght:
+        name_es: lenght
+        name_en: lenght
+        es: La longitud del arreglo de valores.
+        en: "The length of the values array."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_TRANSFORM poner la transformacion.values debe ser un matrix4x4 de transformacion.lenght debe ser 16
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_TRANSFORM sets the transformation. values must be a transformation matrix4x4. lenght must be 16"
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo rigido no existe o el id es incorrecto.
+      en: "if the rigid body does not exist or the id is incorrect."
+    - code: PL_INVALID_OPERATION
+      es: en raras ocaciones.
+      en: "in rare occasions."
+    - code: PL_INVALID_ENUM
+      es: si param es una constante invalida o no permitida.
+      en: "if param is an invalid or disallowed constant."

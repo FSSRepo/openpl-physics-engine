@@ -20,6 +20,10 @@ extern "C" {
 		return (jboolean)plCreateContext();
 	}
 	
+	JNIEXPORT jboolean JNICALL Java_com_openpl_PL10_plSetNumThreads(JNIEnv* env, jobject thiz,jint numThreads) {
+		return (jboolean)plSetNumThreads(numThreads);
+	}
+	
 	JNIEXPORT void JNICALL Java_com_openpl_PL10_plDestroyContext(JNIEnv* env, jobject thiz) {
 		plDestroyContext();
 	}
@@ -296,6 +300,54 @@ extern "C" {
 	JNIEXPORT void JNICALL Java_com_openpl_PL10_plGetCharacterfv(JNIEnv* env, jobject thiz,jint chr,jint param,jfloatArray val,jint length) {
 		float* cval = (float*)env->GetPrimitiveArrayCritical(val,0);
 		plGetCharacterfv(chr,param,cval,length);
+		env->ReleasePrimitiveArrayCritical(val,cval,0);
+	}
+	
+	JNIEXPORT jint JNICALL Java_com_openpl_PL10_plGenSoftBody(JNIEnv* env, jobject thiz,jint type) {
+		return (jint)plGenSoftBody(type);
+	}
+	
+	JNIEXPORT void JNICALL Java_com_openpl_PL10_plBindSoftBody(JNIEnv* env, jobject thiz,jint indx) {
+		plBindSoftBody(indx);
+	}
+	
+	JNIEXPORT void JNICALL Java_com_openpl_PL10_plDeleteSoftBody(JNIEnv* env, jobject thiz,jint indx) {
+		plDeleteSoftBody(indx);
+	}
+	
+	JNIEXPORT void JNICALL Java_com_openpl_PL10_plSoftBodyi(JNIEnv* env, jobject thiz,jint param,jint value) {
+		plSoftBodyi(param, value);
+	}
+	
+	JNIEXPORT void JNICALL Java_com_openpl_PL10_plSoftBodyf(JNIEnv* env, jobject thiz,jint param,jfloat value) {
+		plSoftBodyf(param, value);
+	}
+	
+	JNIEXPORT void JNICALL Java_com_openpl_PL10_plSoftBody3f(JNIEnv* env, jobject thiz,jint param,jfloat x,jfloat y,jfloat z) {
+		plSoftBody3f(param, x, y, z);
+	}
+	
+	JNIEXPORT void JNICALL Java_com_openpl_PL10_plSoftBodyfv(JNIEnv* env, jobject thiz,jint param,jfloatArray val,jint length) {
+		float* cval = (float*)env->GetPrimitiveArrayCritical(val,0);
+		plSoftBodyfv(param,cval,length);
+		env->ReleasePrimitiveArrayCritical(val,cval,0);
+	}
+	
+	JNIEXPORT jint JNICALL Java_com_openpl_PL10_plGetSoftBodyi(JNIEnv* env, jobject thiz,jint indx,jint param) {
+		int value;
+		plGetSoftBodyi(indx,param,&value);
+		return (jint)value;
+	}
+	
+	JNIEXPORT jfloat JNICALL Java_com_openpl_PL10_plGetSoftBodyf(JNIEnv* env, jobject thiz,jint indx,jint param) {
+		jfloat value;
+		plGetSoftBodyf(indx,param,&value);
+		return value;
+	}
+	
+	JNIEXPORT void JNICALL Java_com_openpl_PL10_plGetSoftBodyfv(JNIEnv* env, jobject thiz,jint indx,jint param,jfloatArray val,jint length) {
+		float* cval = (float*)env->GetPrimitiveArrayCritical(val,0);
+		plGetSoftBodyfv(indx,param,cval,length);
 		env->ReleasePrimitiveArrayCritical(val,cval,0);
 	}
 }

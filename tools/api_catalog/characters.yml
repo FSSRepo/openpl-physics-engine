@@ -1,0 +1,212 @@
+# OpenPL API catalog — group: characters
+# Localized descriptions (es/en). Consumed by tools/gen_api_docs.py.
+functions:
+  plGenCharacter:
+    brief:
+      es: Generar un personaje o character.
+      en: "Generate a character."
+    params: {}
+    notes:
+      es:
+      - Esta funcion retorna una id y crea una cola de variables necesarias antes de crear una instancia del objeto.
+      en:
+      - "This function returns an id and creates a queue of the variables needed before creating an instance of the object."
+    errors:
+    - code: PL_INVALID_OPERATION
+      es: si hay una cola pendiente para crear un personaje o character.
+      en: "if there is a pending queue to create a character."
+  plBindCharacter:
+    brief:
+      es: Enlazar para usar un personaje.
+      en: "Bind to use a character."
+    params:
+      chr:
+        name_es: chr
+        name_en: chr
+        es: La id del personaje a enlazar.
+        en: "The id of the character to bind."
+    notes:
+      es:
+      - Antes de llamar esta funcion para enlazar un personaje asegurate de que no haya sido enlazado previamente, si es asi para desenlazar chr debe ser 0.
+      en:
+      - "Before calling this function to bind a character, make sure it was not bound previously; if so, to unbind, chr must be 0."
+    errors:
+    - code: PL_INVALID_OPERATION
+      es: si ya hay un personaje enlazado previamente.
+      en: "if a character is already bound previously."
+  plDeleteCharacter:
+    brief:
+      es: Eliminar un character o personaje.
+      en: "Delete a character."
+    params:
+      chr:
+        name_es: chr
+        name_en: chr
+        es: La id del character a eliminar.
+        en: "The id of the character to delete."
+    notes:
+      es: []
+      en: []
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el character esta enlazado o esta siendo usado. Tambien puede ser causado por que el character que tratas de eliminar ya no existe.
+      en: "if the character is bound or is being used. It can also be caused by the character you are trying to delete no longer existing."
+  plCharacterf:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_CHAR_STEP_HEIGHT, PL_CHAR_SPHERE, PL_CHAR_ANGULAR_DAMPING, PL_CHAR_LINEAR_DAMPING, PL_CHAR_PRE_STEP, PL_CHAR_PLAYER_STEP, PL_CHAR_JUMP_SPEED, PL_CHAR_FALL_SPEED, PL_CHAR_JUMP, PL_CHAR_MAX_SLOPE, PL_CHAR_MAX_JUMP_HEIGHT, PL_CHAR_MAX_PENETRATION_DEPTH.
+        en: "Specifies the parameter to set the value for. Can be PL_CHAR_STEP_HEIGHT, PL_CHAR_SPHERE, PL_CHAR_ANGULAR_DAMPING, PL_CHAR_LINEAR_DAMPING, PL_CHAR_PRE_STEP, PL_CHAR_PLAYER_STEP, PL_CHAR_JUMP_SPEED, PL_CHAR_FALL_SPEED, PL_CHAR_JUMP, PL_CHAR_MAX_SLOPE, PL_CHAR_MAX_JUMP_HEIGHT, PL_CHAR_MAX_PENETRATION_DEPTH."
+      value:
+        name_es: value
+        name_en: value
+        es: El valor asignado.
+        en: "The assigned value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_CHAR_STEP_HEIGHT poner altura de paso.
+      - PL_CHAR_SPHERE poner una esfera.
+      - PL_CHAR_ANGULAR_DAMPING poner el angular damping
+      - PL_CHAR_ANGULAR_DAMPING poner el linear damping
+      - PL_CHAR_PRE_STEP pre step*
+      - PL_CHAR_PLAYER_STEP player step*
+      - PL_CHAR_JUMP_SPEED poner velocidad de salto
+      - PL_CHAR_FALL_SPEED poner velocidad de caida
+      - PL_CHAR_JUMP saltar
+      - PL_CHAR_MAX_SLOPE max slope*
+      - PL_CHAR_MAX_JUMP_HEIGHT altura maxima de salto
+      - PL_CHAR_MAX_PENETRATION_DEPTH profundidad de penetracion.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_CHAR_STEP_HEIGHT sets the step height."
+      - "PL_CHAR_SPHERE sets a sphere."
+      - "PL_CHAR_ANGULAR_DAMPING sets the angular damping"
+      - "PL_CHAR_ANGULAR_DAMPING sets the linear damping"
+      - "PL_CHAR_PRE_STEP pre step*"
+      - "PL_CHAR_PLAYER_STEP player step*"
+      - "PL_CHAR_JUMP_SPEED sets the jump speed"
+      - "PL_CHAR_FALL_SPEED sets the fall speed"
+      - "PL_CHAR_JUMP jump"
+      - "PL_CHAR_MAX_SLOPE max slope*"
+      - "PL_CHAR_MAX_JUMP_HEIGHT maximum jump height"
+      - "PL_CHAR_MAX_PENETRATION_DEPTH penetration depth."
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el personaje no existe o el id es incorrecto.
+      en: "if the character does not exist or the id is incorrect."
+  plCharacter3f:
+    brief:
+      es: Poner un valor a un parametro especifico
+      en: "Set a value for a specific parameter"
+    params:
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_CHAR_UPVEC, PL_CHAR_CAPSULE_X, PL_CHAR_CAPSULE_Y, PL_CHAR_CAPSULE_Z, PL_CHAR_BOX, PL_CHAR_WALK_DIRECTION, PL_CHAR_JUMP PL_CHAR_APPLY_IMPULSE, PL_CHAR_ANGULAR_VELOCITY, PL_CHAR_LINEAR_VELOCITY.
+        en: "Specifies the parameter to set the value for. Can be PL_CHAR_UPVEC, PL_CHAR_CAPSULE_X, PL_CHAR_CAPSULE_Y, PL_CHAR_CAPSULE_Z, PL_CHAR_BOX, PL_CHAR_WALK_DIRECTION, PL_CHAR_JUMP PL_CHAR_APPLY_IMPULSE, PL_CHAR_ANGULAR_VELOCITY, PL_CHAR_LINEAR_VELOCITY."
+      x_y_z:
+        name_es: x y z
+        name_en: x y z
+        es: Los valores asignados.
+        en: "The assigned values."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_CHAR_UPVEC poner el vector de altura.
+      - PL_CHAR_CAPSULE_X poner una capsula orientada en el eje x.
+      - PL_CHAR_CAPSULE_Y poner una capsula orientada en el eje y.
+      - PL_CHAR_CAPSULE_Z poner una capsula orientada en el eje z.
+      - PL_CHAR_BOX poner una caja.
+      - PL_CHAR_WALK_DIRECTION poner la direccion de camino.
+      - PL_CHAR_JUMP saltar a una direccion.
+      - PL_CHAR_APPLY_IMPULSE aplicar un impulso.
+      - PL_CHAR_ANGULAR_VELOCITY poner la velocidad angular.
+      - PL_CHAR_LINEAR_VELOCITY poner la velocidad lineal.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_CHAR_UPVEC sets the up vector."
+      - "PL_CHAR_CAPSULE_X sets a capsule oriented on the x axis."
+      - "PL_CHAR_CAPSULE_Y sets a capsule oriented on the y axis."
+      - "PL_CHAR_CAPSULE_Z sets a capsule oriented on the z axis."
+      - "PL_CHAR_BOX sets a box."
+      - "PL_CHAR_WALK_DIRECTION sets the walk direction."
+      - "PL_CHAR_JUMP jump in a direction."
+      - "PL_CHAR_APPLY_IMPULSE applies an impulse."
+      - "PL_CHAR_ANGULAR_VELOCITY sets the angular velocity."
+      - "PL_CHAR_LINEAR_VELOCITY sets the linear velocity."
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el personaje no existe o el id es incorrecto.
+      en: "if the character does not exist or the id is incorrect."
+  plGetCharacterf:
+    brief:
+      es: Obtener un valor a un parametro especifico
+      en: "Get a value for a specific parameter"
+    params:
+      indx:
+        name_es: indx
+        name_en: indx
+        es: ID del personaje
+        en: "Character ID"
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para introducir el valor. Puede ser PL_CHAR_CAN_JUMP,
+        en: "Specifies the parameter to get the value. Can be PL_CHAR_CAN_JUMP,"
+      value:
+        name_es: value
+        name_en: value
+        es: El valor asignado.
+        en: "The assigned value."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_CHAR_CAN_JUMP obtener 1 o 0 si el personaje puede saltar.
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_CHAR_CAN_JUMP gets 1 or 0 if the character can jump."
+    errors:
+    - code: ''
+      es: No es muy comun que se oplengan errores
+      en: "Errors are not very common"
+  plGetCharacterfv:
+    brief:
+      es: Obtener un valor a un parametro especifico
+      en: "Get a value for a specific parameter"
+    params:
+      indx:
+        name_es: indx
+        name_en: indx
+        es: ID del personaje
+        en: "Character ID"
+      param:
+        name_es: param
+        name_en: param
+        es: Especifica el parametro para obtener el valor. Puede ser PL_TRANSFORM,
+        en: "Specifies the parameter to get the value. Can be PL_TRANSFORM,"
+      values:
+        name_es: values
+        name_en: values
+        es: Valores para obtener.
+        en: "Values to get."
+      lenght:
+        name_es: lenght
+        name_en: lenght
+        es: La longitud del arreglo de valores.
+        en: "The length of the values array."
+    notes:
+      es:
+      - 'Las siguientes constantes son aceptadas por param:'
+      - PL_TRANSFORM obtener la transformacion del personaje. values es una Matrix4x4. lenght debe ser 16
+      en:
+      - "The following constants are accepted by param:"
+      - "PL_TRANSFORM gets the character transformation. values is a Matrix4x4. lenght must be 16"
+    errors:
+    - code: PL_INVALID_NAME
+      es: si el cuerpo rigido no existe o el id es incorrecto.
+      en: "if the rigid body does not exist or the id is incorrect."
