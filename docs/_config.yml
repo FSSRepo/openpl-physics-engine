@@ -20,7 +20,6 @@ plugins:
   - jekyll-seo-tag
 
 # --- Look & feel -----------------------------------------------------------
-color_scheme: openpl
 heading_anchors: true
 back_to_top: true
 back_to_top_text: "Volver arriba / Back to top"
