@@ -1,0 +1,109 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-linux:
+    name: Build Linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential
+
+      - name: Configure CMake
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Package
+        run: |
+          mkdir -p package/openpl-linux-x64
+          cp build/libopenpl.a package/openpl-linux-x64/
+          cp src/PL/pl10.h package/openpl-linux-x64/
+          tar -czf openpl-linux-x64.tar.gz -C package openpl-linux-x64
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openpl-linux-x64
+          path: openpl-linux-x64.tar.gz
+          retention-days: 7
+
+  build-windows:
+    name: Build Windows
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        arch: [x64, x86]
+        include:
+          - arch: x64
+            cmake_arch: x64
+            artifact_name: openpl-windows-x64
+          - arch: x86
+            cmake_arch: Win32
+            artifact_name: openpl-windows-x86
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup MSVC
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Configure CMake
+        run: cmake -S . -B build -A ${{ matrix.cmake_arch }}
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Package
+        shell: pwsh
+        run: |
+          $out = "package/${{ matrix.artifact_name }}"
+          New-Item -ItemType Directory -Path $out -Force | Out-Null
+          Copy-Item "build/Release/openpl.lib" $out/
+          Copy-Item "build/Release/openpl.dll" $out/ -ErrorAction SilentlyContinue
+          Copy-Item "src/PL/pl10.h" $out/
+          Compress-Archive -Path "package/${{ matrix.artifact_name }}" -DestinationPath "${{ matrix.artifact_name }}.zip"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: ${{ matrix.artifact_name }}.zip
+          retention-days: 7
+
+  release:
+    name: Create GitHub Release
+    needs: [build-linux, build-windows]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/openpl-linux-x64.tar.gz
+            artifacts/openpl-windows-x64.zip
+            artifacts/openpl-windows-x86.zip
+          generate_release_notes: true
+          draft: false
+          prerelease: false
