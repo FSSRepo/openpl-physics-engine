@@ -53,7 +53,7 @@ footer_content: >-
 callouts_level: quiet
 callouts:
   highlight:
-    color: teal
+    color: blue
   new:
     title: Nuevo / New
     color: green
@@ -65,7 +65,7 @@ callouts:
     color: red
   warning:
     title: Advertencia / Warning
-    color: orange
+    color: yellow
   tip:
     title: Consejo / Tip
     color: blue
