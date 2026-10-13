@@ -17,6 +17,14 @@ theme: just-the-docs
 plugins:
   - jekyll-seo-tag
 
+# --- Defaults --------------------------------------------------------------
+# Apply the Just the Docs layout to every page that does not declare one.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
 # --- Look & feel -----------------------------------------------------------
 heading_anchors: true
 back_to_top: true
