@@ -26,6 +26,8 @@ defaults:
       layout: default
 
 # --- Look & feel -----------------------------------------------------------
+# Brand logo shown at the top of the sidebar on every page.
+logo: /imgs/logo.png
 heading_anchors: true
 back_to_top: true
 back_to_top_text: "Volver arriba / Back to top"
