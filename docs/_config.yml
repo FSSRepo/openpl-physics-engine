@@ -11,12 +11,10 @@ url: https://fssrepo.github.io
 baseurl: /openpl-physics-engine
 
 # --- Theme -----------------------------------------------------------------
-# Just the Docs is fetched at build time by GitHub Pages (jekyll-remote-theme).
-remote_theme: just-the-docs/just-the-docs@v0.10.0
+theme: just-the-docs
 
 # --- Plugins ---------------------------------------------------------------
 plugins:
-  - jekyll-remote-theme
   - jekyll-seo-tag
 
 # --- Look & feel -----------------------------------------------------------
